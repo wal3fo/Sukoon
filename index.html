@@ -14,7 +14,7 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -39,45 +39,92 @@
     <!-- Spinner End -->
 
     
-    <!-- Navbar Start -->
-    <div class="container-fluid bg-white sticky-top">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-white navbar-light py-2 py-lg-0 d-none">
-                <a href="index.html" class="navbar-brand">
-                    SUKOON
-                </a>
-                <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="product.html" class="nav-item nav-link">Products</a>
-                        <a href="store.html" class="nav-item nav-link">Store</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu bg-light rounded-0 m-0">
-                                <a href="feature.html" class="dropdown-item">Features</a>
-                                <a href="blog.html" class="dropdown-item">Blog Article</a>
-                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                <a href="404.html" class="dropdown-item">404 Page</a>
-                            </div>
+    <header class="sk-header" id="skHeader">
+        <div class="sk-bar">
+            <div class="sk-left">
+                    <div class="sk-lang-pill" id="skLangPill">
+                        <button type="button" class="sk-lang-btn" id="skLangBtn" aria-label="Change language" aria-haspopup="listbox" aria-expanded="false" aria-controls="skLangMenu">
+                            <svg class="sk-icon sk-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M3 12h18" />
+                                <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
+                            </svg>
+                            <span class="sk-lang-code" id="skLangCode">EN</span>
+                            <svg class="sk-icon sk-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="sk-lang-menu" id="skLangMenu" role="listbox" aria-label="Language" tabindex="-1">
+                            <button type="button" class="sk-lang-item" role="option" data-lang="en" data-name="English" aria-selected="true">
+                                <span class="sk-lang-name">English</span>
+                                <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M4 12.5l5 5L20 6.5" />
+                                </svg>
+                            </button>
+                            <button type="button" class="sk-lang-item" role="option" data-lang="fr" data-name="Français" aria-selected="false">
+                                <span class="sk-lang-name">Français</span>
+                                <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M4 12.5l5 5L20 6.5" />
+                                </svg>
+                            </button>
+                            <button type="button" class="sk-lang-item" role="option" data-lang="ar" data-name="العربية" aria-selected="false">
+                                <span class="sk-lang-name">العربية</span>
+                                <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                    <path d="M4 12.5l5 5L20 6.5" />
+                                </svg>
+                            </button>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    </div>
-                    <div class="border-start ps-4 d-none d-lg-block">
-                        <button type="button" class="btn btn-sm p-0"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
-            </nav>
-        </div>
-    </div>
-    <!-- Navbar End -->
+                <div class="sk-center">
+                    <a href="index.html" class="sk-logo" id="skLogo" aria-label="Sukoon Home">
+                        <span class="sk-wordmark">SUKOON</span>
+                        <span class="sk-tagline">LA FORCE DU CALME</span>
+                    </a>
+                </div>
+                <div class="sk-right">
+                    <button type="button" class="sk-icon-btn" id="skCartBtn" aria-label="Open cart" aria-controls="skCartDrawer" aria-expanded="false">
+                        <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="9" cy="21" r="1" />
+                            <circle cx="20" cy="21" r="1" />
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                        <span class="sk-cart-badge" id="skCartBadge" hidden>0</span>
+                    </button>
+                    <button type="button" class="sk-icon-btn sk-hamburger-btn" id="skHamburger" aria-label="Open menu" aria-controls="skNavDrawer" aria-expanded="false">
+                        <svg class="sk-icon sk-hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <line x1="2.5" y1="7" x2="21.5" y2="7" />
+                            <line x1="2.5" y1="12" x2="21.5" y2="12" />
+                            <line x1="2.5" y1="17" x2="21.5" y2="17" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        <div class="sk-scrim" id="skScrim" hidden></div>
+    </header>
 
+    <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-hidden="true" tabindex="-1">
+        <div class="sk-nav-head">
+            <span class="sk-nav-head-title">Menu</span>
+            <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Close menu">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <ul class="sk-nav-list" id="skNavList">
+            <li><a class="sk-nav-link is-active" href="index.html">Home</a></li>
+            <li><a class="sk-nav-link" href="index.html#about">About</a></li>
+            <li><a class="sk-nav-link" href="index.html#products">Products</a></li>
+            <li><a class="sk-nav-link" href="index.html#store">Store</a></li>
+            <li><a class="sk-nav-link" href="index.html#pages">Pages</a></li>
+            <li><a class="sk-nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
 
     <!-- Carousel Start -->
-    <div class="container-fluid px-0 mb-5">
+    <section id="hero" class="container-fluid px-0 mb-5">
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -89,7 +136,7 @@
                                     <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">Sukoon</strong></p>
                                     <h1 class="display-1 text-dark mb-4 animated zoomIn">Infuse Your Calm</h1>
                                     <p class="fs-5 text-dark mb-4 animated zoomIn">In a world that never stops, Sukoon invites you to pause. To breathe. To remember who you are when the noise fades away.</p>
-                                    <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Discover Your Essence</a>
+                                     <a href="#store" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Discover Your Essence</a>
                                 </div>
                             </div>
                         </div>
@@ -97,12 +144,43 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- Carousel End -->
 
 
+    <!-- Cart Drawer -->
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
+        <div class="sk-cart-head">
+            <span class="sk-nav-head-title">Your Cart</span>
+            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Close cart">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="sk-cart-body" id="skCartBody">
+            <div class="sk-cart-empty">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+        <div class="sk-cart-foot" id="skCartFoot" hidden>
+            <div class="sk-cart-total">
+                <span>Total</span>
+                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
+            </div>
+            <button type="button" class="sk-cart-cta">Proceed to Checkout</button>
+        </div>
+    </aside>
+
+
     <!-- About Start -->
-    <div class="container-xxl py-5">
+    <section id="about" class="container-xxl py-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6">
@@ -135,12 +213,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- About End -->
 
 
     <!-- Article Start -->
-    <div class="container-xxl py-5">
+    <section id="modern-life" class="container-xxl py-5">
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -155,7 +233,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- Article End -->
 
 
@@ -181,7 +259,7 @@
 
 
     <!-- Store Start -->
-    <div class="container-xxl py-5">
+    <section id="store" class="container-xxl py-5">
         <div class="container">
             <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s">
                 <h1 class="display-6">Which Essence Calls to You Right Now?</h1>
@@ -189,8 +267,8 @@
             </div>
 <div class="row g-4">
                 <!-- Moroccan Mint -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="essence-moroccan-mint">
+                    <div class="store-item position-relative text-center" data-product="moroccan-mint" data-product-name="Menthe Marocaine" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-moroccan-mint.png" alt="Menthe Marocaine"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -202,17 +280,21 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Clarity & Focus</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Menthe Marocaine</a></h4>
-                            <p>Crisp, awakening, sharp as clarity itself. Your moment to think straight and find focus.</p>
+                            <p class="mb-3">Crisp, awakening, sharp as clarity itself. Your moment to think straight and find focus.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="moroccan-mint">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
      
                 <!-- Royal Verbena -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s" id="essence-royal-verbena">
+                    <div class="store-item position-relative text-center" data-product="royal-verbena" data-product-name="Verveine Royale" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-royal-verbena.png" alt="Verveine Royale"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -224,17 +306,21 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Release & Freedom</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Verveine Royale</a></h4>
-                            <p>Light, citrusy, uplifting. Breathe out what no longer serves you. Invite peace in.</p>
+                            <p class="mb-3">Light, citrusy, uplifting. Breathe out what no longer serves you. Invite peace in.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="royal-verbena">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
      
                 <!-- Ruby Hibiscus -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s" id="essence-ruby-hibiscus">
+                    <div class="store-item position-relative text-center" data-product="ruby-hibiscus" data-product-name="Hibiscus Rubis" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-ruby-hibiscus.png" alt="Hibiscus Rubis"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -246,17 +332,21 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Joy & Vitality</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Hibiscus Rubis</a></h4>
-                            <p>Tart, vibrant, energizing. A moment of celebration and self-love in a cup.</p>
+                            <p class="mb-3">Tart, vibrant, energizing. A moment of celebration and self-love in a cup.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="ruby-hibiscus">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
      
                 <!-- Atlas Oregano -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="essence-atlas-oregano">
+                    <div class="store-item position-relative text-center" data-product="atlas-oregano" data-product-name="Origan d'Atlas" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-atlas-oregano.png" alt="Origan d'Atlas"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -268,17 +358,21 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Grounding & Strength</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Origan d'Atlas</a></h4>
-                            <p>Earthy, robust, stabilizing. Find your foundation in moments of uncertainty.</p>
+                            <p class="mb-3">Earthy, robust, stabilizing. Find your foundation in moments of uncertainty.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="atlas-oregano">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
      
                 <!-- Noble Chamomile -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s" id="essence-noble-chamomile">
+                    <div class="store-item position-relative text-center" data-product="noble-chamomile" data-product-name="Camomille Noble" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-noble-chamomile.png" alt="Camomille Noble"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -290,17 +384,21 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Comfort & Warmth</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Camomille Noble</a></h4>
-                            <p>Gentle, honeyed, nurturing. A warm embrace when you need solace and care.</p>
+                            <p class="mb-3">Gentle, honeyed, nurturing. A warm embrace when you need solace and care.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="noble-chamomile">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
      
                 <!-- Heritage Fennel -->
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="store-item position-relative text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s" id="essence-heritage-fennel">
+                    <div class="store-item position-relative text-center" data-product="heritage-fennel" data-product-name="Fenouil Héritage" data-product-price="18.00">
                         <a href="product-detail.html" class="d-block"><img class="img-fluid" src="img/products/product-heritage-fennel.png" alt="Fenouil Héritage"></a>
                         <div class="p-4">
                             <div class="text-center mb-3">
@@ -312,21 +410,25 @@
                             </div>
                             <small class="text-primary fw-medium mb-2 d-block">Slowness & Intention</small>
                             <h4 class="mb-3"><a href="product-detail.html" class="text-dark text-decoration-none">Fenouil Héritage</a></h4>
-                            <p>Sweet, grounding, mindful. Embrace the beauty of intentional slowness.</p>
+                            <p class="mb-3">Sweet, grounding, mindful. Embrace the beauty of intentional slowness.</p>
+                            <div class="d-flex align-items-center justify-content-center mb-3">
+                                <span class="product-price fw-bold">$18.00</span>
+                            </div>
                         </div>
                         <div class="store-overlay">
-                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-2">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <a href="product-detail.html" class="btn btn-primary rounded-pill py-2 px-4 m-1">Discover <i class="fa fa-arrow-right ms-2"></i></a>
+                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 m-1 add-to-cart-btn" data-product="heritage-fennel">Add <i class="fa fa-shopping-cart ms-1"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- Store End -->
 
 
     <!-- Contact Start -->
-    <div class="container-xxl contact py-5">
+    <section id="contact" class="container-xxl contact py-5">
         <div class="container">
             <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 700px;">
                 <h1 class="display-6 mb-3">Your Moment of Sukoon Awaits</h1>
@@ -384,7 +486,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <!-- Contact End -->
 
 
