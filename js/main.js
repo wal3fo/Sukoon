@@ -133,7 +133,7 @@
         };
 
         var cart = JSON.parse(localStorage.getItem('sukoonCart') || '{}');
-        var currentLang = localStorage.getItem('sukoonLang') || 'en';
+        var currentLang = localStorage.getItem('sukoonLang') || 'fr';
         var focusables = 'a[href], button:not([disabled])';
         var lastFocused = null;
 
@@ -180,6 +180,7 @@
                 html.lang = lang;
                 html.setAttribute('dir', 'ltr');
             }
+            document.dispatchEvent(new CustomEvent('sk:langchange', { detail: { lang: lang } }));
         }
 
         el.langBtn.addEventListener('click', function () {
