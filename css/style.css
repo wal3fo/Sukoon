@@ -1249,7 +1249,6 @@ html[dir="rtl"] .sk-cart-head {
     --sk-es-focus: var(--sk-es-navy);
 
     position: relative;
-    padding: var(--sk-es-pad-y) 0;
     background: var(--sk-es-cream);
     color: var(--sk-es-muted);
     overflow: hidden;

@@ -124,11 +124,11 @@
     </nav>
 
     <!-- Carousel Start -->
-    <section id="hero" class="container-fluid px-0 mb-5">
+    <section id="hero" class="container-fluid px-0">
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="img/products/sukoon_hero_4k.png" alt="Image">
+                    <img class="w-100" src="img/products/hero.png" alt="Image">
                     <div class="carousel-caption d-none">
                         <div class="container">
                             <div class="row justify-content-center">
@@ -147,8 +147,231 @@
     </section>
     <!-- Carousel End -->
 
-    <!-- Product page sections: composed from js/data/essences.js + js/i18n -->
-    <div id="skEssenceSections"></div>
+    <!-- ===================================================================
+         HIBISCUS RUBIS — product page sections (static markup).
+         Copy lives in js/i18n/locales/*.js and is swapped in place by the
+         [data-i18n] layer; the French text below is what renders with JS off.
+         =================================================================== -->
+
+    <!-- 1. Rencontrer l'hibiscus -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--split" id="rencontrer" aria-labelledby="rencontrer-title">
+        <div class="sk-es-inner sk-es-split">
+            <figure class="sk-es-discover-media">
+                <img class="sk-es-img" src="images/hibiscus/flower.jpg" alt="Fleur d'hibiscus rouge en gros plan, pétales déployés" data-i18n-attr="alt:discover.imageAlt" loading="lazy" decoding="async" width="1200" height="1500">
+            </figure>
+            <div class="sk-es-discover-body">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="discover.eyebrow">RENCONTRER L’HIBISCUS</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="rencontrer-title" data-i18n="discover.heading">Une fleur au caractère solaire.</h2>
+                <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-i18n="discover.body">Originaire des régions tropicales, l’hibiscus est une plante emblématique, symbole de vitalité et de beauté. Sa fleur déploie des couleurs intenses et offre une infusion vibrante, à la fois douce et acidulée.</p>
+                <ul class="sk-es-facts sk-reveal" data-reveal-delay="90">
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <circle cx="12" cy="12" r="9" />
+                                <path d="M3 12h18" />
+                                <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18" />
+                            </svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-i18n="discover.facts.origin.label">Origine</span>
+                        <span class="sk-es-fact-value" data-i18n="discover.facts.origin.value">Afrique · Asie</span>
+                    </li>
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z" />
+                                <path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12" />
+                            </svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-i18n="discover.facts.taste.label">Saveur</span>
+                        <span class="sk-es-fact-value" data-i18n="discover.facts.taste.value">Acidulée · Fruitée</span>
+                    </li>
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <ellipse cx="12" cy="6.6" rx="2.6" ry="3.4" />
+                                <ellipse cx="12" cy="17.4" rx="2.6" ry="3.4" />
+                                <ellipse cx="6.6" cy="12" rx="3.4" ry="2.6" />
+                                <ellipse cx="17.4" cy="12" rx="3.4" ry="2.6" />
+                                <circle cx="12" cy="12" r="1.5" />
+                            </svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-i18n="discover.facts.composition.label">Composition</span>
+                        <span class="sk-es-fact-value" data-i18n="discover.facts.composition.value">Fleurs d’hibiscus 100% naturelles</span>
+                    </li>
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+                                <path d="M3.3 7 12 12l8.7-5" />
+                                <path d="M12 22V12" />
+                            </svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-i18n="discover.facts.sachets.label">Sachets</span>
+                        <span class="sk-es-fact-value" data-i18n="discover.facts.sachets.value">20 sachets individuels</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Le rituel -->
+    <section class="sk-es-section sk-es-section--navy sk-es-section--ritual" id="rituel" aria-labelledby="rituel-title">
+        <div class="sk-es-inner">
+            <div class="sk-es-ritual-top">
+                <div class="sk-es-ritual-body">
+                    <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="ritual.eyebrow">LE RITUEL</span></p>
+                    <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="rituel-title" data-i18n="ritual.heading">Quelques minutes.
+Une plante. Un instant à soi.</h2>
+                    <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-i18n="ritual.body">Laissez infuser 8 minutes dans une eau à 90°C. Une liqueur rubis se révèle, aux notes acidulées et fruitées, pour un moment de plaisir et de vitalité.</p>
+                </div>
+                <figure class="sk-es-ritual-media sk-reveal" data-reveal-delay="90">
+                    <img class="sk-es-img" src="images/hibiscus/ritual-cup.jpg" alt="Tasse en verre d'infusion d'hibiscus rubis avec son sachet et des pétales séchés" data-i18n-attr="alt:ritual.imageAlt" loading="lazy" decoding="async" width="1200" height="900">
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. L'essence -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--essence" id="essence" aria-labelledby="essence-title">
+        <div class="sk-es-inner sk-es-split">
+            <div class="sk-es-essence-body">
+                <svg class="sk-es-watermark-svg" viewBox="0 0 200 260" aria-hidden="true" focusable="false">
+                    <g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M100 252C100 190 100 128 100 66" />
+                        <path d="M100 196c-22 0-40-14-46-34 22-2 40 12 46 34Z" />
+                        <path d="M100 152c22 0 40-14 46-34-22-2-40 12-46 34Z" />
+                        <path d="M100 110c-18 0-33-11-38-27 18-2 33 9 38 27Z" />
+                        <ellipse cx="100" cy="52" rx="20" ry="27" />
+                        <ellipse cx="78" cy="70" rx="20" ry="26" transform="rotate(-48 78 70)" />
+                        <ellipse cx="122" cy="70" rx="20" ry="26" transform="rotate(48 122 70)" />
+                        <ellipse cx="68" cy="38" rx="16" ry="22" transform="rotate(-78 68 38)" />
+                        <ellipse cx="132" cy="38" rx="16" ry="22" transform="rotate(78 132 38)" />
+                        <path d="M100 78V50" />
+                    </g>
+                </svg>
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="essence.eyebrow">L’ESSENCE</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="essence-title" data-i18n="essence.heading">Un éclat naturel
+qui inspire.</h2>
+                <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-i18n="essence.body">L’hibiscus invite à se reconnecter à la beauté du vivant. Il accompagne les instants où l’on souhaite se sentir plus présent, plus lumineux, plus aligné.</p>
+            </div>
+            <ul class="sk-es-pillars sk-reveal" data-reveal-delay="90">
+                <li class="sk-es-pillar">
+                    <span class="sk-es-icon-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="4.5" />
+                            <path d="M12 2v2.5" />
+                            <path d="M12 19.5V22" />
+                            <path d="M2 12h2.5" />
+                            <path d="M19.5 12H22" />
+                            <path d="M4.9 4.9l1.8 1.8" />
+                            <path d="M17.3 17.3l1.8 1.8" />
+                            <path d="M19.1 4.9l-1.8 1.8" />
+                            <path d="M6.7 17.3l-1.8 1.8" />
+                        </svg>
+                    </span>
+                    <h3 class="sk-es-pillar-label" data-i18n="essence.pillars.eclat.label">ÉCLAT</h3>
+                    <p class="sk-es-pillar-body" data-i18n="essence.pillars.eclat.body">Révèle votre lumière naturelle</p>
+                </li>
+                <li class="sk-es-pillar">
+                    <span class="sk-es-icon-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12 3.5 13.9 9 19.5 11 13.9 13 12 18.5 10.1 13 4.5 11 10.1 9Z" />
+                            <path d="M18.5 17.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8Z" />
+                        </svg>
+                    </span>
+                    <h3 class="sk-es-pillar-label" data-i18n="essence.pillars.rayonnement.label">RAYONNEMENT</h3>
+                    <p class="sk-es-pillar-body" data-i18n="essence.pillars.rayonnement.body">Soutient votre énergie au quotidien</p>
+                </li>
+                <li class="sk-es-pillar">
+                    <span class="sk-es-icon-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z" />
+                        </svg>
+                    </span>
+                    <h3 class="sk-es-pillar-label" data-i18n="essence.pillars.vitalite.label">VITALITÉ</h3>
+                    <p class="sk-es-pillar-body" data-i18n="essence.pillars.vitalite.body">Insuffle une sensation de renouveau</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 4. Découvrir les autres essences -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--others" id="autres-essences" aria-labelledby="autres-essences-title">
+        <div class="sk-es-inner">
+            <div class="sk-es-others-head sk-reveal">
+                <button type="button" class="sk-es-arrow" data-sk-others-prev aria-label="Essence précédente" data-i18n-attr="aria-label:others.previous">
+                    <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M15 18 9 12l6-6" />
+                    </svg>
+                </button>
+                <h2 class="sk-es-others-title" id="autres-essences-title" data-i18n="others.heading">DÉCOUVRIR LES AUTRES ESSENCES</h2>
+                <button type="button" class="sk-es-arrow" data-sk-others-next aria-label="Essence suivante" data-i18n-attr="aria-label:others.next">
+                    <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sk-es-others-track sk-reveal" data-reveal-delay="90" data-sk-others-track tabindex="0" role="group" aria-labelledby="autres-essences-title">
+                <ul class="sk-es-others-list">
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-detail.html?essence=royal-verbena">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-royal-verbena.png" alt="Boîte de Verveine Royale" data-i18n-attr="alt:product.royal-verbena.alt" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.royal-verbena">Verveine Royale</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.royal-verbena.tagline">Clarté · Légèreté</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-detail.html?essence=moroccan-mint">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-moroccan-mint.png" alt="Boîte de Menthe Marocaine" data-i18n-attr="alt:product.moroccan-mint.alt" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.moroccan-mint">Menthe Marocaine</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.moroccan-mint.tagline">Fraîcheur · Présence</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-detail.html?essence=noble-chamomile">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-noble-chamomile.png" alt="Boîte de Camomille Noble" data-i18n-attr="alt:product.noble-chamomile.alt" loading="lazy" decoding="async" width="426" height="324">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.noble-chamomile">Camomille Noble</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.noble-chamomile.tagline">Douceur · Silence</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-detail.html?essence=atlas-oregano">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-atlas-oregano.png" alt="Boîte d'Origan d'Atlas" data-i18n-attr="alt:product.atlas-oregano.alt" loading="lazy" decoding="async" width="426" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.atlas-oregano">Origan d’Atlas</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.atlas-oregano.tagline">Ancrage · Force</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link is-active" href="product-detail.html?essence=ruby-hibiscus" aria-current="true">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-ruby-hibiscus.png" alt="Boîte d'Hibiscus Rubis" data-i18n-attr="alt:product.ruby-hibiscus.alt" loading="lazy" decoding="async" width="427" height="324">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.ruby-hibiscus">Hibiscus Rubis</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.ruby-hibiscus.tagline">Éclat · Rayonnement</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-detail.html?essence=heritage-fennel">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-heritage-fennel.png" alt="Boîte de Fenouil Héritage" data-i18n-attr="alt:product.heritage-fennel.alt" loading="lazy" decoding="async" width="427" height="324">
+                            </span>
+                            <span class="sk-es-other-name" data-i18n="product.heritage-fennel">Fenouil Héritage</span>
+                            <span class="sk-es-other-tagline" data-i18n="product.heritage-fennel.tagline">Harmonie · Sérénité</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
     <!-- Product page sections End -->
 
 
@@ -222,7 +445,7 @@
 
 
     <!-- Article Start -->
-    <section id="modern-life" class="container-xxl py-5">
+    <section id="modern-life" class="container-xxl py-5 d-none">
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -242,7 +465,7 @@
 
 
     <!-- Video Modal Start -->
-    <div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal modal-video fade d-none" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content rounded-0">
                 <div class="modal-header">
@@ -263,13 +486,13 @@
 
 
     <!-- Store Start -->
-    <section id="store" class="container-xxl py-5">
+    <section id="store" class="container-xxl py-5 d-none">
         <div class="container">
             <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s">
                 <h1 class="display-6">Which Essence Calls to You Right Now?</h1>
                 <p class="mt-3">Each blend addresses a specific emotional journey. Find your moment of Sukoon.</p>
             </div>
-<div class="row g-4">
+            <div class="row g-4">
                 <!-- Moroccan Mint -->
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" id="essence-moroccan-mint">
                     <div class="store-item position-relative text-center" data-product="moroccan-mint" data-product-name="Menthe Marocaine" data-product-price="18.00">
@@ -432,7 +655,7 @@
 
 
     <!-- Contact Start -->
-    <section id="contact" class="container-xxl contact py-5">
+    <section id="contact" class="container-xxl contact py-5 d-none">
         <div class="container">
             <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 700px;">
                 <h1 class="display-6 mb-3">Your Moment of Sukoon Awaits</h1>
@@ -525,21 +748,15 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <!-- Essence sections: data, i18n, components -->
-    <script src="js/data/essences.js"></script>
+    <!-- Product page sections: language switch (in-place [data-i18n] swap) -->
     <script src="js/i18n/locales/fr.js"></script>
     <script src="js/i18n/locales/en.js"></script>
     <script src="js/i18n/locales/ar.js"></script>
     <script src="js/i18n/i18n.js"></script>
-    <script src="js/components/helpers.js"></script>
-    <script src="js/components/icons.js"></script>
-    <script src="js/components/discover-flower.js"></script>
-    <script src="js/components/ritual.js"></script>
-    <script src="js/components/essence.js"></script>
-    <script src="js/components/other-essences.js"></script>
+
+    <!-- Product page sections: progressive enhancement only -->
     <script src="js/components/carousel.js"></script>
     <script src="js/components/reveal.js"></script>
-    <script src="js/essence-page.js"></script>
 </body>
 
 </html>
