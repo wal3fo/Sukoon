@@ -21,7 +21,7 @@
             '<a class="' + linkClass + '" href="' + h.esc(global.SK_ESSENCE.productUrl(product.id)) + '"' +
             (isCurrent ? ' aria-current="true"' : '') + '>' +
             '<span class="sk-es-other-media sk-es-other-media--' + h.esc(product.tone) + '">' +
-            '<img class="sk-es-other-img" src="' + h.esc(product.image) + '" alt="' + h.esc(t(altKey)) + '" data-i18n-attr="alt:' + h.esc(altKey) + '" loading="lazy" decoding="async" width="600" height="750">' +
+            '<img class="sk-es-other-img" src="' + h.esc(product.image) + '" alt="' + h.esc(t(altKey)) + '" data-i18n-attr="alt:' + h.esc(altKey) + '" loading="lazy" decoding="async" width="427" height="324">' +
             '</span>' +
             '<span class="sk-es-other-name" data-i18n="' + h.esc(nameKey) + '">' + h.esc(name) + '</span>' +
             '<span class="sk-es-other-tagline" data-i18n="' + h.esc(taglineKey) + '">' + h.esc(t(taglineKey)) + '</span>' +

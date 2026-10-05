@@ -596,7 +596,7 @@
     height: 32px;
     padding: 0 12px;
     background: var(--sk-ivory);
-    border: 1px solid var(--sk-line);
+    border: 0px solid var(--sk-line);
     border-radius: 999px;
     color: var(--sk-dark);
     font-family: 'Jost', sans-serif;
@@ -611,7 +611,7 @@
 
 .sk-lang-btn:hover {
     color: var(--sk-ivory);
-    background: var(--primary);
+    background: rgba(28, 61, 43, .06);
 }
 
 .sk-globe {
@@ -781,7 +781,7 @@
 
 .sk-icon-btn:hover {
     color: var(--sk-ivory);
-    background: var(--primary);
+    background: rgba(28, 61, 43, .06);
 }
 
 .sk-header.is-scrolled .sk-icon-btn:hover {
@@ -799,6 +799,18 @@
     stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
+}
+
+.sk-header.is-scrolled .sk-icon-btn .sk-icon {
+    stroke: var(--sk-ink);
+}
+
+.sk-header.is-scrolled .sk-lang-btn:hover .sk-lang-code {
+    color: var(--sk-ink) !important;
+}
+
+.sk-header.is-scrolled .sk-icon {
+    stroke: var(--sk-ink);
 }
 
 .sk-cart-badge {
@@ -1309,7 +1321,7 @@ html[dir="rtl"] .sk-cart-head {
     gap: 16px;
     margin: 0 0 22px;
     font-family: var(--sk-es-sans);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: .22em;
@@ -1342,12 +1354,11 @@ html[dir="rtl"] .sk-cart-head {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 52px;
-    height: 52px;
-    flex: 0 0 52px;
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
     border: 1px solid var(--sk-es-line-strong);
     border-radius: 50%;
-    color: var(--sk-es-navy);
 }
 
 .sk-es-section--navy .sk-es-icon-badge {
@@ -1357,9 +1368,9 @@ html[dir="rtl"] .sk-cart-head {
 
 .sk-es-icon {
     display: block;
-    width: 22px;
-    height: 22px;
-    flex: 0 0 22px;
+    width: 82px;
+    height: 82px;
+    flex: 0 0 52px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.25;
@@ -1395,7 +1406,7 @@ html[dir="rtl"] .sk-cart-head {
 .sk-es-fact {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 14px;
     padding: 0 clamp(14px, 1.8vw, 28px);
 }
@@ -1414,7 +1425,7 @@ html[dir="rtl"] .sk-cart-head {
 
 .sk-es-fact-label {
     font-family: var(--sk-es-sans);
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: .2em;
@@ -1542,7 +1553,7 @@ html[dir="rtl"] .sk-cart-head {
 .sk-es-badge-text {
     max-width: 18ch;
     font-family: var(--sk-es-sans);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: .16em;
@@ -1587,21 +1598,20 @@ html[dir="rtl"] .sk-cart-head {
     align-content: center;
     gap: clamp(24px, 3vw, 52px);
     margin: 0;
-    padding: clamp(48px, 6vw, 110px) var(--sk-es-gutter) clamp(48px, 6vw, 110px) clamp(28px, 4vw, 72px);
     list-style: none;
 }
 
 .sk-es-pillar {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 16px;
 }
 
 .sk-es-pillar-label {
     margin: 0;
     font-family: var(--sk-es-sans);
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: .22em;
@@ -1618,6 +1628,24 @@ html[dir="rtl"] .sk-cart-head {
 }
 
 /*** Section 4 — Découvrir les autres essences ***/
+.sk-es-section--others {
+    /* Clear air under the taglines: the section used to end a few pixels
+       below the last line, so the closing block read as clipped. */
+    padding-bottom: clamp(64px, 7vw, 96px);
+}
+
+/* Set by js/components/carousel.js when the six columns already fill the
+   track. The arrows leave the layout (and the tab order and the accessibility
+   tree) rather than sitting there dead; the header keeps its 44px row so the
+   heading stays centred on the same baseline and nothing below it shifts. */
+.sk-es-others-head.sk-es-others-head--static {
+    min-height: 44px;
+}
+
+.sk-es-others-head--static .sk-es-arrow {
+    display: none;
+}
+
 .sk-es-others-head {
     display: flex;
     align-items: center;
@@ -1631,8 +1659,8 @@ html[dir="rtl"] .sk-cart-head {
     gap: clamp(12px, 1.8vw, 24px);
     margin: 0;
     font-family: var(--sk-es-sans);
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 1;
     letter-spacing: .22em;
     text-transform: uppercase;
@@ -1659,21 +1687,35 @@ html[dir="rtl"] .sk-cart-head {
     border-radius: 50%;
     color: var(--sk-es-navy);
     cursor: pointer;
-    transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+    transition: background-color .25s ease, border-color .25s ease, color .25s ease, opacity .25s ease;
 }
 
-.sk-es-arrow:hover {
+.sk-es-arrow:hover:not(:disabled) {
     background: var(--sk-es-navy);
     border-color: var(--sk-es-navy);
     color: var(--sk-es-cream);
 }
 
+.sk-es-arrow:disabled {
+    opacity: .3;
+    cursor: default;
+    background: transparent;
+    border-color: var(--sk-es-line);
+    color: var(--sk-es-muted);
+}
+
 .sk-es-others-track {
+    /* The padding lives inside the scroll box on purpose: the cards lift on
+       hover and the section clips overflow, so they need somewhere to land. */
+    padding-block: 14px;
     margin-top: clamp(40px, 5vw, 76px);
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    scroll-padding-inline: var(--sk-es-gutter);
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -1683,26 +1725,32 @@ html[dir="rtl"] .sk-cart-head {
 }
 
 .sk-es-others-list {
+    --sk-others-gap: clamp(14px, 1.7vw, 24px);
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: clamp(136px, 12.2vw, 176px);
-    gap: clamp(14px, 1.7vw, 24px);
+    /* Phone: one and a bit cards, so the trailing sliver signals scrollability. */
+    grid-auto-columns: 72%;
+    gap: var(--sk-others-gap);
     margin: 0;
     padding: 0 var(--sk-es-gutter);
     list-style: none;
 }
 
 .sk-es-other {
-    scroll-snap-align: center;
+    display: flex;
+    scroll-snap-align: start;
 }
 
 .sk-es-other-link {
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: clamp(12px, 1vw, 16px);
     color: inherit;
     text-decoration: none;
+    opacity: .85;
+    transition: opacity .25s ease, transform .25s ease;
 }
 
 .sk-es-other-media {
@@ -1710,11 +1758,13 @@ html[dir="rtl"] .sk-cart-head {
     align-items: center;
     justify-content: center;
     width: 100%;
-    aspect-ratio: 4 / 5;
-    padding: 14px;
+    /* The packshots are landscape (427x325, ~1.31), so a 4/3 frame sits almost
+       flush against them instead of letterboxing them inside a portrait box. */
+    aspect-ratio: 4 / 3;
+    padding: .125rem;
     background: var(--sk-es-cream-deep);
-    border: 1px solid var(--sk-es-line);
-    transition: transform .4s ease-out, box-shadow .4s ease-out, border-color .25s ease;
+    border: 2px solid var(--sk-es-line);
+    transition: box-shadow .25s ease, border-color .25s ease;
 }
 
 .sk-es-other-media--green {
@@ -1738,18 +1788,33 @@ html[dir="rtl"] .sk-cart-head {
 }
 
 .sk-es-other-img {
-    max-width: 100%;
-    max-height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
+    /* The packshots are flattened PNGs shot against a pale grey sweep with no
+       alpha channel, so multiplying lets that sweep dissolve into the card
+       tone instead of reading as a pasted white rectangle. */
+    mix-blend-mode: multiply;
+}
+
+.sk-es-other-link:hover,
+.sk-es-other-link:focus-visible {
+    opacity: 1;
+    transform: translateY(-4px);
 }
 
 .sk-es-other-link:hover .sk-es-other-media,
 .sk-es-other-link:focus-visible .sk-es-other-media {
-    transform: translateY(-6px);
     box-shadow: 0 14px 28px rgba(14, 26, 43, .10);
 }
 
 .sk-es-other-name {
+    /* Two lines are reserved so a one- and a two-line product name still give
+       every card the same height and keep the taglines on one baseline. */
+    display: flex;
+    align-items: center;
+    min-height: 2.8em;
     font-family: var(--sk-es-sans);
     font-size: 11px;
     font-weight: 500;
@@ -1775,13 +1840,19 @@ html[dir="rtl"] .sk-cart-head {
 }
 
 /* The essence currently being viewed */
+.sk-es-other-link.is-active {
+    opacity: 1;
+}
+
 .sk-es-other-link.is-active .sk-es-other-media {
     border-color: var(--sk-es-gold);
-    box-shadow: inset 0 0 0 1px var(--sk-es-gold);
+    box-shadow: 0 12px 26px rgba(14, 26, 43, .14);
 }
 
 .sk-es-other-link.is-active .sk-es-other-name {
-    box-shadow: inset 0 -1px 0 var(--sk-es-gold);
+    text-decoration: underline;
+    text-decoration-color: var(--sk-es-gold);
+    text-underline-offset: 5px;
 }
 
 /*** Focus ***/
@@ -1848,6 +1919,13 @@ html[dir="rtl"] .sk-es-watermark-svg {
 
 html[dir="rtl"] .sk-es-ritual-media .sk-es-img {
     transform: scaleX(-1);
+}
+
+/* Carousel: from two cards plus a peek upwards. */
+@media (min-width: 575.98px) {
+    .sk-es-others-list {
+        grid-auto-columns: calc((100% - var(--sk-others-gap)) / 2.4);
+    }
 }
 
 /*** Tablet ***/
@@ -1978,6 +2056,37 @@ html[dir="rtl"] .sk-es-ritual-media .sk-es-img {
     }
 }
 
+/* Carousel: three cards plus a peek. Narrower than this the two-card rule
+   above applies, so the phones keep the single-and-a-bit layout. */
+@media (min-width: 767.98px) and (max-width: 991.98px) {
+    .sk-es-others-list {
+        grid-auto-columns: calc((100% - 2 * var(--sk-others-gap)) / 3.4);
+    }
+}
+
+/* Carousel: four cards plus a peek. */
+@media (min-width: 991.98px) {
+    .sk-es-others-list {
+        grid-auto-columns: calc((100% - 3 * var(--sk-others-gap)) / 4.4);
+    }
+}
+
+/* Carousel: all six fit, so there is nothing left to scroll to. Wider than the
+   frame needs, the six columns take the whole track: the list no longer repeats
+   the container gutter here, and the gap tightens a little, so the packshots
+   stop reading as thumbnails. */
+@media (min-width: 1279.98px) {
+    .sk-es-others-list {
+        --sk-others-gap: 18px;
+        padding-inline: 0;
+        grid-auto-columns: calc((100% - 5 * var(--sk-others-gap)) / 6);
+    }
+
+    .sk-es-others-track {
+        scroll-padding-inline: 0;
+    }
+}
+
 /*** Mobile ***/
 @media (max-width: 575.98px) {
     .sk-es-others-head {
@@ -2015,12 +2124,13 @@ html[dir="rtl"] .sk-es-ritual-media .sk-es-img {
     }
 
     .sk-es-arrow,
+    .sk-es-other-link,
     .sk-es-other-media {
         transition: none;
     }
 
-    .sk-es-other-link:hover .sk-es-other-media,
-    .sk-es-other-link:focus-visible .sk-es-other-media {
+    .sk-es-other-link:hover,
+    .sk-es-other-link:focus-visible {
         transform: none;
     }
 }

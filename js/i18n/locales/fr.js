@@ -70,7 +70,29 @@
         'product.noble-chamomile.tagline': 'Douceur · Silence',
         'product.atlas-oregano.tagline': 'Ancrage · Force',
         'product.ruby-hibiscus.tagline': 'Éclat · Rayonnement',
-        'product.heritage-fennel.tagline': 'Harmonie · Sérénité'
+        'product.heritage-fennel.tagline': 'Harmonie · Sérénité',
+
+        /* --- Product detail page --- */
+        'backToEssences': 'Retour aux essences',
+        'tabs.description': 'Description',
+        'tabs.ingredients': 'Ingrédients & Origine',
+        'tabs.brewing': 'Guide de Préparation',
+        'tabs.reviews': 'Avis Clients',
+        'quantity': 'Quantité',
+        'addToCart': 'Ajouter au panier',
+
+        /* --- Product detail (structural labels only; body copy preserved) --- */
+        'whyChoose': 'Pourquoi choisir cette essence',
+        'why.organic': 'Bio',
+        'why.caffeine': 'Sans caféine',
+        'why.clarity': 'Clarté',
+        'why.sustainable': 'Durable',
+        'why.packaging': 'Emballage',
+        'ingredients': 'Ingrédients',
+        'origin': 'Origine',
+        'nutrition': 'Valeur nutritionnelle (par sachet de 2g)',
+        'certifications': 'Certifications',
+        'viewReviews': 'Voir tous les avis'
     };
 
 })(window);
