@@ -1659,8 +1659,8 @@ html[dir="rtl"] .sk-cart-head {
     gap: clamp(12px, 1.8vw, 24px);
     margin: 0;
     font-family: var(--sk-es-sans);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
     line-height: 1;
     letter-spacing: .22em;
     text-transform: uppercase;

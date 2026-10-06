@@ -89,10 +89,15 @@
         'why.sustainable': 'Durable',
         'why.packaging': 'Emballage',
         'ingredients': 'Ingrédients',
+        'ingredients.eyebrow': 'INGRÉDIENTS & ORIGINE',
         'origin': 'Origine',
         'nutrition': 'Valeur nutritionnelle (par sachet de 2g)',
         'certifications': 'Certifications',
-        'viewReviews': 'Voir tous les avis'
+        'viewReviews': 'Voir tous les avis',
+        'writeReview': 'Écrire un avis',
+        'description.title': "L'essence de la clarté",
+        'reviews.eyebrow': 'AVIS CLIENTS',
+        'reviews.heading': "Ce qu'ils disent"
     };
 
 })(window);

@@ -89,10 +89,15 @@
         'why.sustainable': 'Sustainable',
         'why.packaging': 'Packaging',
         'ingredients': 'Ingredients',
+        'ingredients.eyebrow': 'INGREDIENTS & ORIGIN',
         'origin': 'Origin',
         'nutrition': 'Nutritional Profile (per 2g sachet)',
         'certifications': 'Certifications',
-        'viewReviews': 'View All Reviews'
+        'viewReviews': 'View All Reviews',
+        'writeReview': 'Write a review',
+        'description.title': 'The Essence of Clarity',
+        'reviews.eyebrow': 'CUSTOMER REVIEWS',
+        'reviews.heading': "What they say"
     };
 
 })(window);
