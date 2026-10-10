@@ -2173,20 +2173,22 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
 
 /* ===================================================================
    SPACING SYSTEM — single source of truth for the product page.
-   Defined on .sk-es-section so the var() references to --sk-es-* tokens
-   (which are scoped to .sk-es-section in style.css) resolve correctly.
+   Product pages use a tighter vertical rhythm than the landing page.
    =================================================================== */
-.sk-es-section {
-    --pd-gutter: var(--sk-es-gutter);
-    --pd-gap-eyebrow-title: 20px;
-    --pd-gap-title-lead: 24px;
-    --pd-gap-head-content: 48px;
-    --pd-col-gap: clamp(32px, 5vw, 96px);
+.sk-pd-page {
+    --pd-pad-y: clamp(56px, 6vw, 96px);        /* section vertical padding */
+    --pd-gutter: clamp(20px, 6vw, 120px);       /* content gutter */
+    --pd-gap-eyebrow-title: 16px;               /* eyebrow -> title */
+    --pd-gap-title-lead: 32px;                  /* title -> lead/content */
+    --pd-gap-head-content: 48px;                /* head -> body */
+    --pd-col-gap: clamp(32px, 4vw, 72px);       /* column gap in 2-col layouts */
+    --pd-text-max: 62ch;                        /* max text measure */
+    --sk-es-pad-y: var(--pd-pad-y);             /* override landing pad-y */
 }
-@media (max-width: 767.98px) {
-    .sk-es-section {
-        --pd-gap-head-content: 40px;
-    }
+
+/* Override landing's pad-y on .sk-es-section for product pages */
+.sk-pd-page .sk-es-section {
+    padding-block: var(--pd-pad-y);
 }
 
 /* ===================================================================
@@ -2436,9 +2438,27 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     color: var(--sk-es-muted);
 }
 
-/* Lead paragraph */
+/* Lead paragraph — text measure */
 .sk-pd-info > .sk-es-lead {
     margin: 0 0 32px;
+    max-width: var(--pd-text-max);
+    font-size: 15px;
+    line-height: 1.7;
+}
+@media (max-width: 767.98px) {
+    .sk-pd-info > .sk-es-lead { font-size: 16px; }
+}
+
+/* Hero body text measure */
+.sk-pd-info .sk-pd-why-value,
+.sk-pd-info .sk-pd-ingredients-value {
+    font-size: 15px;
+    line-height: 1.7;
+}
+.sk-pd-info > .sk-es-lead,
+.sk-pd-info .sk-pd-why-value,
+.sk-pd-info .sk-pd-ingredients-value {
+    max-width: var(--pd-text-max);
 }
 
 /* Price — NAVY text, gold only decorative (crossed-out price) */
@@ -2666,12 +2686,12 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
 }
 
 /* ===================================================================
-   DESCRIPTION — copy left, facts right (vertical list)
+   DESCRIPTION — copy left, facts right (vertical list, top-aligned)
    =================================================================== */
 .sk-pd-desc-split {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: clamp(32px, 5vw, 84px);
+    gap: clamp(32px, 4vw, 72px);
     align-items: start;
 }
 .sk-pd-desc-copy {
@@ -2681,17 +2701,19 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
 }
 .sk-pd-desc-copy .sk-es-lead {
     font-size: clamp(16px, 1.1vw, 17px);
+    line-height: 1.7;
     color: var(--sk-es-muted);
-    max-width: 62ch;
+    max-width: var(--pd-text-max);
 }
 
-/* Facts — vertical list, hairline-separated */
+/* Facts — vertical list, hairline-separated, top-aligned with first line of paragraph */
 .sk-pd-facts {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    align-items: start;
 }
 .sk-pd-fact {
     display: flex;
@@ -2918,6 +2940,7 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     border: none;
     border-collapse: collapse;
     width: 100%;
+    max-width: 560px;
 }
 .sk-pd-table td {
     padding: 8px 0;
@@ -3143,14 +3166,34 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     opacity: .6;
 }
 
-/* ===================================================================
-   GALLERY sticky on desktop
-   =================================================================== */
+/* GALLERY sticky on desktop — uses header-height variable */
 @media (min-width: 993px) {
     .sk-pd-hero .sk-es-discover-media {
         position: sticky;
-        top: calc(73px + 24px);
+        top: calc(var(--sk-pd-header-height) + 80px);  /* header + back-link margin (32px) + back-link height (~24px) + gap (24px) */
         align-self: start;
+    }
+}
+
+/* ===================================================================
+   CAROUSEL — product pages show 5 cards (exclude current), 5-column grid
+   =================================================================== */
+#pdCarousel .sk-es-others-list {
+    grid-auto-columns: calc((100% - 4 * var(--sk-others-gap)) / 5);
+}
+@media (min-width: 767.98px) and (max-width: 991.98px) {
+    #pdCarousel .sk-es-others-list {
+        grid-auto-columns: calc((100% - 1 * var(--sk-others-gap)) / 2.4);
+    }
+}
+@media (min-width: 991.98px) {
+    #pdCarousel .sk-es-others-list {
+        grid-auto-columns: calc((100% - 3 * var(--sk-others-gap)) / 4.4);
+    }
+}
+@media (min-width: 1279.98px) {
+    #pdCarousel .sk-es-others-list {
+        grid-auto-columns: calc((100% - 4 * var(--sk-others-gap)) / 5);
     }
 }
 

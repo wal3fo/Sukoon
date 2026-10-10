@@ -79,9 +79,10 @@
      * Static product pages carry French text inline (for JS-off / AR fallback)
      * and English text in data-en attributes. This function swaps textContent
      * and img alt attributes when switching to EN, and restores FR on FR/AR.
+     * data-en-aria is used for aria-label translation on container elements.
      */
     function applyInlineLang(lang) {
-        var textNodes = document.querySelectorAll('[data-en]');
+        var textNodes = document.querySelectorAll('[data-en]:not([data-en-aria])');
         for (var i = 0; i < textNodes.length; i++) {
             var el = textNodes[i];
             if (lang === 'en') {
@@ -101,6 +102,18 @@
                 if (enAlt) img.setAttribute('alt', enAlt);
             } else {
                 if (img._origAlt !== undefined) img.setAttribute('alt', img._origAlt);
+            }
+        }
+        var ariaNodes = document.querySelectorAll('[data-en-aria]');
+        for (var k = 0; k < ariaNodes.length; k++) {
+            var btn = ariaNodes[k];
+            var currentAria = btn.getAttribute('aria-label');
+            if (lang === 'en') {
+                if (!btn._origAria) btn._origAria = currentAria || '';
+                var enAria = btn.getAttribute('data-en-aria');
+                if (enAria) btn.setAttribute('aria-label', enAria);
+            } else {
+                if (btn._origAria !== undefined) btn.setAttribute('aria-label', btn._origAria);
             }
         }
     }
@@ -686,6 +699,10 @@
         /* Apply stored language */
         var lang = readLang();
         setLanguage(lang, false);
+
+        /* Expose for testing / scripting */
+        global.applyInlineLang = applyInlineLang;
+        global.setLanguage = setLanguage;
     }
 
     if (global.document.readyState === 'loading') {

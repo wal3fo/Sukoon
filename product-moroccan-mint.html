@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><!-- DB: title -->Menthe Marocaine | Sukoon | Moroccan Mint — Infusions Marocaines<!-- /DB --></title>
+    <title><!-- DB: title -->Menthe Marocaine | Sukoon | Moroccan Mint &mdash; Infusions Marocaines<!-- /DB --></title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Sukoon - Moroccan herbal teas" name="keywords">
@@ -26,7 +26,7 @@
         <div class="sk-bar">
             <div class="sk-left">
                 <div class="sk-lang-pill" id="skLangPill">
-                    <button type="button" class="sk-lang-btn" id="skLangBtn" aria-label="Changer de langue" aria-haspopup="listbox" aria-expanded="false" aria-controls="skLangMenu" data-en="Change language">
+                    <button type="button" class="sk-lang-btn" id="skLangBtn" aria-label="Changer de langue" aria-haspopup="listbox" aria-expanded="false" aria-controls="skLangMenu" data-en-aria="Change language">
                         <svg class="sk-icon sk-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
                         </svg>
@@ -56,14 +56,14 @@
                 </a>
             </div>
             <div class="sk-right">
-                <button type="button" class="sk-icon-btn" id="skCartBtn" aria-label="Ouvrir le panier" data-en="Open cart" aria-controls="skCartDrawer" aria-expanded="false">
+                <button type="button" class="sk-icon-btn" id="skCartBtn" aria-label="Ouvrir le panier" data-en-aria="Open cart" aria-controls="skCartDrawer" aria-expanded="false">
                     <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                     </svg>
                     <span class="sk-cart-badge" id="skCartBadge" hidden>0</span>
                 </button>
-                <button type="button" class="sk-icon-btn sk-hamburger-btn" id="skHamburger" aria-label="Ouvrir le menu" data-en="Open menu" aria-controls="skNavPanel" aria-expanded="false">
+                <button type="button" class="sk-icon-btn sk-hamburger-btn" id="skHamburger" aria-label="Ouvrir le menu" data-en-aria="Open menu" aria-controls="skNavPanel" aria-expanded="false">
                     <svg class="sk-icon sk-hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                         <line x1="2.5" y1="7" x2="21.5" y2="7" /><line x1="2.5" y1="12" x2="21.5" y2="12" />
                         <line x1="2.5" y1="17" x2="21.5" y2="17" />
@@ -74,10 +74,12 @@
         <div class="sk-scrim" id="skScrim" hidden></div>
     </header>
 
+    <div class="sk-scrim" id="skScrimMobile" hidden></div>
+
     <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-hidden="true" tabindex="-1">
         <div class="sk-nav-head">
             <span class="sk-nav-head-title" data-en="Menu">Menu</span>
-            <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Fermer le menu" data-en="Close menu">
+            <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Fermer le menu" data-en-aria="Close menu">
                 <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                     <line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" />
                 </svg>
@@ -95,7 +97,7 @@
     <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
         <div class="sk-cart-head">
             <span class="sk-nav-head-title" data-en="Your Cart">Votre Panier</span>
-            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Fermer le panier" data-en="Close cart">
+            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Fermer le panier" data-en-aria="Close cart">
                 <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
         </div>
@@ -105,7 +107,7 @@
                     <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
-                <p data-en="Your cart is empty">Votre panier est Vide</p>
+                <p data-en="Your cart is empty">Votre panier est vide</p>
             </div>
         </div>
         <div class="sk-cart-foot" id="skCartFoot" hidden>
@@ -116,9 +118,8 @@
             <button type="button" class="sk-cart-cta" data-en="Checkout">Passer la commande</button>
         </div>
     </aside>
-    <!-- 1. Product hero -->
     <!-- DB: hero -->
-    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" aria-label="Menthe Marocaine">
+    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" id="pdHero" data-bg="cream" aria-label="Menthe Marocaine">
         <div class="sk-es-inner sk-es-split">
             <div class="sk-pd-back-wrap">
                 <a href="index.html" class="sk-pd-back" id="skPdBack">
@@ -137,13 +138,12 @@
                 </div>
             </figure>
             <div class="sk-es-discover-body sk-pd-info">
-                <p class="sk-es-eyebrow sk-es-eyebrow--gold" id="skPdEyebrow">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal" id="skPdEyebrow">
                     <span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span>
                 </p>
                 <h1 class="sk-pd-product-title" id="skPdTitle" data-en="Moroccan Mint">Menthe Marocaine</h1>
                 <p class="sk-pd-tagline" id="skPdTagline" data-en="Freshness · Presence">Fraîcheur · Présence</p>
-                                <div class="sk-pd-rating" id="skPdRating" hidden></div>
-                <p class="sk-es-lead" id="skPdLead" data-en="A bright, cool mint infusion for refreshing clarity.">Une infusion de menthe rafraîchissante pour une clarté pure.</p>
+                <p class="sk-es-lead sk-pd-lead" id="skPdLead" data-en="A bright, cool mint infusion for refreshing clarity.">Une infusion de menthe rafraîchissante pour une clarté pure.</p>
                 <div class="sk-pd-price" id="skPdPrice">
                     <span class="sk-pd-price-amount">$18.00</span>
                     <span class="sk-pd-price-del"></span>
@@ -151,7 +151,7 @@
                 <div class="sk-pd-purchase">
                     <span class="sk-pd-qty-label" data-en="Quantity">Quantité</span>
                     <div class="sk-pd-qty" role="group" aria-label="Select quantity">
-                        <button type="button" class="sk-pd-qty-btn" id="skPdMinus" aria-label="Decrease quantity">−</button>
+                        <button type="button" class="sk-pd-qty-btn" id="skPdMinus" aria-label="Decrease quantity">&minus;</button>
                         <input type="text" class="sk-pd-qty-val" value="1" id="skPdQty" readonly aria-live="polite">
                         <button type="button" class="sk-pd-qty-btn" id="skPdPlus" aria-label="Increase quantity">+</button>
                     </div>
@@ -172,49 +172,53 @@
                         <span class="sk-es-eyebrow-text" data-en="Why Choose This Essence">Pourquoi choisir cette essence</span>
                     </p>
                     <ul class="sk-pd-why" id="skPdWhy" aria-label="Why Choose This Essence">
-                    <li class="sk-es-fact">
-                        <span class="sk-es-icon-badge">
+                    <li class="sk-pd-why-item">
+                        <span class="sk-pd-why-icon">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg>
                         </span>
-                        <span class="sk-es-fact-label" data-en="Taste">Saveur</span>
-                        <span class="sk-es-fact-value" data-en="Bright · Minty">Fraîche · Mentholée</span>
+                        <div class="sk-pd-why-body">
+                            <span class="sk-pd-why-label" data-en="Taste">Saveur</span>
+                            <span class="sk-pd-why-value" data-en="Bright · Minty">Fraîche · Mentholée</span>
+                        </div>
                     </li>
-                    <li class="sk-es-fact">
-                        <span class="sk-es-icon-badge">
+                    <li class="sk-pd-why-item">
+                        <span class="sk-pd-why-icon">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="6.6" rx="2.6" ry="3.4"/><ellipse cx="12" cy="17.4" rx="2.6" ry="3.4"/><ellipse cx="6.6" cy="12" rx="3.4" ry="2.6"/><ellipse cx="17.4" cy="12" rx="3.4" ry="2.6"/><circle cx="12" cy="12" r="1.5"/></svg>
                         </span>
-                        <span class="sk-es-fact-label" data-en="Composition">Composition</span>
-                        <span class="sk-es-fact-value" data-en="100% Peppermint">100% Menthe poivrée</span>
+                        <div class="sk-pd-why-body">
+                            <span class="sk-pd-why-label" data-en="Composition">Composition</span>
+                            <span class="sk-pd-why-value" data-en="100% Peppermint">100% Menthe poivrée</span>
+                        </div>
                     </li>
                     </ul>
                 </div>
-                <div class="sk-pd-ingredients-hairline" hidden>
-                    <p class="sk-pd-ingredients-label"></p>
-                    <p class="sk-pd-ingredients-value"></p>
+                <div class="sk-pd-ingredients-hairline">
+                    <p class="sk-pd-ingredients-label" data-en="Ingredients">Ingrédients</p>
+                    <p class="sk-pd-ingredients-value" data-en="100% Peppermint.">100% Menthe poivrée.</p>
                 </div>
             </div>
         </div>
     </section>
     <!-- /DB -->
-    <!-- 2. Description -->
-    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdDescription">
+    <!-- DB: essence -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdEssence" data-bg="cream" aria-labelledby="pd-ess-title">
         <div class="sk-es-inner">
-            <!-- DB: desc-head -->
+            <!-- DB: ess-head -->
             <div class="sk-pd-head">
                 <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span></p>
-                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-desc-title" data-en="Clarity &amp; Renewal">Clarté &amp; Renouveau</h2>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ess-title" data-en="Clarity &amp; Renewal">Clarté &amp; Renouveau</h2>
             </div>
             <!-- /DB -->
             <div class="sk-pd-desc-split">
-                <!-- DB: desc-body -->
+                <!-- DB: ess-body -->
                 <div class="sk-pd-desc-copy">
                                         <p class="sk-es-lead" data-en="Moroccan Mint awakens the senses with its bright, cool notes.">La Menthe Marocaine réveille les sens avec ses notes fraîches et vives.</p>
                                         <p class="sk-es-lead" data-en="Each sachet captures the sun-drenched fields of Meknes.">Chaque sachet capture les champs ensoleillés de Meknès.</p>
                                         <p class="sk-es-lead" data-en="It offers a moment of clarity and renewal for body and mind.">Elle offre un moment de clarté et de renouveau pour le corps et l'esprit.</p>
                 </div>
                 <!-- /DB -->
-                <!-- DB: desc-facts -->
-                <ul class="sk-es-pillars sk-reveal" data-reveal-delay="90" aria-label="Key benefits">
+                <!-- DB: ess-facts -->
+                <ul class="sk-pd-facts sk-reveal" data-reveal-delay="90" aria-label="Key benefits">
                     <li class="sk-es-pillar">
                         <span class="sk-es-icon-badge">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5"/><path d="M12 19.5V22"/><path d="M2 12h2.5"/><path d="M19.5 12H22"/><path d="M4.9 4.9l1.8 1.8"/><path d="M17.3 17.3l1.8 1.8"/><path d="M19.1 4.9l-1.8 1.8"/><path d="M6.7 17.3l-1.8 1.8"/></svg>
@@ -234,36 +238,42 @@
             </div>
         </div>
     </section>
-    <!-- 3. Brewing guide -->
-    <section class="sk-es-section sk-es-section--navy sk-pd-section" id="pdBrewing">
+    <!-- /DB -->
+    <!-- DB: brewing -->
+    <section class="sk-es-section sk-es-section--navy sk-pd-section" id="pdBrewing" data-bg="navy" aria-labelledby="pd-brew-title">
         <div class="sk-es-inner">
             <!-- DB: brew-head -->
             <div class="sk-pd-head">
                 <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE RITUAL">LE RITUEL</span></p>
                 <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-brew-title" data-en="The Ritual">Le Rituel</h2>
-                                <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-en="Pure mint. No sugar. Just the moment.">De la menthe pure. Pas de sucre. Juste le moment.</p>
+                <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-en="Pure mint. No sugar. Just the moment.">De la menthe pure. Pas de sucre. Juste le moment.</p>
             </div>
             <!-- /DB -->
-            <div class="sk-pd-brew-body">
-                <!-- DB: brew-body -->
-                <div class="sk-pd-brew-content">
-                    <div class="sk-pd-brew-method">
-                        <h3 data-en="Hot Preparation">Préparation Chaude</h3>
+            <!-- DB: brew-body -->
+            <div class="sk-pd-brew-wrap">
+                    <div class="sk-pd-brew">
+                        <h3 class="sk-pd-brew-title" data-en="Hot Preparation">Préparation Chaude</h3>
                     <ol class="sk-pd-brew-steps">
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">01</div>
-                            <span class="sk-pd-brew-step-text" data-en="Heat water to 90°C.">Chauffer l'eau à 90°C.</span>
-                            <span class="sk-pd-brew-hint" data-en="Use fresh mint leaves for the best infusion.">Utilisez des feuilles de menthe fraîches pour la meilleure infusion.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">01</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Heat water to 90°C.">Chauffer l'eau à 90°C.</span>
+                                <span class="sk-pd-brew-hint" data-en="Use fresh mint leaves for the best infusion.">Utilisez des feuilles de menthe fraîches pour la meilleure infusion.</span>
+                            </div>
                         </li>
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">02</div>
-                            <span class="sk-pd-brew-step-text" data-en="Add a handful of fresh mint to your teapot.">Ajoutez une poignée de menthe fraîche à votre théière.</span>
-                            <span class="sk-pd-brew-hint" data-en="A small bunch is enough for 2 cups.">Un petit bouquet suffit pour 2 tasses.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">02</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Add a handful of fresh mint to your teapot.">Ajoutez une poignée de menthe fraîche à votre théière.</span>
+                                <span class="sk-pd-brew-hint" data-en="A small bunch is enough for 2 cups.">Un petit bouquet suffit pour 2 tasses.</span>
+                            </div>
                         </li>
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">03</div>
-                            <span class="sk-pd-brew-step-text" data-en="Pour water over mint and steep 3-4 minutes.">Versez l'eau chaude sur la menthe et laissez infuser 3-4 minutes.</span>
-                            <span class="sk-pd-brew-hint" data-en="Cover while steeping to lock in aromas.">Couvrez pendant l'infusion pour verrouiller les arômes.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">03</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Pour water over mint and steep 3-4 minutes.">Versez l'eau chaude sur la menthe et laissez infuser 3-4 minutes.</span>
+                                <span class="sk-pd-brew-hint" data-en="Cover while steeping to lock in aromas.">Couvrez pendant l'infusion pour verrouiller les arômes.</span>
+                            </div>
                         </li>
                     </ol>
                     <div class="sk-pd-brew-tip">
@@ -271,44 +281,48 @@
                         <p data-en="For extra freshness, add a sprig of fresh mint to your cup.">Pour plus de fraîcheur, ajoutez un brin de menthe fraîche à votre tasse.</p>
                     </div>
                     </div>
-                    <div class="sk-pd-brew-method">
-                        <h3 data-en="Cold Preparation">Préparation Froide</h3>
+                    <div class="sk-pd-brew">
+                        <h3 class="sk-pd-brew-title" data-en="Cold Preparation">Préparation Froide</h3>
                     <ol class="sk-pd-brew-steps">
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">01</div>
-                            <span class="sk-pd-brew-step-text" data-en="Add mint to a pitcher of cold water.">Ajoutez de la menthe à un pichet d'eau froide.</span>
-                            <span class="sk-pd-brew-hint" data-en="Use filtered water for crystal clarity.">Utilisez de l'eau filtrée pour une clarté cristalline.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">01</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Add mint to a pitcher of cold water.">Ajoutez de la menthe à un pichet d'eau froide.</span>
+                                <span class="sk-pd-brew-hint" data-en="Use filtered water for crystal clarity.">Utilisez de l'eau filtrée pour une clarté cristalline.</span>
+                            </div>
                         </li>
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">02</div>
-                            <span class="sk-pd-brew-step-text" data-en="Let steep in the fridge for 4-6 hours.">Laissez infuser au réfrigérateur 4-6 heures.</span>
-                            <span class="sk-pd-brew-hint" data-en="The longer it steeps, the more intense the flavour becomes.">Plus longtemps il infuse, plus la saveur est intense.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">02</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Let steep in the fridge for 4-6 hours.">Laissez infuser au réfrigérateur 4-6 heures.</span>
+                                <span class="sk-pd-brew-hint" data-en="The longer it steeps, the more intense the flavour becomes.">Plus longtemps il infuse, plus la saveur est intense.</span>
+                            </div>
                         </li>
-                        <li class="sk-pd-brew-step">
-                            <div class="sk-pd-brew-step-num">03</div>
-                            <span class="sk-pd-brew-step-text" data-en="Serve over ice with a slice of lemon.">Servez sur des glaçons avec une tranche de citron.</span>
-                            <span class="sk-pd-brew-hint" data-en="A squeeze of fresh lemon brightens every sip.">Un filet de citron frais éclaire chaque gorgée.</span>
+                        <li class="sk-pd-brew-item">
+                            <div class="sk-pd-brew-num">03</div>
+                            <div class="sk-pd-brew-step">
+                                <span class="sk-pd-brew-label" data-en="Serve over ice with a slice of lemon.">Servez sur des glaçons avec une tranche de citron.</span>
+                                <span class="sk-pd-brew-hint" data-en="A squeeze of fresh lemon brightens every sip.">Un filet de citron frais éclaire chaque gorgée.</span>
+                            </div>
                         </li>
                     </ol>
                     </div>
-                    <div class="sk-pd-brew-method">
-                        <h3 data-en="Serving Tip">Astuce de Service</h3>
-                    <ul class="sk-pd-brew-list">
+                    <div class="sk-pd-brew">
+                        <h3 class="sk-pd-brew-title" data-en="Serving Tip">Astuce de Service</h3>
+                    <ul class="sk-pd-list">
                         <li data-en="Serve in a traditional teapot.">Servez dans une théière traditionnelle.</li>
                         <li data-en="Garnish with fresh mint sprigs.">Décornez avec des brins de menthe fraîche.</li>
                         <li data-en="Pair with light pastries for a complete ritual.">Accompagnez avec des pâtisseries légères pour un rituel complet.</li>
                     </ul>
                     </div>
-                </div>
-                <figure class="sk-pd-brew-media">
-                    <img class="sk-es-img" src="img/products/product_3_menthe.png" alt="Thé de menthe marocain servi dans une théière traditionnelle" data-en-alt="Moroccan mint tea served in a traditional teapot" loading="lazy" decoding="async" width="1200" height="900">
-                </figure>
-                <!-- /DB -->
             </div>
+            <!-- /DB -->
         </div>
     </section>
-    <!-- 4. Ingredients & origin -->
-    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdIngredients">
+    <!-- /DB -->
+<!-- IF: ingredients_origin -->
+    <!-- DB: ingredients -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdIngredients" data-bg="cream" aria-labelledby="pd-ing-title">
         <div class="sk-es-inner">
             <!-- DB: ing-head -->
             <div class="sk-pd-head">
@@ -320,163 +334,43 @@
             <!-- /DB -->
             <div class="sk-pd-io">
                 <!-- DB: ing-rows -->
-                    <div class="sk-pd-ing-row">                        <div class="sk-pd-ing-cell">
-                            <span class="sk-pd-ing-label" data-en="Ingredients">Ingrédients</span>
-                            <div class="sk-pd-ing-value" data-en="100% Peppermint.">100% Menthe poivrée.</div>
-                        </div>                        <div class="sk-pd-ing-cell">
-                            <span class="sk-pd-ing-label" data-en="Origin">Origine</span>
-                            <div class="sk-pd-ing-value" data-en="Meknes, Morocco">Meknès, Maroc</div>
+                    <div class="sk-pd-io-row">                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Ingredients">Ingrédients</span>
+                            <div class="sk-pd-io-value" data-en="100% Peppermint.">100% Menthe poivrée.</div>
+                        </div>                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Origin">Origine</span>
+                            <div class="sk-pd-io-value" data-en="Meknes, Morocco">Meknès, Maroc</div>
                         </div></div>
-                    <div class="sk-pd-ing-row">                        <div class="sk-pd-ing-cell">
-                            <span class="sk-pd-ing-label" data-en="Nutritional Profile (per 2g sachet)">Valeur nutritionnelle (par sachet de 2g)</span>
-                            <table class="sk-pd-nutrition-table"><tbody><tr><td data-en="Calories">Énergie</td><td data-en="0 kcal">0 kcal</td></tr><tr><td data-en="Fat">Matières grasses</td><td data-en="0g">0 g</td></tr><tr><td data-en="Carbs">Glucides</td><td data-en="0g">0 g</td></tr><tr><td data-en="Protein">Protéines</td><td data-en="0g">0 g</td></tr></tbody></table>
-                        </div>                        <div class="sk-pd-ing-cell">
-                            <span class="sk-pd-ing-label" data-en="Certifications">Certifications</span>
-                            <ul class="sk-pd-tags"><li data-en="Natural">Naturel</li><li data-en="Herbal">Végétal</li></ul>
+                    <div class="sk-pd-io-row">                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Nutritional Profile (per 2g sachet)">Valeur nutritionnelle (par sachet de 2g)</span>
+                            <table class="sk-pd-table"><tbody><tr><td class="sk-pd-table-label" data-en="Calories">Énergie</td><td class="sk-pd-table--end" data-en="0 kcal">0 kcal</td></tr><tr><td class="sk-pd-table-label" data-en="Fat">Matières grasses</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr><tr><td class="sk-pd-table-label" data-en="Carbs">Glucides</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr><tr><td class="sk-pd-table-label" data-en="Protein">Protéines</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr></tbody></table>
+                        </div>                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Certifications">Certifications</span>
+                            <ul class="sk-pd-tags"><li class="sk-pd-tag" data-en="Natural">Naturel</li><li class="sk-pd-tag" data-en="Herbal">Végétal</li></ul>
                         </div></div>
                 <!-- /DB -->
             </div>
         </div>
     </section>
-    <!-- 5. Customer reviews -->
-    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdReviews">
-        <div class="sk-es-inner">
-            <!-- DB: rev-head -->
-            <div class="sk-pd-head">
-                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">
-                    <span class="sk-es-eyebrow-text" data-en="CUSTOMER REVIEWS">AVIS CLIENTS</span>
-                </p>
-                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-rev-title" data-en="What they say">Ce qu'ils disent</h2>
-            </div>
-            <!-- /DB -->
-            <!-- DB: rev-body -->
-            <div class="sk-pd-reviews-wrap">
-                <div class="sk-pd-review-summary">
-                    <div class="sk-pd-score">
-                        <div class="sk-pd-score-num" data-en="5.0">5.0</div>
-                        <div class="sk-pd-stars" aria-label="5 out of 5 stars" data-en="★ ★ ★ ★ ★">★ ★ ★ ★ ★</div>
-                        <p class="sk-pd-brew-hint mb-0" data-en="Based on 5 reviews">Basé sur 5 avis</p>
-                    </div>
-                    <div class="sk-pd-review-bars">
-                        <div class="sk-pd-bar-row">
-                            <span class="sk-pd-bar-label" data-en="★ ★ ★ ★ ★">★ 5</span>
-                            <div class="sk-pd-bar-track">
-                                <div class="sk-pd-bar-fill" style="width: 85%"></div>
-                            </div>
-                            <span class="sk-pd-bar-pct" data-en="85%">85%</span>
-                        </div>
-                        <div class="sk-pd-bar-row">
-                            <span class="sk-pd-bar-label" data-en="★ ★ ★ ★">★ 4</span>
-                            <div class="sk-pd-bar-track">
-                                <div class="sk-pd-bar-fill" style="width: 10%"></div>
-                            </div>
-                            <span class="sk-pd-bar-pct" data-en="10%">10%</span>
-                        </div>
-                        <div class="sk-pd-bar-row">
-                            <span class="sk-pd-bar-label" data-en="★ ★ ★">★ 3</span>
-                            <div class="sk-pd-bar-track">
-                                <div class="sk-pd-bar-fill" style="width: 3%"></div>
-                            </div>
-                            <span class="sk-pd-bar-pct" data-en="3%">3%</span>
-                        </div>
-                        <div class="sk-pd-bar-row">
-                            <span class="sk-pd-bar-label" data-en="★ ★">★ 2</span>
-                            <div class="sk-pd-bar-track">
-                                <div class="sk-pd-bar-fill" style="width: 1%"></div>
-                            </div>
-                            <span class="sk-pd-bar-pct" data-en="1%">1%</span>
-                        </div>
-                        <div class="sk-pd-bar-row">
-                            <span class="sk-pd-bar-label" data-en="★">★ 1</span>
-                            <div class="sk-pd-bar-track">
-                                <div class="sk-pd-bar-fill" style="width: 1%"></div>
-                            </div>
-                            <span class="sk-pd-bar-pct" data-en="1%">1%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="sk-pd-reviews-col">
-                    <div class="sk-pd-review-list">
-                    <div class="sk-pd-review">
-                        <div class="sk-pd-review-head">
-                            <span class="sk-pd-review-name">Sarah M.</span>
-                            <span class="sk-pd-review-stars" aria-label="5 out of 5 stars" data-en="★★★★★">★★★★★</span>
-                            <span class="sk-pd-review-meta" data-en="Verified purchase · 4 weeks ago">Achat vérifié · il y a 4 semaines</span>
-                        </div>
-                        <p class="sk-pd-review-text" data-en="A moment of pure clarity. Moroccan Mint has become my go-to for a refreshing pause.">Un moment de clarté pure. La Menthe Marocaine est devenue mon pause rafraîchissante incontournable.</p>
-                    </div>
-                    <div class="sk-pd-review">
-                        <div class="sk-pd-review-head">
-                            <span class="sk-pd-review-name">Ahmed K.</span>
-                            <span class="sk-pd-review-stars" aria-label="5 out of 5 stars" data-en="★★★★★">★★★★★</span>
-                            <span class="sk-pd-review-meta" data-en="Verified purchase · 2 months ago">Achat vérifié · il y a 2 mois</span>
-                        </div>
-                        <p class="sk-pd-review-text" data-en="The perfect companion for morning mindfulness. Light, refreshing, and beautifully balanced.">Le compagnon idéal pour la pleine conscience du matin. Léger, rafraîchissant et parfaitement équilibré.</p>
-                    </div>
-                    <div class="sk-pd-review">
-                        <div class="sk-pd-review-head">
-                            <span class="sk-pd-review-name">Emily R.</span>
-                            <span class="sk-pd-review-stars" aria-label="4 out of 5 stars" data-en="★★★★☆">★★★★☆</span>
-                            <span class="sk-pd-review-meta" data-en="Verified purchase · 6 weeks ago">Achat vérifié · il y a 6 semaines</span>
-                        </div>
-                        <p class="sk-pd-review-text" data-en="I was surprised by how calming this mint tea is. Not your typical mint — more refined.">Je suis surpris par la sérénité de ce thé à la menthe. Pas une menthe ordinaire — plus raffinée.</p>
-                    </div>
-                    <div class="sk-pd-review">
-                        <div class="sk-pd-review-head">
-                            <span class="sk-pd-review-name">James T.</span>
-                            <span class="sk-pd-review-stars" aria-label="5 out of 5 stars" data-en="★★★★★">★★★★★</span>
-                            <span class="sk-pd-review-meta" data-en="Verified purchase · 3 months ago">Achat vérifié · il y a 3 mois</span>
-                        </div>
-                        <p class="sk-pd-review-text" data-en="Exceptional quality. The mint is vibrant and the packaging is thoughtful.">Qualité exceptionnelle. La menthe est vibrante et l'emballage est réfléchi.</p>
-                    </div>
-                    <div class="sk-pd-review">
-                        <div class="sk-pd-review-head">
-                            <span class="sk-pd-review-name">Leila N.</span>
-                            <span class="sk-pd-review-stars" aria-label="5 out of 5 stars" data-en="★★★★★">★★★★★</span>
-                            <span class="sk-pd-review-meta" data-en="Verified purchase · 1 month ago">Achat vérifié · il y a 1 mois</span>
-                        </div>
-                        <p class="sk-pd-review-text" data-en="Moroccan Mint transformed my afternoon routine. A true moment of calm in a hectic day.">La Menthe Marocaine a transformé ma routine de l'après-midi. Un vrai moment de calme dans une journée chargée.</p>
-                    </div>
-                    </div>
-                    <div class="sk-pd-review-form-wrap">
-                        <button type="button" class="sk-pd-cart sk-pd-cart--outline" id="skPdReviewToggle" aria-expanded="false" aria-controls="skPdReviewForm">
-                            <span data-en="Write a review">Écrire un avis</span>
-                        </button>
-                        <div class="sk-pd-review-form" id="skPdReviewForm" hidden>
-                            <form id="skPdReviewFormEl">
-                                <div class="sk-pd-review-stars" id="skPdReviewStars" role="radiogroup" aria-label="Your rating">
-                                    <button type="button" class="sk-pd-star" data-rating="1" aria-label="1 star">★</button>
-                                    <button type="button" class="sk-pd-star" data-rating="2" aria-label="2 stars">★</button>
-                                    <button type="button" class="sk-pd-star" data-rating="3" aria-label="3 stars">★</button>
-                                    <button type="button" class="sk-pd-star" data-rating="4" aria-label="4 stars">★</button>
-                                    <button type="button" class="sk-pd-star" data-rating="5" aria-label="5 stars">★</button>
-                                </div>
-                                <div class="sk-pd-form-row">
-                                    <textarea class="sk-pd-form-control" rows="3" placeholder="Écrire un avis" data-en="Share your experience..."></textarea>
-                                </div>
-                                <div class="sk-pd-form-row sk-pd-form-row--split">
-                                    <input type="text" class="sk-pd-form-control" placeholder="Ouvrir le menu" data-en="Your Name">
-                                    <input type="email" class="sk-pd-form-control" placeholder="Ouvrir le menu" data-en="Your Email">
-                                </div>
-                                <div class="sk-pd-form-row">
-                                    <button type="submit" class="sk-pd-cart">Passer la commande</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /DB -->
-        </div>
-    </section>
-    <!-- 6. Discover the other essences -->
+    <!-- /DB -->
+<!-- /IF: ingredients_origin -->
+<!-- IF: reviews -->
+<!-- /IF: reviews -->
     <!-- DB: carousel -->
-    <section class="sk-es-section sk-es-section--cream sk-es-section--others" id="pdCarousel">
+    <section class="sk-es-section sk-es-section--cream sk-es-section--others" id="pdCarousel" data-bg="cream" aria-labelledby="autres-essences-title">
         <div class="sk-es-inner">
             <div class="sk-es-others-head sk-reveal">
-                <button type="button" class="sk-es-arrow" data-sk-others-prev aria-label="Essence précédente" data-en="Previous"></button>
-                <h2 class="sk-es-others-title" id="autres-essences-title" data-en="Discover the Other Essences">DÉCOUVRIR LES AUTRES ESSENCES</h2>
-                <button type="button" class="sk-es-arrow" data-sk-others-next aria-label="Essence suivante" data-en="Next"></button>
+                <button type="button" class="sk-es-arrow" data-sk-others-prev aria-label="Previous essence" data-en="Previous essence">
+                    <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M15 18L9 12l6-6" />
+                    </svg>
+                </button>
+                <h2 class="sk-es-others-title" id="autres-essences-title" data-en="DISCOVER THE OTHER ESSENCES">DÉCOUVRIR LES AUTRES ESSENCES</h2>
+                <button type="button" class="sk-es-arrow" data-sk-others-next aria-label="Next essence" data-en="Next essence">
+                    <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
             </div>
             <div class="sk-es-others-track sk-reveal" data-reveal-delay="90" data-sk-others-track tabindex="0" role="group" aria-labelledby="autres-essences-title">
                 <ul class="sk-es-others-list">
@@ -523,15 +417,6 @@
                             </span>
                             <span class="sk-es-other-name" data-en="Heritage Fennel">Fenouil Héritage</span>
                             <span class="sk-es-other-tagline" data-en="Harmony · Serenity">Harmonie · Sérénité</span>
-                        </a>
-                    </li>
-                    <li class="sk-es-other is-active">
-                        <a class="sk-es-other-link is-active" href="product-moroccan-mint.html" aria-current="true">
-                            <span class="sk-es-other-media">
-                                <img class="sk-es-other-img" src="img/products/product-moroccan-mint.png" alt="Boîte de Menthe Marocaine" data-en-alt="Box of Moroccan Mint" loading="lazy" decoding="async" width="427" height="325">
-                            </span>
-                            <span class="sk-es-other-name" data-en="Moroccan Mint">Menthe Marocaine</span>
-                            <span class="sk-es-other-tagline" data-en="Freshness · Presence">Fraîcheur · Présence</span>
                         </a>
                     </li>
                 </ul>
