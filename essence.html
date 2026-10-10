@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sukoon</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Sukoon - Moroccan herbal teas" name="keywords">
+    <meta content="Sukoon herbal teas — moments of calm and reconnection." name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body class="sk-pd-page">
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+
+    <!-- Site header (identical markup to index.html) -->
+    <header class="sk-header sk-header--solid" id="skHeader">
+        <div class="sk-bar">
+            <div class="sk-left">
+                <div class="sk-lang-pill" id="skLangPill">
+                    <button type="button" class="sk-lang-btn" id="skLangBtn" aria-label="Change language" aria-haspopup="listbox" aria-expanded="false" aria-controls="skLangMenu">
+                        <svg class="sk-icon sk-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M3 12h18" />
+                            <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
+                        </svg>
+                        <span class="sk-lang-code" id="skLangCode">FR</span>
+                        <svg class="sk-icon sk-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="sk-lang-menu" id="skLangMenu" role="listbox" aria-label="Language" tabindex="-1">
+                        <button type="button" class="sk-lang-item" role="option" data-lang="fr" data-name="Français" aria-selected="true">
+                            <span class="sk-lang-name">Français</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M4 12.5l5 5 L20 6.5" />
+                            </svg>
+                        </button>
+                        <button type="button" class="sk-lang-item" role="option" data-lang="en" data-name="English" aria-selected="false">
+                            <span class="sk-lang-name">English</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M4 12.5l5 5 L20 6.5" />
+                            </svg>
+                        </button>
+                        <button type="button" class="sk-lang-item" role="option" data-lang="ar" data-name="العربية" aria-selected="false">
+                            <span class="sk-lang-name">العربية</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M4 12.5l5 5 L20 6.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="sk-center">
+                <a href="index.html" class="sk-logo" id="skLogo" aria-label="Sukoon Home">
+                    <span class="sk-wordmark">SUKOON</span>
+                    <span class="sk-tagline">LA FORCE DU CALME</span>
+                </a>
+            </div>
+            <div class="sk-right">
+                <button type="button" class="sk-icon-btn" id="skCartBtn" aria-label="Open cart" aria-controls="skCartDrawer" aria-expanded="false">
+                    <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span class="sk-cart-badge" id="skCartBadge" hidden>0</span>
+                </button>
+                <button type="button" class="sk-icon-btn sk-hamburger-btn" id="skHamburger" aria-label="Open menu" aria-controls="skNavPanel" aria-expanded="false">
+                    <svg class="sk-icon sk-hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <line x1="2.5" y1="7" x2="21.5" y2="7" />
+                        <line x1="2.5" y1="12" x2="21.5" y2="12" />
+                        <line x1="2.5" y1="17" x2="21.5" y2="17" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="sk-scrim" id="skScrim" hidden></div>
+    </header>
+
+    <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-hidden="1" tabindex="-1">
+        <div class="sk-nav-head">
+            <span class="sk-nav-head-title">Menu</span>
+            <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Close menu">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <ul class="sk-nav-list" id="skNavList">
+            <li><a class="sk-nav-link" href="index.html">Home</a></li>
+            <li><a class="sk-nav-link" href="index.html#about">About</a></li>
+            <li><a class="sk-nav-link" href="index.html#products">Products</a></li>
+            <li><a class="sk-nav-link" href="index.html#store">Store</a></li>
+            <li><a class="sk-nav-link" href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cart Drawer (identical to index.html) -->
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="1" tabindex="-1">
+        <div class="sk-cart-head">
+            <span class="sk-nav-head-title" data-i18n="yourCart">Your Cart</span>
+            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Close cart">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="sk-cart-body" id="skCartBody">
+            <div class="sk-cart-empty">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                <p data-i18n="cartEmpty">Your cart is empty</p>
+            </div>
+        </div>
+        <div class="sk-cart-foot" id="skCartFoot" hidden>
+            <div class="sk-cart-total">
+                <span data-i18n="cartTotal">Total</span>
+                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
+            </div>
+            <button type="button" class="sk-cart-cta" data-i18n="checkout">Proceed to Checkout</button>
+        </div>
+    </aside>
+
+    <!-- 1. Product hero: gallery + info -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" aria-label="Product">
+        <div class="sk-es-inner sk-es-split">
+            <div class="sk-pd-back-wrap">
+                <a href="index.html" class="sk-pd-back" id="skPdBack">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M15 18 9 12l6-6" />
+                    </svg>
+                    <span data-i18n="backToEssences">Retour aux essences</span>
+                </a>
+            </div>
+
+            <figure class="sk-es-discover-media sk-pd-gallery-main" id="skPdGallery">
+                <img class="sk-es-img" src="img/products/product-ruby-hibiscus.png" alt="Ruby Hibiscus" id="skPdMainImg" width="427" height="330" loading="eager" decoding="async">
+                <div class="sk-pd-thumbs" id="skPdThumbs" role="group" aria-label="Gallery thumbnails"></div>
+            </figure>
+
+            <div class="sk-es-discover-body sk-pd-info">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold" id="skPdEyebrow">
+                    <span class="sk-es-eyebrow-text" data-i18n="essence.eyebrow">L'ESSENCE</span>
+                </p>
+
+                <h1 class="sk-pd-product-title" id="skPdTitle" data-i18n="product.ruby-hibiscus">Ruby Hibiscus</h1>
+                <p class="sk-pd-tagline" id="skPdTagline" data-i18n="product.ruby-hibiscus.tagline">Glow · Radiance</p>
+                <div class="sk-pd-rating" id="skPdRating">
+                    <span class="sk-pd-stars" aria-label="5 out of 5 stars">\u2605 \u2605 \u2605 \u2605 \u2605</span>
+                    <span class="sk-pd-rating-count">(0 Reviews)</span>
+                </div>
+
+                <p class="sk-es-lead" id="skPdLead">Loading...</p>
+
+                <div class="sk-pd-price" id="skPdPrice">
+                    <span class="sk-pd-price-amount">$0.00</span>
+                    <span class="sk-pd-price-del"></span>
+                </div>
+
+                <div class="sk-pd-purchase">
+                    <span class="sk-pd-qty-label" data-i18n="quantity">Quantité</span>
+                    <div class="sk-pd-qty" role="group" aria-label="Select quantity">
+                        <button type="button" class="sk-pd-qty-btn" id="skPdMinus" aria-label="Decrease quantity">\u2212</button>
+                        <input type="text" class="sk-pd-qty-val" value="1" id="skPdQty" readonly aria-live="polite">
+                        <button type="button" class="sk-pd-qty-btn" id="skPdPlus" aria-label="Increase quantity">+</button>
+                    </div>
+                    <button type="button" class="sk-pd-cart add-to-cart-btn" id="skPdCartBtn">
+                        <span data-i18n="addToCart">Ajouter au panier</span>
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="9" cy="21" r="1" />
+                            <circle cx="20" cy="21" r="1" />
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="sk-pd-why-wrap" id="skPdWhyWrap" hidden>
+                    <p class="sk-es-eyebrow sk-es-eyebrow--gold">
+                        <span class="sk-es-eyebrow-text" data-i18n="whyChoose">Pourquoi choisir cette essence</span>
+                    </p>
+                    <ul class="sk-pd-why" id="skPdWhy" aria-label="Why choose this essence"></ul>
+                </div>
+
+                <!-- Inline ingredients hairline (populated by product-detail.js) -->
+                <div class="sk-pd-ingredients-hairline" hidden>
+                    <p class="sk-pd-ingredients-label"></p>
+                    <p class="sk-pd-ingredients-value"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Description -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdDescription" aria-labelledby="pd-desc-title">
+        <div class="sk-es-inner">
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="essence.eyebrow">L'ESSENCE</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-desc-title" data-i18n="description.title">L'essence</h2>
+            </div>
+            <div class="sk-pd-desc-split">
+                <div class="sk-pd-desc-copy"></div>
+                <ul class="sk-pd-facts" aria-label="Key production facts"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Brewing guide -->
+    <section class="sk-es-section sk-es-section--navy sk-pd-section" id="pdBrewing" aria-labelledby="pd-brew-title">
+        <div class="sk-es-inner">
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="ritual.eyebrow">LE RITUEL</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-brew-title" data-i18n="ritual.heading">Quelques minutes. Une plante. Un instant à soi.</h2>
+                <p class="sk-es-lead sk-reveal" data-reveal-delay="90" data-i18n="ritual.body">Laissez infuser 8 minutes dans une eau à 90°C.</p>
+            </div>
+            <div class="sk-pd-brew-body"></div>
+        </div>
+    </section>
+
+    <!-- 4. Ingredients & origin -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdIngredients" aria-labelledby="pd-ing-title">
+        <div class="sk-es-inner">
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="ingredients.eyebrow">INGRÉDIENTS & ORIGINE</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ing-title" data-i18n="ingredients">Ingrédients</h2>
+            </div>
+            <div class="sk-pd-io"></div>
+        </div>
+    </section>
+
+    <!-- 5. Customer reviews -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdReviews" aria-labelledby="pd-rev-title">
+        <div class="sk-es-inner">
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-i18n="reviews.eyebrow">AVIS CLIENTS</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-rev-title" data-i18n="reviews.heading">Ce qu'ils disent</h2>
+            </div>
+            <div class="sk-pd-reviews-wrap">
+                <div class="sk-pd-review-summary">
+                    <div class="sk-pd-score">
+                        <div class="sk-pd-score-num">0.0</div>
+                        <div class="sk-pd-stars" aria-label="0 out of 5 stars"></div>
+                        <p class="sk-pd-brew-hint mb-0">Based on 0 reviews</p>
+                    </div>
+                    <div class="sk-pd-review-bars"></div>
+                </div>
+                <div class="sk-pd-reviews-col">
+                    <div class="sk-pd-review-list"></div>
+                    <div class="sk-pd-review-form-wrap">
+                        <button type="button" class="sk-pd-cart sk-pd-cart--outline" id="skPdReviewToggle" aria-expanded="false" aria-controls="skPdReviewForm">
+                            <span data-i18n="writeReview">Write a review</span>
+                        </button>
+                        <div class="sk-pd-review-form" id="skPdReviewForm" hidden>
+                            <form id="skPdReviewFormEl">
+                                <div class="sk-pd-review-stars" id="skPdReviewStars" role="radiogroup" aria-label="Your rating">
+                                    <button type="button" class="sk-pd-star" data-rating="1" aria-label="1 star">\u2605</button>
+                                    <button type="button" class="sk-pd-star" data-rating="2" aria-label="2 stars">\u2605</button>
+                                    <button type="button" class="sk-pd-star" data-rating="3" aria-label="3 stars">\u2605</button>
+                                    <button type="button" class="sk-pd-star" data-rating="4" aria-label="4 stars">\u2605</button>
+                                    <button type="button" class="sk-pd-star" data-rating="5" aria-label="5 stars">\u2605</button>
+                                </div>
+                                <div class="sk-pd-form-row">
+                                    <textarea class="sk-pd-form-control" rows="3" placeholder="Share your experience..."></textarea>
+                                </div>
+                                <div class="sk-pd-form-row sk-pd-form-row--split">
+                                    <input type="text" class="sk-pd-form-control" placeholder="Your Name">
+                                    <input type="email" class="sk-pd-form-control" placeholder="Your Email">
+                                </div>
+                                <div class="sk-pd-form-row">
+                                    <button type="submit" class="sk-pd-cart">Submit Review</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Discover the other essences -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--others" id="autres-essences" aria-labelledby="autres-essences-title">
+        <div class="sk-es-inner">
+            <div class="sk-es-others-head sk-reveal">
+                <button type="button" class="sk-es-arrow" data-sk-others-prev aria-label="Previous" data-i18n-attr="aria-label:others.previous"></button>
+                <h2 class="sk-es-others-title" id="autres-essences-title" data-i18n="others.heading">DÉCOUVRIR LES AUTRES ESSENCES</h2>
+                <button type="button" class="sk-es-arrow" data-sk-others-next aria-label="Next" data-i18n-attr="aria-label:others.next"></button>
+            </div>
+            <div class="sk-es-others-track sk-reveal" data-reveal-delay="90" data-sk-others-track tabindex="0" role="group" aria-labelledby="autres-essences-title" id="skPdOthersTrack">
+                <ul class="sk-es-others-list"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="fw-medium" href="#">Sukoon</a>, All Rights Reserved. Crafted with intention in Morocco.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    Designed By <a class="fw-medium" href="https://maruev.com">Maruev</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to top (single instance) -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Locale data (works without a server — plain JS objects) -->
+    <script src="i18n/en.js"></script>
+    <script src="i18n/fr.js"></script>
+    <script src="i18n/ar.js"></script>
+
+    <!-- i18n runtime -->
+    <script src="js/i18n.js"></script>
+
+    <!-- Product catalogue (unified schema, all six essences) -->
+    <script src="data/products.js"></script>
+
+    <!-- Product-detail renderer -->
+    <script src="js/product-detail.js"></script>
+
+    <!-- Global behaviour (header, cart, nav, scroll-to-top) -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
