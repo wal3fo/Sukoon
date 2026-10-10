@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title><!-- DB: title -->Camomille Noble | Sukoon | Noble Chamomile — Infusions Marocaines<!-- /DB --></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Sukoon - Moroccan herbal teas" name="keywords">
+    <meta content="<!-- DB: meta-description -->Une infusion de camomille douce et mielleuse pour des moments de sérénité.<!-- /DB -->" name="description">
+    <link href="img/favicon.ico" rel="icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="sk-pd-page">
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+    </div>
+    <!-- INCLUDE: header -->
+    <header class="sk-header sk-header--solid" id="skHeader">
+        <div class="sk-bar">
+            <div class="sk-left">
+                <div class="sk-lang-pill" id="skLangPill">
+                    <button type="button" class="sk-lang-btn" id="skLangBtn" aria-label="Changer de langue" aria-haspopup="listbox" aria-expanded="false" aria-controls="skLangMenu" data-en="Change language">
+                        <svg class="sk-icon sk-globe" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
+                        </svg>
+                        <span class="sk-lang-code" id="skLangCode">FR</span>
+                        <svg class="sk-icon sk-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+                    </button>
+                    <div class="sk-lang-menu" id="skLangMenu" role="listbox" aria-label="Language" tabindex="-1">
+                        <button type="button" class="sk-lang-item" role="option" data-lang="fr" data-name="Français" aria-selected="true">
+                            <span class="sk-lang-name">Français</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5 L20 6.5" /></svg>
+                        </button>
+                        <button type="button" class="sk-lang-item" role="option" data-lang="en" data-name="English" aria-selected="false">
+                            <span class="sk-lang-name">English</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5 L20 6.5" /></svg>
+                        </button>
+                        <button type="button" class="sk-lang-item" role="option" data-lang="ar" data-name="العربية" aria-selected="false">
+                            <span class="sk-lang-name">العربية</span>
+                            <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5 L20 6.5" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="sk-center">
+                <a href="index.html" class="sk-logo" id="skLogo" aria-label="Sukoon Home">
+                    <span class="sk-wordmark">SUKOON</span>
+                    <span class="sk-tagline">LA FORCE DU CALME</span>
+                </a>
+            </div>
+            <div class="sk-right">
+                <button type="button" class="sk-icon-btn" id="skCartBtn" aria-label="Ouvrir le panier" data-en="Open cart" aria-controls="skCartDrawer" aria-expanded="false">
+                    <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                    </svg>
+                    <span class="sk-cart-badge" id="skCartBadge" hidden>0</span>
+                </button>
+                <button type="button" class="sk-icon-btn sk-hamburger-btn" id="skHamburger" aria-label="Ouvrir le menu" data-en="Open menu" aria-controls="skNavPanel" aria-expanded="false">
+                    <svg class="sk-icon sk-hamburger-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <line x1="2.5" y1="7" x2="21.5" y2="7" /><line x1="2.5" y1="12" x2="21.5" y2="12" />
+                        <line x1="2.5" y1="17" x2="21.5" y2="17" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="sk-scrim" id="skScrim" hidden></div>
+    </header>
+
+    <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-hidden="true" tabindex="-1">
+        <div class="sk-nav-head">
+            <span class="sk-nav-head-title" data-en="Menu">Menu</span>
+            <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Fermer le menu" data-en="Close menu">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <ul class="sk-nav-list" id="skNavList">
+            <li><a class="sk-nav-link" href="index.html" data-en="Home">Accueil</a></li>
+            <li><a class="sk-nav-link" href="index.html#about" data-en="About">À propos</a></li>
+            <li><a class="sk-nav-link" href="index.html#store" data-en="Products">Produits</a></li>
+            <li><a class="sk-nav-link" href="index.html#store" data-en="Store">Boutique</a></li>
+            <li><a class="sk-nav-link" href="index.html#contact" data-en="Contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
+        <div class="sk-cart-head">
+            <span class="sk-nav-head-title" data-en="Your Cart">Votre Panier</span>
+            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Fermer le panier" data-en="Close cart">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            </button>
+        </div>
+        <div class="sk-cart-body" id="skCartBody">
+            <div class="sk-cart-empty">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                <p data-en="Your cart is empty">Votre panier est Vide</p>
+            </div>
+        </div>
+        <div class="sk-cart-foot" id="skCartFoot" hidden>
+            <div class="sk-cart-total">
+                <span data-en="Total">Total</span>
+                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
+            </div>
+            <button type="button" class="sk-cart-cta" data-en="Checkout">Passer la commande</button>
+        </div>
+    </aside>
+    <!-- 1. Product hero -->
+    <!-- DB: hero -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" aria-label="Camomille Noble">
+        <div class="sk-es-inner sk-es-split">
+            <div class="sk-pd-back-wrap">
+                <a href="index.html" class="sk-pd-back" id="skPdBack">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M15 18L9 12l6-6" />
+                    </svg>
+                    <span data-en="Back to Essences">Retour aux essences</span>
+                </a>
+            </div>
+            <figure class="sk-es-discover-media sk-pd-gallery-main" id="skPdGallery">
+                <img class="sk-es-img" src="img/products/product-noble-chamomile.png" alt="Boîte de Camomille Noble" data-en-alt="Box of Noble Chamomile" id="skPdMainImg" width="426" height="325" loading="eager" decoding="async">
+                <div class="sk-pd-thumbs" id="skPdThumbs" role="group" aria-label="Gallery thumbnails">
+                    <button type="button" class="sk-pd-thumb" data-thumb="img/products/product_4_chamomille.png" data-en-alt="Box of Noble Chamomile" aria-label="Thumbnail">
+                        <img src="img/products/product_4_chamomille.png" alt="Boîte de Camomille Noble" loading="lazy" decoding="async" width="427" height="325">
+                    </button>
+                </div>
+            </figure>
+            <div class="sk-es-discover-body sk-pd-info">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold" id="skPdEyebrow">
+                    <span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span>
+                </p>
+                <h1 class="sk-pd-product-title" id="skPdTitle" data-en="Noble Chamomile">Camomille Noble</h1>
+                <p class="sk-pd-tagline" id="skPdTagline" data-en="Gentleness · Silence">Douceur · Silence</p>
+                                <div class="sk-pd-rating" id="skPdRating" hidden></div>
+                <p class="sk-es-lead" id="skPdLead" data-en="A gentle, honeyed chamomile infusion for soothing moments.">Une infusion de camomille douce et mielleuse pour des moments de sérénité.</p>
+                <div class="sk-pd-price" id="skPdPrice">
+                    <span class="sk-pd-price-amount">$18.00</span>
+                    <span class="sk-pd-price-del"></span>
+                </div>
+                <div class="sk-pd-purchase">
+                    <span class="sk-pd-qty-label" data-en="Quantity">Quantité</span>
+                    <div class="sk-pd-qty" role="group" aria-label="Select quantity">
+                        <button type="button" class="sk-pd-qty-btn" id="skPdMinus" aria-label="Decrease quantity">−</button>
+                        <input type="text" class="sk-pd-qty-val" value="1" id="skPdQty" readonly aria-live="polite">
+                        <button type="button" class="sk-pd-qty-btn" id="skPdPlus" aria-label="Increase quantity">+</button>
+                    </div>
+                    <button type="button" class="sk-pd-cart add-to-cart-btn" id="skPdCartBtn"
+                        data-product-id="noble-chamomile"
+                        data-product-name="Camomille Noble"
+                        data-product-price="18.00"
+                        data-product-image="img/products/product-noble-chamomile.png">
+                        <span data-en="Add to Cart">Ajouter au panier</span>
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="sk-pd-why-wrap" id="skPdWhyWrap">
+                    <p class="sk-es-eyebrow sk-es-eyebrow--gold">
+                        <span class="sk-es-eyebrow-text" data-en="Why Choose This Essence">Pourquoi choisir cette essence</span>
+                    </p>
+                    <ul class="sk-pd-why" id="skPdWhy" aria-label="Why Choose This Essence">
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-en="Taste">Saveur</span>
+                        <span class="sk-es-fact-value" data-en="Smooth · Honeyed">Lisse · Mielleuse</span>
+                    </li>
+                    <li class="sk-es-fact">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="6.6" rx="2.6" ry="3.4"/><ellipse cx="12" cy="17.4" rx="2.6" ry="3.4"/><ellipse cx="6.6" cy="12" rx="3.4" ry="2.6"/><ellipse cx="17.4" cy="12" rx="3.4" ry="2.6"/><circle cx="12" cy="12" r="1.5"/></svg>
+                        </span>
+                        <span class="sk-es-fact-label" data-en="Composition">Composition</span>
+                        <span class="sk-es-fact-value" data-en="100% Chamomile">100% Camomille</span>
+                    </li>
+                    </ul>
+                </div>
+                <div class="sk-pd-ingredients-hairline" hidden>
+                    <p class="sk-pd-ingredients-label"></p>
+                    <p class="sk-pd-ingredients-value"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /DB -->
+    <!-- 2. Description -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdDescription">
+        <div class="sk-es-inner">
+            <!-- DB: desc-head -->
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-desc-title" data-en="Softness &amp; Silence">Douceur &amp; Silence</h2>
+            </div>
+            <!-- /DB -->
+            <div class="sk-pd-desc-split">
+                <!-- DB: desc-body -->
+                <div class="sk-pd-desc-copy">
+                                        <p class="sk-es-lead" data-en="Noble Chamomile wraps you in gentle, honeyed warmth. Each sachet is a sanctuary of calm, perfect for quiet moments.">La Camomille Noble vous enveloppe d'une chaleur douce et mielleuse. Chaque sachet est un sanctuaire de calme, parfait pour des moments paisibles.</p>
+                </div>
+                <!-- /DB -->
+                <!-- DB: desc-facts -->
+                <ul class="sk-es-pillars sk-reveal" data-reveal-delay="90" aria-label="Key benefits">
+                    <li class="sk-es-pillar">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5"/><path d="M12 19.5V22"/><path d="M2 12h2.5"/><path d="M19.5 12H22"/><path d="M4.9 4.9l1.8 1.8"/><path d="M17.3 17.3l1.8 1.8"/><path d="M19.1 4.9l-1.8 1.8"/><path d="M6.7 17.3l-1.8 1.8"/></svg>
+                        </span>
+                        <h3 class="sk-es-pillar-label" data-en="SOFTNESS">DOUCEUR</h3>
+                        <p class="sk-es-pillar-body" data-en="Wraps you in gentle, honeyed warmth">Vous enveloppe d'une chaleur douce et mielleuse</p>
+                    </li>
+                    <li class="sk-es-pillar">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/></svg>
+                        </span>
+                        <h3 class="sk-es-pillar-label" data-en="SILENCE">SILENCE</h3>
+                        <p class="sk-es-pillar-body" data-en="Creates space for quiet presence">Crée un espace pour une présence calme</p>
+                    </li>
+                    <li class="sk-es-pillar">
+                        <span class="sk-es-icon-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+                        </span>
+                        <h3 class="sk-es-pillar-label" data-en="COMFORT">CONFORt</h3>
+                        <p class="sk-es-pillar-body" data-en="Soothes the body and mind">Favorise la clarté mentale le corps et l'esprit</p>
+                    </li>
+                </ul>
+                <!-- /DB -->
+            </div>
+        </div>
+    </section>
+    <!-- 3. Brewing guide -->
+    <section class="sk-es-section sk-es-section--navy sk-pd-section" id="pdBrewing">
+        <div class="sk-es-inner">
+            <!-- DB: brew-head -->
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE RITUAL">LE RITUEL</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-brew-title" data-en="Unlock the full potential of your Noble Chamomile">Libérer le potentiel complet de votre Camomille Noble</h2>
+                
+            </div>
+            <!-- /DB -->
+            <div class="sk-pd-brew-body">
+                <!-- DB: brew-body -->
+                <div class="sk-pd-brew-content">
+                    <ul class="sk-pd-brew-steps">
+                    <li class="sk-pd-brew-step">
+                        <div class="sk-pd-brew-step-num">01</div>
+                        <span class="sk-pd-brew-step-text" data-en="Heat the water to 95°C.">Chauffer l'eau à 95°C.</span>
+                    </li>
+                    <li class="sk-pd-brew-step">
+                        <div class="sk-pd-brew-step-num">02</div>
+                        <span class="sk-pd-brew-step-text" data-en="Place a sachet in your cup.">Placer un sachet dans votre tasse.</span>
+                    </li>
+                    <li class="sk-pd-brew-step">
+                        <div class="sk-pd-brew-step-num">03</div>
+                        <span class="sk-pd-brew-step-text" data-en="Steep for 5-7 minutes.">Laisser infuser 5-7 minutes.</span>
+                    </li>
+                    <li class="sk-pd-brew-step">
+                        <div class="sk-pd-brew-step-num">04</div>
+                        <span class="sk-pd-brew-step-text" data-en="Savour your moment of comfort.">Savourez votre moment de confort.</span>
+                    </li>
+                    </ul>
+                    <div class="sk-pd-brew-badges">
+                    <div class="sk-pd-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                            <span data-en="95°C">95°C</span>
+                        </div>
+                    <div class="sk-pd-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+                            <span data-en="5-7 min">5-7 min</span>
+                        </div>
+                    <div class="sk-pd-badge">
+                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/></svg>
+                            <span data-en="Serve hot">Servir chaud</span>
+                        </div>
+                    </div>
+                </div>
+                <figure class="sk-pd-brew-media">
+                    <img class="sk-es-img" src="img/products/product_4_chamomille.png" alt="Infusion de camomille noble servie dans une tasse, avec des fleurs séchées" data-en-alt="Noble chamomile infusion served in a cup, with dried flowers" loading="lazy" decoding="async" width="1200" height="900">
+                </figure>
+                <!-- /DB -->
+            </div>
+        </div>
+    </section>
+    <!-- 4. Ingredients & origin -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdIngredients">
+        <div class="sk-es-inner">
+            <!-- DB: ing-head -->
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">
+                    <span class="sk-es-eyebrow-text" data-en="INGREDIENTS &amp; ORIGIN">INGRÉDIENTS &amp; ORIGINE</span>
+                </p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ing-title" data-en="Ingredients">Ingrédients</h2>
+            </div>
+            <!-- /DB -->
+            <div class="sk-pd-io">
+                <!-- DB: ing-rows -->
+                    <div class="sk-pd-ing-row">                        <div class="sk-pd-ing-cell">
+                            <span class="sk-pd-ing-label" data-en="Ingredients">Ingrédients</span>
+                            <div class="sk-pd-ing-value" data-en="100% Chamomile.">100% Camomille.</div>
+                        </div>                        <div class="sk-pd-ing-cell">
+                            <span class="sk-pd-ing-label" data-en="Origin">Origine</span>
+                            <div class="sk-pd-ing-value"><span class="sk-pd-origin-dash">—</span></div>
+                        </div></div>
+                <!-- /DB -->
+            </div>
+        </div>
+    </section>
+    <!-- 5. Customer reviews -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdReviews">
+        <div class="sk-es-inner">
+            <!-- DB: rev-head -->
+            <div class="sk-pd-head" hidden>
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">
+                    <span class="sk-es-eyebrow-text" data-en="CUSTOMER REVIEWS">AVIS CLIENTS</span>
+                </p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-rev-title" data-en="What they say">Ce qu'ils disent</h2>
+            </div>
+            <!-- /DB -->
+            <!-- DB: rev-body -->
+            <div class="sk-pd-reviews-wrap" hidden></div>
+            <!-- /DB -->
+        </div>
+    </section>
+    <!-- 6. Discover the other essences -->
+    <!-- DB: carousel -->
+    <section class="sk-es-section sk-es-section--cream sk-es-section--others" id="pdCarousel">
+        <div class="sk-es-inner">
+            <div class="sk-es-others-head sk-reveal">
+                <button type="button" class="sk-es-arrow" data-sk-others-prev aria-label="Essence précédente" data-en="Previous"></button>
+                <h2 class="sk-es-others-title" id="autres-essences-title" data-en="Discover the Other Essences">DÉCOUVRIR LES AUTRES ESSENCES</h2>
+                <button type="button" class="sk-es-arrow" data-sk-others-next aria-label="Essence suivante" data-en="Next"></button>
+            </div>
+            <div class="sk-es-others-track sk-reveal" data-reveal-delay="90" data-sk-others-track tabindex="0" role="group" aria-labelledby="autres-essences-title">
+                <ul class="sk-es-others-list">
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-royal-verbena.html">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-royal-verbena.png" alt="Boîte de Verveine Royale" data-en-alt="Box of Royal Verbena" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Royal Verbena">Verveine Royale</span>
+                            <span class="sk-es-other-tagline" data-en="Clarity · Lightness">Clarté · Légèreté</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other is-active">
+                        <a class="sk-es-other-link is-active" href="product-noble-chamomile.html" aria-current="true">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-noble-chamomile.png" alt="Boîte de Camomille Noble" data-en-alt="Box of Noble Chamomile" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Noble Chamomile">Camomille Noble</span>
+                            <span class="sk-es-other-tagline" data-en="Gentleness · Silence">Douceur · Silence</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-atlas-oregano.html">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-atlas-oregano.png" alt="Boîte d’Origan d’Atlas" data-en-alt="Box of Atlas Oregano" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Atlas Oregano">Origan d’Atlas</span>
+                            <span class="sk-es-other-tagline" data-en="Grounding · Strength">Ancrage · Force</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-ruby-hibiscus.html">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-ruby-hibiscus.png" alt="Boîte d’Hibiscus Rubis" data-en-alt="Box of Ruby Hibiscus" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Ruby Hibiscus">Hibiscus Rubis</span>
+                            <span class="sk-es-other-tagline" data-en="Glow · Radiance">Éclat · Rayonnement</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-heritage-fennel.html">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-heritage-fennel.png" alt="Boîte de Fenouil Héritage" data-en-alt="Box of Heritage Fennel" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Heritage Fennel">Fenouil Héritage</span>
+                            <span class="sk-es-other-tagline" data-en="Harmony · Serenity">Harmonie · Sérénité</span>
+                        </a>
+                    </li>
+                    <li class="sk-es-other">
+                        <a class="sk-es-other-link" href="product-moroccan-mint.html">
+                            <span class="sk-es-other-media">
+                                <img class="sk-es-other-img" src="img/products/product-moroccan-mint.png" alt="Boîte de Menthe Marocaine" data-en-alt="Box of Moroccan Mint" loading="lazy" decoding="async" width="427" height="325">
+                            </span>
+                            <span class="sk-es-other-name" data-en="Moroccan Mint">Menthe Marocaine</span>
+                            <span class="sk-es-other-tagline" data-en="Freshness · Presence">Fraîcheur · Présence</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- /DB -->
+
+    <!-- INCLUDE: footer -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="fw-medium" href="#">Sukoon</a>, All Rights Reserved. Crafted with intention in Morocco.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    Designed By <a class="fw-medium" href="https://maruev.com">Maruev</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- /INCLUDE: footer -->
+    <!-- INCLUDE: scripts -->
+    <script src="i18n/en.js"></script>
+    <script src="i18n/fr.js"></script>
+    <script src="i18n/ar.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+    <!-- /INCLUDE: scripts -->
+</body>
+</html>

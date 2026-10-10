@@ -57,7 +57,7 @@
         if (persist !== false) {
             try { global.localStorage.setItem('sukoonLang', lang); } catch (e) {}
         }
-        if (global.SKI18N) {
+         if (global.SKI18N) {
             global.SKI18N.setLang(lang, false);
         } else {
             /* Fallback: set document direction + code. */
@@ -71,7 +71,38 @@
         langItemsArray().forEach(function (item) {
             item.setAttribute('aria-selected', item.getAttribute('data-lang') === lang ? 'true' : 'false');
         });
+        applyInlineLang(lang);
         document.dispatchEvent(new CustomEvent('sk:langchange', { detail: { lang: lang } }));
+    }
+
+    /* ---- Inline data-en language swapping ----
+     * Static product pages carry French text inline (for JS-off / AR fallback)
+     * and English text in data-en attributes. This function swaps textContent
+     * and img alt attributes when switching to EN, and restores FR on FR/AR.
+     */
+    function applyInlineLang(lang) {
+        var textNodes = document.querySelectorAll('[data-en]');
+        for (var i = 0; i < textNodes.length; i++) {
+            var el = textNodes[i];
+            if (lang === 'en') {
+                if (!el._origText) el._origText = el.textContent;
+                var en = el.getAttribute('data-en');
+                if (en) el.textContent = en;
+            } else {
+                if (el._origText !== undefined) el.textContent = el._origText;
+            }
+        }
+        var altNodes = document.querySelectorAll('[data-en-alt]');
+        for (var j = 0; j < altNodes.length; j++) {
+            var img = altNodes[j];
+            if (lang === 'en') {
+                if (!img._origAlt) img._origAlt = img.getAttribute('alt') || '';
+                var enAlt = img.getAttribute('data-en-alt');
+                if (enAlt) img.setAttribute('alt', enAlt);
+            } else {
+                if (img._origAlt !== undefined) img.setAttribute('alt', img._origAlt);
+            }
+        }
     }
 
     function langIsOpen() {
@@ -251,18 +282,37 @@
             });
         }
 
-        /* Add-to-cart buttons (product-detail page) */
+        /* Add-to-cart buttons (product-detail page or static product pages) */
         document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                var id = btn.getAttribute('data-product');
-                if (!id || !global.SK_PRODUCTS) return;
-                var prod = global.SK_PRODUCTS.byId(id);
-                if (!prod) return;
-                var name = prod.nameKey;
-                if (global.SKI18N) name = global.SKI18N.t(prod.nameKey, name);
+                var id = btn.getAttribute('data-product-id') || btn.getAttribute('data-product');
+                if (!id) return;
+
+                var name = null, price = null, img = '';
+
+                /* Try SK_PRODUCTS catalogue first (essence.html template) */
+                if (global.SK_PRODUCTS) {
+                    var prod = global.SK_PRODUCTS.byId(id);
+                    if (prod) {
+                        name = prod.nameKey;
+                        if (global.SKI18N) name = global.SKI18N.t(prod.nameKey, name);
+                        price = prod.price;
+                        img = prod.image;
+                    }
+                }
+
+                /* Fall back to inline data attributes (static product pages) */
+                if (!name) {
+                    name = btn.getAttribute('data-product-name') || btn.getAttribute('data-name');
+                    price = parseFloat(btn.getAttribute('data-product-price') || btn.getAttribute('data-price'));
+                    img = btn.getAttribute('data-product-image') || btn.getAttribute('data-image') || '';
+                }
+
+                if (!name || !price) return;
+
                 if (!cart[id]) {
-                    cart[id] = { name: name, price: prod.price, img: prod.image, qty: 1 };
+                    cart[id] = { name: name, price: price, img: img, qty: 1 };
                 } else {
                     cart[id].qty += 1;
                 }
@@ -292,7 +342,7 @@
 
         function hideSpinner() {
             spinner.classList.remove('show');
-            spinner.style.display = 'none';
+            spinner.style.setProperty('display', 'none', 'important');
             spinner.setAttribute('aria-hidden', 'true');
         }
 
