@@ -94,24 +94,51 @@ The static product pages (`product-{slug}.html`) are generated with PHP migratio
 
 1. **Reviews removed**: Sample reviews, rating row, and review summary removed from all pages. The `<!-- IF: reviews -->` block is present but empty for all 6 products.
 
-2. **UNVERIFIED, confirm with owner** (moroccan-mint specifically):
-   - Nutrition table values: "Calories,0 kcal,Fat,0g,Carbs,0g,Protein,0g"
-   - Certification tags: "Naturel · Végétal"
-   - Ingredients: "100% Peppermint"
-   - Brewing parameters: 90°C, 3-4 minutes
+2. **UNVERIFIED, confirm with owner** (all claims below are present in generated HTML — unverified):
 
-3. **Forbidden word replacements in generator** (`fixForbidden`):
-   - FR: "Apaise l'esprit" → "Favorise la clarté mentale" (royal-verbena pillar 1)
-   - FR: "Apaise le corps" → "Apporte du réconfort au corps" (noble-chamomile pillar 3)
-   - FR: "moments apaisants" → "moments de sérénité" (noble-chamomile lead)
-   - EN: "Calms" → "Comforts" (noble-chamomile pillar 3)
+   | Product | Claim | Value | Status |
+   |---------|-------|-------|--------|
+   | moroccan-mint | Ingredients | "100% Menthe poivrée" (FR) / "100% Peppermint." (EN) | UNVERIFIED |
+   | moroccan-mint | Nutrition table | 0 kcal, 0g fat, 0g carbs, 0g protein (per 2g sachet) | UNVERIFIED |
+   | moroccan-mint | Certifications | "Naturel · Végétal" (FR) / "Natural · Herbal" (EN) | UNVERIFIED |
+   | moroccan-mint | Brewing temp | 90°C | UNVERIFIED |
+   | moroccan-mint | Brewing time | 3-4 minutes | UNVERIFIED |
+   | ruby-hibiscus | Sachet count | 20 sachets individuels / 20 individual sachets | UNVERIFIED |
+   | ruby-hibiscus | Brewing time | 8 minutes | UNVERIFIED |
 
-4. **Carousel**: Shows 5 cards (excludes current product). All plates use neutral `--sk-es-cream-deep` background — no per-essence tint classes.
+   **Missing fields per slug** (in `data/products.js`):
 
-5. **Size/spacing**: Product pages use `--pd-pad-y: clamp(56px, 6vw, 96px)` (tighter than landing's `clamp(72px, 9vw, 148px)`). Text measure: 62ch max, 15-16px, line-height 1.7. Nutrition table: max 560px.
+   | Product | Nutrition table | Certifications | Origin value | Eyebrow (hero) |
+   |---------|----------------|----------------|-------------|----------------|
+   | royal-verbena | No | No | `null` | `essence.eyebrow` |
+   | noble-chamomile | No | No | `null` | `essence.eyebrow` |
+   | atlas-oregano | No | No | `null` | `essence.eyebrow` |
+   | ruby-hibiscus | No | No | `discover.facts.origin.value` | `discover.eyebrow` |
+   | heritage-fennel | No | No | `null` | `essence.eyebrow` |
+   | moroccan-mint | Yes | Yes | `product.moroccan-mint.origin.html` | `essence.eyebrow` |
 
-6. **Scripts loaded**: `i18n/{en,fr,ar}.js`, `js/i18n.js`, `js/main.js` — NOT `js/product-detail.js` or `data/products.js`.
+3. **Forbidden word replacements**: `fixForbidden` is now a NO-OP (reverted). The following forbidden words remain in the locale data and appear unsubstituted in the generated HTML:
 
-7. **Fennel pillar 1 override**: "Slows the pace of the evening" / "Ralentit le rythme de la soirée".
+   | Locale | Key | Forbidden word | Page |
+   |--------|-----|-----------------|------|
+   | FR | `product.royal-verbena.essence.pillar.1.body` | "Apaise l'esprit" | royal-verbena |
+   | FR | `product.noble-chamomile.essence.pillar.3.body` | "Apaise le corps et l'esprit" | noble-chamomile |
+   | FR | `product.noble-chamomile.lead` | "moments apaisants" | noble-chamomile |
+   | EN | `product.noble-chamomile.essence.pillar.3.body` | "Calms" | noble-chamomile (EN) |
 
-8. **Include markers**: Header and footer are shared via `<!-- INCLUDE: header -->` / `<!-- INCLUDE: footer -->` and `<!-- INCLUDE: scripts -->` / `<!-- /INCLUDE: scripts -->` markers for PHP templating.
+   Approved replacement copy was not provided. These lines MUST NOT be auto-substituted — STOP and obtain owner approval before changing.
+
+4. **Carousel**: Shows 5 cards (excludes current product). Each card now uses per-essence tint class:
+   - `sk-es-other-media--green` (royal-verbena, moroccan-mint)
+   - `sk-es-other-media--sand` (noble-chamomile)
+   - `sk-es-other-media--clay` (atlas-oregano)
+   - `sk-es-other-media--hibiscus` (ruby-hibiscus)
+   - `sk-es-other-media--gold` (heritage-fennel)
+
+5. **Eyebrows**: Hero uses product data `eyebrowKey` (ruby-hibiscus uses `discover.eyebrow`; all others use `essence.eyebrow`). Description section uses `essence.eyebrow`. For ruby-hibiscus, hero and description eyebrows differ. For the other 5 products, both use `essence.eyebow` — a duplicate that mirrors the original `essence.html` template design.
+
+6. **Facts/pillars**: Uses `sk-pd-fact` CSS classes (matching `product-detail.css`). Hairlines span full column width (`align-items: stretch` on `.sk-pd-facts`). List top-aligned with first line of paragraph (`align-items: start` on `.sk-pd-desc-split`).
+
+7. **Spinner**: Hidden by default (no `show` class in static HTML). JS also hides via `setProperty('display', 'none', 'important')`.
+
+8. **Language switching**: `applyInlineLang()` now uses `[data-en]:not([data-en-aria])` selector to skip container buttons. ARIA labels are swapped via `data-en-aria` attribute on container elements (buttons with child SVGs/spans).

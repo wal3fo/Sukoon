@@ -18,7 +18,7 @@
 </head>
 <body class="sk-pd-page">
     <!-- Spinner -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
     </div>
     <!-- INCLUDE: header -->
@@ -217,26 +217,32 @@
                 <!-- /DB -->
                 <!-- DB: ess-facts -->
                 <ul class="sk-pd-facts sk-reveal" data-reveal-delay="90" aria-label="Key benefits">
-                    <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
+                    <li class="sk-pd-fact">
+                        <span class="sk-pd-fact-icon" aria-hidden="true">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5"/><path d="M12 19.5V22"/><path d="M2 12h2.5"/><path d="M19.5 12H22"/><path d="M4.9 4.9l1.8 1.8"/><path d="M17.3 17.3l1.8 1.8"/><path d="M19.1 4.9l-1.8 1.8"/><path d="M6.7 17.3l-1.8 1.8"/></svg>
                         </span>
-                        <h3 class="sk-es-pillar-label" data-en="MINDFULNESS">PLEINE CONSCIENCE</h3>
-                        <p class="sk-es-pillar-body" data-en="Slows the pace of the evening">Ralentit le rythme de la soirée</p>
+                        <span class="sk-pd-fact-body">
+                            <span class="sk-pd-fact-label" data-en="MINDFULNESS">PLEINE CONSCIENCE</span>
+                            <span class="sk-pd-fact-value" data-en="Slows the pace of the evening">Ralentit le rythme de la soirée</span>
+                        </span>
                     </li>
-                    <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
+                    <li class="sk-pd-fact">
+                        <span class="sk-pd-fact-icon" aria-hidden="true">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/></svg>
                         </span>
-                        <h3 class="sk-es-pillar-label" data-en="SLOWNESS">LENTITUDE</h3>
-                        <p class="sk-es-pillar-body" data-en="Slows the rhythm of body and mind">Ralentit le rythme du corps et de l'esprit</p>
+                        <span class="sk-pd-fact-body">
+                            <span class="sk-pd-fact-label" data-en="SLOWNESS">LENTITUDE</span>
+                            <span class="sk-pd-fact-value" data-en="Slows the rhythm of body and mind">Ralentit le rythme du corps et de l'esprit</span>
+                        </span>
                     </li>
-                    <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
+                    <li class="sk-pd-fact">
+                        <span class="sk-pd-fact-icon" aria-hidden="true">
                             <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
                         </span>
-                        <h3 class="sk-es-pillar-label" data-en="SWEETNESS">DOUCEUR</h3>
-                        <p class="sk-es-pillar-body" data-en="Offers gentle, natural sweetness">Offre une douceur naturelle douce</p>
+                        <span class="sk-pd-fact-body">
+                            <span class="sk-pd-fact-label" data-en="SWEETNESS">DOUCEUR</span>
+                            <span class="sk-pd-fact-value" data-en="Offers gentle, natural sweetness">Offre une douceur naturelle douce</span>
+                        </span>
                     </li>
                 </ul>
                 <!-- /DB -->
@@ -337,7 +343,7 @@
                 <ul class="sk-es-others-list">
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-royal-verbena.html">
-                            <span class="sk-es-other-media">
+                            <span class="sk-es-other-media sk-es-other-media--green">
                                 <img class="sk-es-other-img" src="img/products/product-royal-verbena.png" alt="Boîte de Verveine Royale" data-en-alt="Box of Royal Verbena" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Royal Verbena">Verveine Royale</span>
@@ -346,7 +352,7 @@
                     </li>
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-noble-chamomile.html">
-                            <span class="sk-es-other-media">
+                            <span class="sk-es-other-media sk-es-other-media--sand">
                                 <img class="sk-es-other-img" src="img/products/product-noble-chamomile.png" alt="Boîte de Camomille Noble" data-en-alt="Box of Noble Chamomile" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Noble Chamomile">Camomille Noble</span>
@@ -355,7 +361,7 @@
                     </li>
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-atlas-oregano.html">
-                            <span class="sk-es-other-media">
+                            <span class="sk-es-other-media sk-es-other-media--clay">
                                 <img class="sk-es-other-img" src="img/products/product-atlas-oregano.png" alt="Boîte d’Origan d’Atlas" data-en-alt="Box of Atlas Oregano" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Atlas Oregano">Origan d’Atlas</span>
@@ -364,7 +370,7 @@
                     </li>
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-ruby-hibiscus.html">
-                            <span class="sk-es-other-media">
+                            <span class="sk-es-other-media sk-es-other-media--hibiscus">
                                 <img class="sk-es-other-img" src="img/products/product-ruby-hibiscus.png" alt="Boîte d’Hibiscus Rubis" data-en-alt="Box of Ruby Hibiscus" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Ruby Hibiscus">Hibiscus Rubis</span>
@@ -373,7 +379,7 @@
                     </li>
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-moroccan-mint.html">
-                            <span class="sk-es-other-media">
+                            <span class="sk-es-other-media sk-es-other-media--green">
                                 <img class="sk-es-other-img" src="img/products/product-moroccan-mint.png" alt="Boîte de Menthe Marocaine" data-en-alt="Box of Moroccan Mint" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Moroccan Mint">Menthe Marocaine</span>

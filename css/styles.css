@@ -2713,7 +2713,8 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: stretch;
+    width: 100%;
 }
 .sk-pd-fact {
     display: flex;

@@ -44,18 +44,23 @@ function esc(s) {
     return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-/* ---- Forbidden word replacements ---- */
+/* ---- Forbidden word replacements (reverted) ---- */
+/*
+ * The approved content blocks do NOT contain approved substitutions for these terms.
+ * The following lines in i18n data contain regulated wellness claims — DO NOT auto-replace:
+ *
+ * FR:
+ *   - product.royal-verbena.essence.pillar.1.body: "Apaise l'esprit avec des notes citronnées vives"
+ *   - product.noble-chamomile.essence.pillar.3.body: "Apaise le corps et l'esprit"
+ *   - product.noble-chamomile.lead: "...pour des moments apaisants."
+ *
+ * EN:
+ *   - product.noble-chamomile.essence.pillar.3.body: "Calms the body and mind"
+ *
+ * fixForbidden is a no-op until approved replacement copy is provided.
+ */
 function fixForbidden(frText, enText) {
-    if (!frText && !enText) return { fr: frText || '', en: enText || '' };
-    frText = String(frText || '');
-    enText = String(enText || '');
-    frText = frText.replace(/Apaise l'esprit/g, "Favorise la clarté mentale");
-    frText = frText.replace(/Apaise le corps/g, "Apporte du réconfort au corps");
-    frText = frText.replace(/\bApaise\b/g, "Favorise la clarté mentale");
-    frText = frText.replace(/moments apaisants/g, "moments de sérénité");
-    enText = enText.replace(/\bCalms\b/g, "Comforts");
-    enText = enText.replace(/\bSoothes\b/g, "Comforts");
-    return { fr: frText, en: enText };
+    return { fr: frText || '', en: enText || '' };
 }
 
 /* ---- Icon SVG definitions ---- */
@@ -98,13 +103,27 @@ const PHOTO_MAP = {
 /* ---- Product list ---- */
 const SLUGS = ['royal-verbena', 'noble-chamomile', 'atlas-oregano', 'ruby-hibiscus', 'heritage-fennel', 'moroccan-mint'];
 
+/* ---- Load product details from data/products.js ---- */
+const productCtx = {};
+productCtx.window = productCtx;
+vm.createContext(productCtx);
+const productsCode = fs.readFileSync(path.join(ROOT, 'data', 'products.js'), 'utf8');
+vm.runInContext(productsCode, productCtx);
+const PRODUCT_DETAILS = (productCtx.SK_PRODUCTS || {}).details || {};
+const PRODUCT_CATALOGUE = (productCtx.SK_PRODUCTS || {}).catalogue || [];
+function getCatalogue(id) {
+    return PRODUCT_CATALOGUE.find(function(c) { return c.id === id; }) || {};
+}
+
 /* ---- Resolve a product from locale data ---- */
 function resolveProduct(id) {
     const prefix = 'product.' + id + '.';
-    const p = { id: id, price: 18, hasReviews: false, hasIngredientsOrigin: false };
+    const detail = PRODUCT_DETAILS[id] || {};
+    const p = { id: id, price: 18, hasReviews: false, hasReviewsEntries: false, hasIngredientsOrigin: false };
 
     p.image = 'img/products/product-' + id + '.png';
     p.gallery = 'img/products/product_' + PHOTO_MAP[id] + '.png';
+    p.tone = getCatalogue(id).tone || 'green';
     p.name_fr = t('product.' + id);
     p.name_en = t('product.' + id, 'en');
     p.tagline_fr = t(prefix + 'tagline');
@@ -113,8 +132,8 @@ function resolveProduct(id) {
     p.lead_en = t(prefix + 'lead', 'en');
     p.alt_fr = t(prefix + 'alt');
     p.alt_en = t(prefix + 'alt', 'en');
-    p.eyebrow_fr = t('essence.eyebrow');
-    p.eyebrow_en = t('essence.eyebrow', 'en');
+    p.eyebrow_fr = t(detail.eyebrowKey || 'essence.eyebrow');
+    p.eyebrow_en = t(detail.eyebrowKey || 'essence.eyebrow', 'en');
     p.back_fr = t('backToEssences');
     p.back_en = t('backToEssences', 'en');
     p.why_choose_fr = t('whyChoose');
@@ -361,7 +380,7 @@ const TEMPLATE_HEADER = `<!DOCTYPE html>
 </head>
 <body class="sk-pd-page">
     <!-- Spinner -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
     </div>
     <!-- INCLUDE: header -->
@@ -573,12 +592,14 @@ function buildHero(p) {
 
 function buildEssence(p) {
     const factsHtml = p.ess_facts.map(function(f) {
-        return '                    <li class="sk-es-pillar">\n' +
-            '                        <span class="sk-es-icon-badge">\n' +
+        return '                    <li class="sk-pd-fact">\n' +
+            '                        <span class="sk-pd-fact-icon" aria-hidden="true">\n' +
             '                            ' + iconSvg(f.icon) + '\n' +
             '                        </span>\n' +
-            '                        <h3 class="sk-es-pillar-label" data-en="' + esc(f.label_en) + '">' + esc(f.label_fr) + '</h3>\n' +
-            '                        <p class="sk-es-pillar-body" data-en="' + esc(f.value_en) + '">' + esc(f.value_fr) + '</p>\n' +
+            '                        <span class="sk-pd-fact-body">\n' +
+            '                            <span class="sk-pd-fact-label" data-en="' + esc(f.label_en) + '">' + esc(f.label_fr) + '</span>\n' +
+            '                            <span class="sk-pd-fact-value" data-en="' + esc(f.value_en) + '">' + esc(f.value_fr) + '</span>\n' +
+            '                        </span>\n' +
             '                    </li>';
     }).join('\n');
 
@@ -774,7 +795,7 @@ function buildCarousel(currentId, products) {
     }).map(function(p) {
         return '                    <li class="sk-es-other">\n' +
             '                        <a class="sk-es-other-link" href="product-' + p.id + '.html">\n' +
-            '                            <span class="sk-es-other-media">\n' +
+            '                            <span class="sk-es-other-media sk-es-other-media--' + p.tone + '">\n' +
             '                                <img class="sk-es-other-img" src="' + p.image + '" alt="' + esc(p.alt_fr) + '" data-en-alt="' + esc(p.alt_en) + '" loading="lazy" decoding="async" width="427" height="325">\n' +
             '                            </span>\n' +
             '                            <span class="sk-es-other-name" data-en="' + esc(p.name_en) + '">' + esc(p.name_fr) + '</span>\n' +
