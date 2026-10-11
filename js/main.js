@@ -25,7 +25,7 @@
         cartBtn: $('skCartBtn'),
         cartDrawer: $('skCartDrawer'),
         cartClose: $('skCartClose'),
-        scrim: $('skScrim'),
+        scrim: $('skScrim') || $('skScrimMobile'),
         cartBadge: $('skCartBadge'),
         cartBody: $('skCartBody'),
         cartFoot: $('skCartFoot'),
@@ -138,9 +138,25 @@
     function cartIsOpen() { return el.cartDrawer && el.cartDrawer.classList.contains('is-open'); }
     function overlayOpen() { return panelIsOpen() || cartIsOpen(); }
 
+    function bodyScrollLocked() { return document.body.style.overflow === 'hidden'; }
+
     function setScrim(on) {
         if (!el.scrim) return;
+        el.scrim.classList.toggle('is-open', on);
         el.scrim.hidden = !on;
+        if (on) {
+            if (!bodyScrollLocked()) {
+                document.body.style.overflow = 'hidden';
+            }
+        } else {
+            if (el.hamburger) {
+                if (!el.hamburger.classList.contains('is-open')) {
+                    document.body.style.overflow = '';
+                }
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
     }
 
     function focusablesIn(node) {
@@ -655,6 +671,13 @@
             if (panelIsOpen()) closePanel(false);
             if (cartIsOpen()) closeCart(false);
             setScrim(false);
+        });
+
+        /* Close panel when a nav link is clicked */
+        document.querySelectorAll('.sk-nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (panelIsOpen()) closePanel();
+            });
         });
 
         document.addEventListener('keydown', function (e) {

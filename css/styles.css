@@ -859,6 +859,16 @@
     inset: 0;
     background: rgba(15, 30, 22, .45);
     z-index: 1090;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.sk-scrim.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
 
 .sk-scrim[hidden] {
@@ -1625,6 +1635,50 @@ html[dir="rtl"] .sk-cart-head {
     font-size: 18px;
     line-height: 1.45;
     color: var(--sk-es-muted);
+}
+
+/* Pillar rows inside product fact list: icon on the left, text on the right */
+.sk-pd-facts .sk-es-pillar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--sk-es-line);
+    text-align: left;
+}
+
+.sk-pd-facts .sk-es-pillar:first-child {
+    padding-top: 0;
+}
+
+.sk-pd-facts .sk-es-pillar:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.sk-pd-facts .sk-es-icon-badge {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border: 1px solid var(--sk-es-line-strong);
+    border-radius: 50%;
+    color: var(--sk-es-navy);
+}
+
+.sk-pd-facts .sk-es-icon-badge .sk-es-icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+}
+
+.sk-pd-facts .sk-es-pillar-body {
+    margin: 0;
+    font-family: var(--sk-es-sans);
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--sk-es-muted);
+    min-width: 0;
 }
 
 /*** Section 4 — Découvrir les autres essences ***/
