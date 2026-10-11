@@ -39,14 +39,14 @@ function t(key, lang) {
     if (Object.prototype.hasOwnProperty.call(FR, key)) return FR[key];
     return key;
 }
-function esc(s) {
-    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
 function tOptional(key, lang) {
     const loc = lang === 'en' ? EN : (lang === 'ar' ? AR : FR);
     if (Object.prototype.hasOwnProperty.call(loc, key)) return loc[key];
     if (Object.prototype.hasOwnProperty.call(FR, key)) return FR[key];
     return '';
+}
+function esc(s) {
+    return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /* ---- Icon SVG definitions ---- */
@@ -57,10 +57,7 @@ const ICONS = {
     heart: '<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/>',
     cup: '<path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/>',
-    thermometer: '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
-    sparkle: '<path d="M12 3.5 13.9 9 19.5 11 13.9 13 12 18.5 10.1 13 4.5 11 10.1 9Z"/><path d="M18.5 17.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8Z"/>',
-    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/>',
-    check: '<path d="M4 12.5l5 5 L20 6.5" />'
+    thermometer: '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>'
 };
 function iconSvg(name) {
     return '<svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + (ICONS[name] || '') + '</svg>';
@@ -75,9 +72,19 @@ const PHOTO_MAP = {
     'heritage-fennel': '6_fenouil',
     'moroccan-mint': '3_menthe'
 };
+const BREW_DATA = {
+    'royal-verbena': { image: 'img/products/product_5_verveine.png', alt_fr: "Infusion de verveine royale servie dans une tasse translucide, entourée de feuilles séchées", alt_en: "Royal verbena infusion served in a translucent cup, surrounded by dried leaves" },
+    'noble-chamomile': { image: 'img/products/product_4_chamomille.png', alt_fr: "Infusion de camomille noble servie dans une tasse, avec des fleurs séchées", alt_en: "Noble chamomile infusion served in a cup, with dried flowers" },
+    'atlas-oregano': { image: 'img/products/product_2_origan.png', alt_fr: "Infusion d'origan d'Atlas servie dans une tasse rustique", alt_en: "Atlas oregano infusion served in a rustic cup" },
+    'ruby-hibiscus': { image: 'img/products/product_1_hibiscus.png', alt_fr: "Tasse en verre d'infusion d'hibiscus rubis avec son sachet et des pétales séchés", alt_en: "A glass of ruby hibiscus infusion with its tea bag and dried petals" },
+    'heritage-fennel': { image: 'img/products/product_6_fenouil.png', alt_fr: "Infusion de fenouil servie dans une tasse, avec des graines de fenouil", alt_en: "Fennel infusion served in a cup, with fennel seeds" },
+    'moroccan-mint': { image: 'img/products/product_3_menthe.png', alt_fr: "Thé de menthe marocain servi dans une théière traditionnelle", alt_en: "Moroccan mint tea served in a traditional teapot" }
+};
+
+/* ---- Product list ---- */
 const SLUGS = ['royal-verbena', 'noble-chamomile', 'atlas-oregano', 'ruby-hibiscus', 'heritage-fennel', 'moroccan-mint'];
 
-/* ---- Resolve a product's display data ---- */
+/* ---- Resolve a product from approved content + locale labels ---- */
 function resolveProduct(id) {
     const copy = APPROVED[id];
     const p = {
@@ -97,10 +104,10 @@ function resolveProduct(id) {
         eyebrow_en: t('essence.eyebrow', 'en'),
         back_fr: t('backToEssences'),
         back_en: t('backToEssences', 'en'),
-        cart_fr: t('addToCart'),
-        cart_en: t('addToCart', 'en'),
         why_choose_fr: t('whyChoose'),
         why_choose_en: t('whyChoose', 'en'),
+        cart_fr: t('addToCart'),
+        cart_en: t('addToCart', 'en'),
         taste_fr: copy.taste.fr,
         taste_en: copy.taste.en,
         taste_label_fr: tOptional('product.' + id + '.why.taste.label') || t('discover.facts.taste.label'),
@@ -117,10 +124,8 @@ function resolveProduct(id) {
         ess_title_en: copy.essence_title.en,
         ess_body_fr: copy.essence_body.fr,
         ess_body_en: copy.essence_body.en,
-        ess_facts: copy.pillars.map(function(pillar, i) {
-            const icons = ['sun', 'cup', 'heart'];
+        ess_facts: copy.pillars.map(function(pillar) {
             return {
-                icon: icons[i] || 'sun',
                 value_fr: pillar.fr,
                 value_en: pillar.en
             };
@@ -129,6 +134,8 @@ function resolveProduct(id) {
         brew_eyebrow_en: t('ritual.eyebrow', 'en'),
         brew_title_fr: copy.ritual_title.fr,
         brew_title_en: copy.ritual_title.en,
+        brew_lead_fr: null,
+        brew_lead_en: null,
         brew_steps_fr: copy.steps.map(s => s.fr),
         brew_steps_en: copy.steps.map(s => s.en),
         brew_badges: [
@@ -136,70 +143,107 @@ function resolveProduct(id) {
             { icon: 'clock', text_fr: copy.badges.time.fr, text_en: copy.badges.time.en },
             { icon: 'cup', text_fr: copy.badges.serve.fr, text_en: copy.badges.serve.en }
         ],
-        hasIngredientsOrigin: false,
-        hasReviews: false
+        brew_image: BREW_DATA[id].image,
+        brew_image_alt_fr: BREW_DATA[id].alt_fr,
+        brew_image_alt_en: BREW_DATA[id].alt_en,
+        brew_type: 'steps',
+        hasIngredientsOrigin: true,
+        hasReviews: false,
+        isMint: false
     };
+
+    /* ---- Ingredients section rows ---- */
+    const nutrition_fr = t('product.moroccan-mint.nutrition.table');
+    const nutrition_en = t('product.moroccan-mint.nutrition.table', 'en');
+    const cert_fr = t('product.moroccan-mint.certifications.tags');
+    const cert_en = t('product.moroccan-mint.certifications.tags', 'en');
+    const origin_fr = t('discover.facts.origin.value');
+    const origin_en = t('discover.facts.origin.value', 'en');
+
+    p.ing_eyebrow_fr = t('ingredients.eyebrow');
+    p.ing_eyebrow_en = t('ingredients.eyebrow', 'en');
+    p.ing_title_fr = t('ingredients');
+    p.ing_title_en = t('ingredients', 'en');
+
+    p.ingredients_rows = [
+        [
+            { label_fr: t('ingredients'), label_en: t('ingredients', 'en'), html_fr: copy.ingredients.fr, html_en: copy.ingredients.en },
+            { label_fr: t('origin'), label_en: t('origin', 'en'), html_fr: origin_fr, html_en: origin_en }
+        ],
+        [
+            { label_fr: t('nutrition'), label_en: t('nutrition', 'en'), table_fr: nutrition_fr, table_en: nutrition_en },
+            { label_fr: t('certifications'), label_en: t('certifications', 'en'), tags_fr: cert_fr, tags_en: cert_en, tags_single: true }
+        ]
+    ];
+
     return p;
 }
 
 /* ---- Resolve moroccan-mint (uses i18n locale data, unchanged copy) ---- */
 function resolveMint() {
+    const id = 'moroccan-mint';
+    const prefix = 'product.' + id + '.';
     const p = {
-        id: 'moroccan-mint',
+        id: id,
         price: 18,
         image: 'img/products/product-moroccan-mint.png',
         gallery: 'img/products/product_3_menthe.png',
-        name_fr: t('product.moroccan-mint'),
-        name_en: t('product.moroccan-mint', 'en'),
-        tagline_fr: t('product.moroccan-mint.tagline'),
-        tagline_en: t('product.moroccan-mint.tagline', 'en'),
-        lead_fr: t('product.moroccan-mint.lead'),
-        lead_en: t('product.moroccan-mint.lead', 'en'),
-        alt_fr: t('product.moroccan-mint.alt'),
-        alt_en: t('product.moroccan-mint.alt', 'en'),
+        name_fr: t('product.' + id),
+        name_en: t('product.' + id, 'en'),
+        tagline_fr: t(prefix + 'tagline'),
+        tagline_en: t(prefix + 'tagline', 'en'),
+        lead_fr: t(prefix + 'lead'),
+        lead_en: t(prefix + 'lead', 'en'),
+        alt_fr: t(prefix + 'alt'),
+        alt_en: t(prefix + 'alt', 'en'),
         eyebrow_fr: t('essence.eyebrow'),
         eyebrow_en: t('essence.eyebrow', 'en'),
         back_fr: t('backToEssences'),
         back_en: t('backToEssences', 'en'),
-        cart_fr: t('addToCart'),
-        cart_en: t('addToCart', 'en'),
         why_choose_fr: t('whyChoose'),
         why_choose_en: t('whyChoose', 'en'),
-        taste_fr: t('product.moroccan-mint.why.taste.value'),
-        taste_en: t('product.moroccan-mint.why.taste.value', 'en'),
-        taste_label_fr: tOptional('product.moroccan-mint.why.taste.label') || t('discover.facts.taste.label'),
-        taste_label_en: tOptional('product.moroccan-mint.why.taste.label', 'en') || t('discover.facts.taste.label', 'en'),
-        composition_fr: t('product.moroccan-mint.why.composition.value'),
-        composition_en: t('product.moroccan-mint.why.composition.value', 'en'),
-        composition_label_fr: tOptional('product.moroccan-mint.why.composition.label') || t('discover.facts.composition.label'),
-        composition_label_en: tOptional('product.moroccan-mint.why.composition.label', 'en') || t('discover.facts.composition.label', 'en'),
+        cart_fr: t('addToCart'),
+        cart_en: t('addToCart', 'en'),
+        taste_fr: t(prefix + 'why.taste.value'),
+        taste_en: t(prefix + 'why.taste.value', 'en'),
+        taste_label_fr: t(prefix + 'why.taste.label'),
+        taste_label_en: t(prefix + 'why.taste.label', 'en'),
+        composition_fr: t(prefix + 'why.composition.value'),
+        composition_en: t(prefix + 'why.composition.value', 'en'),
+        composition_label_fr: t(prefix + 'why.composition.label'),
+        composition_label_en: t(prefix + 'why.composition.label', 'en'),
         ingredients_label_fr: t('ingredients'),
         ingredients_label_en: t('ingredients', 'en'),
-        ingredients_value_fr: t('product.moroccan-mint.ingredients.html'),
-        ingredients_value_en: t('product.moroccan-mint.ingredients.html', 'en'),
-        ess_title_fr: t('product.moroccan-mint.essence.title'),
-        ess_title_en: t('product.moroccan-mint.essence.title', 'en'),
+        ingredients_value_fr: t(prefix + 'ingredients.html'),
+        ingredients_value_en: t(prefix + 'ingredients.html', 'en'),
+        ess_eyebrow_fr: t('essence.eyebrow'),
+        ess_eyebrow_en: t('essence.eyebrow', 'en'),
+        ess_title_fr: t(prefix + 'essence.title'),
+        ess_title_en: t(prefix + 'essence.title', 'en'),
         ess_paras_fr: [
-            t('product.moroccan-mint.description.para.1'),
-            t('product.moroccan-mint.description.para.2'),
-            t('product.moroccan-mint.description.para.3')
+            t(prefix + 'description.para.1'),
+            t(prefix + 'description.para.2'),
+            t(prefix + 'description.para.3')
         ],
         ess_paras_en: [
-            t('product.moroccan-mint.description.para.1', 'en'),
-            t('product.moroccan-mint.description.para.2', 'en'),
-            t('product.moroccan-mint.description.para.3', 'en')
+            t(prefix + 'description.para.1', 'en'),
+            t(prefix + 'description.para.2', 'en'),
+            t(prefix + 'description.para.3', 'en')
         ],
         ess_facts: [
-            { icon: 'sun', value_fr: t('product.moroccan-mint.description.fact.1.value'), value_en: t('product.moroccan-mint.description.fact.1.value', 'en') },
-            { icon: 'cup', value_fr: t('product.moroccan-mint.description.fact.2.value'), value_en: t('product.moroccan-mint.description.fact.2.value', 'en') }
+            { icon: 'sun', label_fr: t(prefix + 'description.fact.1.label'), label_en: t(prefix + 'description.fact.1.label', 'en'), value_fr: t(prefix + 'description.fact.1.value'), value_en: t(prefix + 'description.fact.1.value', 'en') },
+            { icon: 'cup', label_fr: t(prefix + 'description.fact.2.label'), label_en: t(prefix + 'description.fact.2.label', 'en'), value_fr: t(prefix + 'description.fact.2.value'), value_en: t(prefix + 'description.fact.2.value', 'en') }
         ],
         brew_eyebrow_fr: t('ritual.eyebrow'),
         brew_eyebrow_en: t('ritual.eyebrow', 'en'),
-        brew_title_fr: t('product.moroccan-mint.ritual.title'),
-        brew_title_en: t('product.moroccan-mint.ritual.title', 'en'),
-        brew_lead_fr: t('product.moroccan-mint.ritual.lead'),
-        brew_lead_en: t('product.moroccan-mint.ritual.lead', 'en'),
+        brew_title_fr: t(prefix + 'ritual.title'),
+        brew_title_en: t(prefix + 'ritual.title', 'en'),
+        brew_lead_fr: t(prefix + 'ritual.lead'),
+        brew_lead_en: t(prefix + 'ritual.lead', 'en'),
         brew_type: 'methods',
+        brew_image: BREW_DATA[id].image,
+        brew_image_alt_fr: BREW_DATA[id].alt_fr,
+        brew_image_alt_en: BREW_DATA[id].alt_en,
         ing_eyebrow_fr: t('ingredients.eyebrow'),
         ing_eyebrow_en: t('ingredients.eyebrow', 'en'),
         ing_title_fr: t('ingredients'),
@@ -212,57 +256,58 @@ function resolveMint() {
     /* --- Mint brewing methods (unchanged) --- */
     p.brew_methods = [
         {
-            title_fr: t('product.moroccan-mint.ritual.method.1.title'),
-            title_en: t('product.moroccan-mint.ritual.method.1.title', 'en'),
+            title_fr: t(prefix + 'ritual.method.1.title'),
+            title_en: t(prefix + 'ritual.method.1.title', 'en'),
             steps: [
-                { fr: t('product.moroccan-mint.ritual.method.1.step.1.label'), en: t('product.moroccan-mint.ritual.method.1.step.1.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.1.step.1.hint'), hint_en: t('product.moroccan-mint.ritual.method.1.step.1.hint', 'en') },
-                { fr: t('product.moroccan-mint.ritual.method.1.step.2.label'), en: t('product.moroccan-mint.ritual.method.1.step.2.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.1.step.2.hint'), hint_en: t('product.moroccan-mint.ritual.method.1.step.2.hint', 'en') },
-                { fr: t('product.moroccan-mint.ritual.method.1.step.3.label'), en: t('product.moroccan-mint.ritual.method.1.step.3.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.1.step.3.hint'), hint_en: t('product.moroccan-mint.ritual.method.1.step.3.hint', 'en') }
+                { fr: t(prefix + 'ritual.method.1.step.1.label'), en: t(prefix + 'ritual.method.1.step.1.label', 'en'), hint_fr: t(prefix + 'ritual.method.1.step.1.hint'), hint_en: t(prefix + 'ritual.method.1.step.1.hint', 'en') },
+                { fr: t(prefix + 'ritual.method.1.step.2.label'), en: t(prefix + 'ritual.method.1.step.2.label', 'en'), hint_fr: t(prefix + 'ritual.method.1.step.2.hint'), hint_en: t(prefix + 'ritual.method.1.step.2.hint', 'en') },
+                { fr: t(prefix + 'ritual.method.1.step.3.label'), en: t(prefix + 'ritual.method.1.step.3.label', 'en'), hint_fr: t(prefix + 'ritual.method.1.step.3.hint'), hint_en: t(prefix + 'ritual.method.1.step.3.hint', 'en') }
             ],
-            tip_label_fr: t('product.moroccan-mint.ritual.tip.label'),
-            tip_label_en: t('product.moroccan-mint.ritual.tip.label', 'en'),
-            tip_fr: t('product.moroccan-mint.ritual.method.1.tip'),
-            tip_en: t('product.moroccan-mint.ritual.method.1.tip', 'en')
+            tip_label_fr: t(prefix + 'ritual.tip.label'),
+            tip_label_en: t(prefix + 'ritual.tip.label', 'en'),
+            tip_fr: t(prefix + 'ritual.method.1.tip'),
+            tip_en: t(prefix + 'ritual.method.1.tip', 'en')
         },
         {
-            title_fr: t('product.moroccan-mint.ritual.method.2.title'),
-            title_en: t('product.moroccan-mint.ritual.method.2.title', 'en'),
+            title_fr: t(prefix + 'ritual.method.2.title'),
+            title_en: t(prefix + 'ritual.method.2.title', 'en'),
             steps: [
-                { fr: t('product.moroccan-mint.ritual.method.2.step.1.label'), en: t('product.moroccan-mint.ritual.method.2.step.1.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.2.step.1.hint'), hint_en: t('product.moroccan-mint.ritual.method.2.step.2.hint', 'en') },
-                { fr: t('product.moroccan-mint.ritual.method.2.step.2.label'), en: t('product.moroccan-mint.ritual.method.2.step.2.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.2.step.2.hint'), hint_en: t('product.moroccan-mint.ritual.method.2.step.2.hint', 'en') },
-                { fr: t('product.moroccan-mint.ritual.method.2.step.3.label'), en: t('product.moroccan-mint.ritual.method.2.step.3.label', 'en'), hint_fr: t('product.moroccan-mint.ritual.method.2.step.3.hint'), hint_en: t('product.moroccan-mint.ritual.method.2.step.3.hint', 'en') }
+                { fr: t(prefix + 'ritual.method.2.step.1.label'), en: t(prefix + 'ritual.method.2.step.1.label', 'en'), hint_fr: t(prefix + 'ritual.method.2.step.1.hint'), hint_en: t(prefix + 'ritual.method.2.step.1.hint', 'en') },
+                { fr: t(prefix + 'ritual.method.2.step.2.label'), en: t(prefix + 'ritual.method.2.step.2.label', 'en'), hint_fr: t(prefix + 'ritual.method.2.step.2.hint'), hint_en: t(prefix + 'ritual.method.2.step.2.hint', 'en') },
+                { fr: t(prefix + 'ritual.method.2.step.3.label'), en: t(prefix + 'ritual.method.2.step.3.label', 'en'), hint_fr: t(prefix + 'ritual.method.2.step.3.hint'), hint_en: t(prefix + 'ritual.method.2.step.3.hint', 'en') }
             ]
         },
         {
-            title_fr: t('product.moroccan-mint.ritual.method.3.title'),
-            title_en: t('product.moroccan-mint.ritual.method.3.title', 'en'),
-            list_fr: [t('product.moroccan-mint.ritual.method.3.list.1'), t('product.moroccan-mint.ritual.method.3.list.2'), t('product.moroccan-mint.ritual.method.3.list.3')],
-            list_en: [t('product.moroccan-mint.ritual.method.3.list.1', 'en'), t('product.moroccan-mint.ritual.method.3.list.2', 'en'), t('product.moroccan-mint.ritual.method.3.list.3', 'en')]
+            title_fr: t(prefix + 'ritual.method.3.title'),
+            title_en: t(prefix + 'ritual.method.3.title', 'en'),
+            list_fr: [t(prefix + 'ritual.method.3.list.1'), t(prefix + 'ritual.method.3.list.2'), t(prefix + 'ritual.method.3.list.3')],
+            list_en: [t(prefix + 'ritual.method.3.list.1', 'en'), t(prefix + 'ritual.method.3.list.2', 'en'), t(prefix + 'ritual.method.3.list.3', 'en')]
         }
     ];
 
     /* --- Mint ingredients (with nutrition + certifications as ONE pill) --- */
     p.ingredients_rows = [
         [
-            { label_fr: t('ingredients'), label_en: t('ingredients', 'en'), html_fr: t('product.moroccan-mint.ingredients.html'), html_en: t('product.moroccan-mint.ingredients.html', 'en') },
-            { label_fr: t('origin'), label_en: t('origin', 'en'), html_fr: t('product.moroccan-mint.origin.html'), html_en: t('product.moroccan-mint.origin.html', 'en') }
+            { label_fr: t('ingredients'), label_en: t('ingredients', 'en'), html_fr: t(prefix + 'ingredients.html'), html_en: t(prefix + 'ingredients.html', 'en') },
+            { label_fr: t('origin'), label_en: t('origin', 'en'), html_fr: t(prefix + 'origin.html'), html_en: t(prefix + 'origin.html', 'en') }
         ],
         [
-            { label_fr: t('nutrition'), label_en: t('nutrition', 'en'), table_fr: t('product.moroccan-mint.nutrition.table'), table_en: t('product.moroccan-mint.nutrition.table', 'en') },
-            { label_fr: t('certifications'), label_en: t('certifications', 'en'), tags_fr: t('product.moroccan-mint.certifications.tags'), tags_en: t('product.moroccan-mint.certifications.tags', 'en'), tags_single: true }
+            { label_fr: t('nutrition'), label_en: t('nutrition', 'en'), table_fr: t(prefix + 'nutrition.table'), table_en: t(prefix + 'nutrition.table', 'en') },
+            { label_fr: t('certifications'), label_en: t('certifications', 'en'), tags_fr: t(prefix + 'certifications.tags'), tags_en: t(prefix + 'certifications.tags', 'en'), tags_single: true }
         ]
     ];
 
     return p;
 }
 
-/* ---- TEMPLATE: HTML head + body open + header ---- */
+/* ---- Template: HTML head + body open + header ---- */
 const TEMPLATE_HEADER = `<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><!-- DB: title -->Sukoon<!-- /DB --></title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Sukoon - Moroccan herbal teas" name="keywords">
     <meta content="<!-- DB: meta-description -->Sukoon herbal teas<!-- /DB -->" name="description">
     <link href="img/favicon.ico" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -276,7 +321,7 @@ const TEMPLATE_HEADER = `<!DOCTYPE html>
 </head>
 <body class="sk-pd-page">
     <!-- Spinner -->
-    <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
     </div>
     <!-- INCLUDE: header -->
@@ -300,8 +345,8 @@ const TEMPLATE_HEADER = `<!DOCTYPE html>
                             <span class="sk-lang-name">English</span>
                             <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5 L20 6.5" /></svg>
                         </button>
-                        <button type="button" class="sk-lang-item" role="option" data-lang="ar" data-name="\u0627\u0644\u0639\u0631\u0628\u064a\u0629" aria-selected="false">
-                            <span class="sk-lang-name">\u0627\u0644\u0639\u0631\u0628\u064a\u0629</span>
+                        <button type="button" class="sk-lang-item" role="option" data-lang="ar" data-name="العربية" aria-selected="false">
+                            <span class="sk-lang-name">العربية</span>
                             <svg class="sk-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12.5l5 5 L20 6.5" /></svg>
                         </button>
                     </div>
@@ -375,8 +420,7 @@ const TEMPLATE_HEADER = `<!DOCTYPE html>
             </div>
             <button type="button" class="sk-cart-cta" data-en="Checkout">Passer la commande</button>
         </div>
-    </aside>
-`;
+    </aside>`;
 
 const TEMPLATE_FOOTER = `
     <!-- INCLUDE: footer -->
@@ -439,8 +483,11 @@ function buildHero(p) {
         '            <figure class="sk-es-discover-media sk-pd-gallery-main" id="skPdGallery">\n' +
         '                <img class="sk-es-img" src="' + p.gallery + '" alt="' + esc(p.alt_fr) + '" data-en-alt="' + esc(p.alt_en) + '" id="skPdMainImg" width="' + imgW + '" height="325" loading="eager" decoding="async">\n' +
         '                <div class="sk-pd-thumbs" id="skPdThumbs" role="group" aria-label="Gallery thumbnails">\n' +
-        '                    <button type="button" class="sk-pd-thumb is-active" data-thumb="' + p.image + '" data-en-alt="' + esc(p.alt_en) + '" aria-label="Thumbnail">\n' +
-        '                        <img src="' + p.image + '" alt="' + esc(p.alt_fr) + '" loading="lazy" decoding="async" width="426" height="325">\n' +
+        '                    <button type="button" class="sk-pd-thumb is-active" data-thumb="' + p.gallery + '" data-en-alt="' + esc(p.alt_en) + '" aria-label="Thumbnail">\n' +
+        '                        <img src="' + p.gallery + '" alt="' + esc(p.alt_fr) + '" loading="lazy" decoding="async" width="' + imgW + '" height="325">\n' +
+        '                    </button>\n' +
+        '                    <button type="button" class="sk-pd-thumb" data-thumb="' + p.image + '" data-en-alt="' + esc(p.alt_en) + '" aria-label="Thumbnail">\n' +
+        '                        <img src="' + p.image + '" alt="' + esc(p.alt_fr) + '" loading="lazy" decoding="async" width="' + imgW + '" height="325">\n' +
         '                    </button>\n' +
         '                </div>\n' +
         '            </figure>\n' +
@@ -494,26 +541,32 @@ function buildHero(p) {
 
 function buildEssence(p) {
     let factsHtml = '';
-    if (p.ess_facts && p.ess_facts.length) {
+
+    if (p.isMint) {
         factsHtml = p.ess_facts.map(function(f) {
-            return '                    <li class="sk-pd-fact">\n' +
-                '                        <span class="sk-pd-fact-icon" aria-hidden="true">\n' +
+            return '                    <li class="sk-es-pillar">\n' +
+                '                        <span class="sk-es-icon-badge">\n' +
                 '                            ' + iconSvg(f.icon) + '\n' +
                 '                        </span>\n' +
-                '                        <span class="sk-pd-fact-body">\n' +
-                '                            <span class="sk-pd-fact-value" data-en="' + esc(f.value_en) + '">' + esc(f.value_fr) + '</span>\n' +
-                '                        </span>\n' +
+                '                        <h3 class="sk-es-pillar-label" data-en="' + esc(f.label_en) + '">' + esc(f.label_fr) + '</h3>\n' +
+                '                        <p class="sk-es-pillar-body" data-en="' + esc(f.value_en) + '">' + esc(f.value_fr) + '</p>\n' +
+                '                    </li>';
+        }).join('\n');
+    } else {
+        factsHtml = p.ess_facts.map(function(f) {
+            return '                    <li class="sk-es-pillar">\n' +
+                '                        <p class="sk-es-pillar-body" data-en="' + esc(f.value_en) + '">' + esc(f.value_fr) + '</p>\n' +
                 '                    </li>';
         }).join('\n');
     }
 
     let bodyHtml = '';
-    if (p.ess_body_fr) {
-        bodyHtml = '                    <p class="sk-es-lead sk-pd-ess-body" data-en="' + esc(p.ess_body_en) + '">' + esc(p.ess_body_fr) + '</p>\n';
-    } else if (p.ess_paras_fr && p.ess_paras_fr.length) {
+    if (p.isMint) {
         bodyHtml = p.ess_paras_fr.map(function(para, i) {
-            return '                    <p class="sk-es-lead sk-pd-ess-body" data-en="' + esc(p.ess_paras_en[i]) + '">' + esc(para) + '</p>';
-        }).join('\n');
+            return '                    <p class="sk-es-lead" data-en="' + esc(p.ess_paras_en[i]) + '">' + esc(para) + '</p>';
+        }).join('\n                    ');
+    } else {
+        bodyHtml = '                    <p class="sk-es-lead sk-pd-ess-body" data-en="' + esc(p.ess_body_en) + '">' + esc(p.ess_body_fr) + '</p>';
     }
 
     const factsUl = factsHtml ? '                <ul class="sk-pd-facts sk-reveal" data-reveal-delay="90" aria-label="Key benefits">\n' +
@@ -525,14 +578,13 @@ function buildEssence(p) {
         '        <div class="sk-es-inner">\n' +
         '            <!-- DB: ess-head -->\n' +
         '            <div class="sk-pd-head">\n' +
+        '                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="' + esc(p.eyebrow_en) + '">' + esc(p.eyebrow_fr) + '</span></p>\n' +
         '                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ess-title" data-en="' + esc(p.ess_title_en) + '">' + esc(p.ess_title_fr) + '</h2>\n' +
         '            </div>\n' +
         '            <!-- /DB -->\n' +
         '            <div class="sk-pd-desc-split">\n' +
         '                <!-- DB: ess-body -->\n' +
-        '                <div class="sk-pd-desc-copy">\n' +
-        bodyHtml +
-        '                </div>\n' +
+        '                <div class="sk-pd-desc-copy">\n                    ' + bodyHtml + '\n                </div>\n' +
         '                <!-- /DB -->\n' +
         '                <!-- DB: ess-facts -->\n' +
         factsUl +
@@ -597,34 +649,36 @@ function buildRitual(p) {
     } else {
         /* ---- 4 essences: steps column + badges column ---- */
         const stepsHtml = p.brew_steps_fr.map(function(s, i) {
-            return '                    <li class="sk-pd-brew-item">\n' +
-                '                        <div class="sk-pd-brew-num">' + String(i + 1).padStart(2, '0') + '</div>\n' +
-                '                        <div class="sk-pd-brew-step">\n' +
-                '                            <span class="sk-pd-brew-label" data-en="' + esc(p.brew_steps_en[i]) + '">' + esc(s) + '</span>\n' +
+            return '                    <div class="sk-es-step">\n' +
+                '                        <div class="sk-es-step-media">\n' +
+                '                            <div class="sk-es-step-num">' + String(i + 1).padStart(2, '0') + '</div>\n' +
                 '                        </div>\n' +
-                '                    </li>';
+                '                        <div class="sk-es-step-body">\n' +
+                '                            <span class="sk-es-step-label" data-en="' + esc(p.brew_steps_en[i]) + '">' + esc(s) + '</span>\n' +
+                '                        </div>\n' +
+                '                    </div>';
         }).join('\n');
 
         const badgesHtml = p.brew_badges.map(function(b) {
-            return '                    <div class="sk-pd-brew-badge">\n' +
-                '                        <span class="sk-pd-brew-badge-icon" aria-hidden="true">' + iconSvg(b.icon) + '</span>\n' +
-                '                        <span class="sk-pd-brew-badge-text" data-en="' + esc(b.text_en) + '">' + esc(b.text_fr) + '</span>\n' +
+            return '                    <div class="sk-es-badge">\n' +
+                '                        ' + iconSvg(b.icon || 'cup') + '\n' +
+                '                        <span class="sk-es-badge-text" data-en="' + esc(b.text_en) + '">' + esc(b.text_fr) + '</span>\n' +
                 '                    </div>';
         }).join('\n');
 
         bodyHtml = '            <!-- DB: brew-body -->\n' +
-            '            <div class="sk-pd-brew-wrap sk-pd-brew-wrap--2col">\n' +
-            '                <div class="sk-pd-brew">\n' +
-                            '                    <h3 class="sk-pd-brew-title" data-en="Hot Preparation">' + esc(t('product.moroccan-mint.ritual.method.1.title')) + '</h3>\n' +
-            '                    <ol class="sk-pd-brew-steps">\n' +
+            '            <div class="sk-pd-brew-content">\n' +
+            '                <div class="sk-es-ritual-bottom">\n' +
+            '                    <div class="sk-es-steps">\n' +
             stepsHtml + '\n' +
-            '                    </ol>\n' +
-            '                </div>\n' +
-            '                <div class="sk-pd-brew">\n' +
-            '                    <ul class="sk-pd-brew-badges">\n' +
+            '                        </div>\n' +
+            '                        <div class="sk-es-badges">\n' +
             badgesHtml + '\n' +
-            '                    </ul>\n' +
-            '                </div>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                <figure class="sk-pd-brew-media">\n' +
+            '                    <img class="sk-es-img" src="' + p.brew_image + '" alt="' + esc(p.brew_image_alt_fr) + '" data-en-alt="' + esc(p.brew_image_alt_en) + '" loading="lazy" decoding="async" width="1200" height="900">\n' +
+            '                </figure>\n' +
             '            </div>\n' +
             '            <!-- /DB -->\n';
     }
@@ -744,7 +798,7 @@ function buildPage(p, allProducts) {
 
     html = html.replace(
         '<!-- DB: title -->Sukoon<!-- /DB -->',
-        '<!-- DB: title -->' + esc(p.name_fr) + ' | Sukoon<!-- /DB -->'
+        '<!-- DB: title -->' + esc(p.name_fr) + ' | Sukoon | ' + esc(p.name_en) + ' &mdash; Infusions Marocaines<!-- /DB -->'
     );
     html = html.replace(
         '<!-- DB: meta-description -->Sukoon herbal teas<!-- /DB -->',
