@@ -10,6 +10,18 @@
 
     var LANG_CODES = { en: 'EN', fr: 'FR', ar: 'AR' };
 
+    /* Currency configuration — single source of truth (mockup shows 70 MAD). */
+    var CURRENCY = {
+        symbol: '',
+        code: '',
+        format: function (amount) {
+            var sym = this.symbol || '';
+            var formatted = (typeof amount === 'number' ? amount : parseFloat(amount));
+            if (isNaN(formatted)) formatted = 0;
+            return sym + formatted.toFixed(2);
+        }
+    };
+
     /* ---- cache elements (null-safe) ---- */
     var $ = function (id) { return document.getElementById(id); };
 
@@ -29,6 +41,7 @@
         cartBadge: $('skCartBadge'),
         cartBody: $('skCartBody'),
         cartFoot: $('skCartFoot'),
+        cartCountEl: $('skCartCount'),
         cartTotal: $('skCartTotal'),
         qtyMinus: $('skPdMinus'),
         qtyPlus: $('skPdPlus'),
@@ -72,6 +85,10 @@
             item.setAttribute('aria-selected', item.getAttribute('data-lang') === lang ? 'true' : 'false');
         });
         applyInlineLang(lang);
+        if (cartIsOpen()) {
+            var cart = getCart();
+            renderCart(cart);
+        }
         document.dispatchEvent(new CustomEvent('sk:langchange', { detail: { lang: lang } }));
     }
 
@@ -199,6 +216,9 @@
     function openCart() {
         if (!el.cartDrawer) return;
         closePanel(false);
+        var cart = getCart();
+        updateBadge(cart);
+        renderCart(cart);
         el.cartDrawer.classList.add('is-open');
         el.cartDrawer.setAttribute('aria-hidden', 'false');
         if (el.cartBtn) el.cartBtn.setAttribute('aria-expanded', 'true');
@@ -229,6 +249,11 @@
         renderCart(cart);
     }
 
+    function t(key, vars) {
+        if (global.SKI18N && global.SKI18N.t) return global.SKI18N.t(key, vars);
+        return '';
+    }
+
     function cartCount(cart) {
         var n = 0;
         for (var k in cart) { if (Object.prototype.hasOwnProperty.call(cart, k)) n += cart[k].qty; }
@@ -242,11 +267,49 @@
         el.cartBadge.hidden = n === 0;
     }
 
+    function renderCartHeader(count) {
+        if (el.cartCountEl) {
+            var key = count === 1 ? 'cartItemCount.one' : 'cartItemCount.other';
+            el.cartCountEl.textContent = t(key, { count: count });
+        }
+    }
+
+    function renderUpsell(cart) {
+        var html = '';
+        if (global.SK_PRODUCTS) {
+            var others = global.SK_PRODUCTS.others(null);
+            var cartKeys = Object.keys(cart);
+            var available = others.filter(function (prod) {
+                return cartKeys.indexOf(prod.id) === -1;
+            }).slice(0, 5);
+            if (available.length) {
+                html += '<div class="sk-cart-upsell-track">';
+                available.forEach(function (prod) {
+                    var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
+                    html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-upsell-item">' +
+                        '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
+                        '<span class="sk-cart-upsell-label">' + escapeHtml(name) + '</span>' +
+                        '</a>';
+                });
+                html += '</div>';
+            }
+        }
+        return html;
+    }
+
     function renderCart(cart) {
         if (!el.cartBody || !el.cartFoot) return;
         var keys = Object.keys(cart);
+        var count = cartCount(cart);
+        renderCartHeader(count);
+
         if (!keys.length) {
-            el.cartBody.innerHTML = '';
+            el.cartBody.innerHTML = '' +
+                '<div class="sk-cart-empty">' +
+                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>' +
+                '<p data-i18n="cartEmpty">' + (global.SKI18N ? global.SKI18N.t('cartEmpty') : 'Your cart is empty') + '</p>' +
+                '<button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">' + (global.SKI18N ? global.SKI18N.t('cartDiscover') : 'Discover the essences') + '</button>' +
+                '</div>';
             el.cartFoot.hidden = true;
             return;
         }
@@ -255,28 +318,53 @@
         keys.forEach(function (id) {
             var item = cart[id];
             var name = item.name;
+            var tagline = item.tagline || '';
             if (global.SKI18N && global.SKI18N.t) {
                 var translated = global.SKI18N.t('product.' + id, name);
-                name = translated;
+                if (translated !== 'product.' + id) name = translated;
             }
             total += item.price * item.qty;
+            var sachetLine = item.sachets ? '<span class="sk-cart-item-meta">' + item.sachets + '</span>' : '';
             html += '<div class="sk-cart-item">' +
-                '<img src="' + escapeHtml(item.img) + '" alt="">' +
+                '<img src="' + escapeHtml(item.img) + '" alt="' + escapeHtml(name) + '">' +
                 '<div class="sk-cart-item-body">' +
                 '<span class="sk-cart-item-name">' + escapeHtml(name) + '</span>' +
-                '<span class="sk-cart-item-price">$' + item.price.toFixed(2) + ' \u00d7 ' + item.qty + '</span>' +
-                '<span class="sk-cart-qty">' +
-                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="Decrease quantity" disabled>&minus;</button>' +
+                '<span class="sk-cart-item-tagline">' + escapeHtml(tagline) + '</span>' +
+                sachetLine +
+                '<div class="sk-cart-item-grid">' +
+                '<span class="sk-cart-item-price">' + CURRENCY.format(item.price * item.qty) + '</span>' +
+                '<div class="sk-cart-qty">' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="' + (global.SKI18N ? global.SKI18N.t('decreaseQty') : 'Decrease quantity') + '">\u2212</button>' +
                 '<span class="sk-qty-value">' + item.qty + '</span>' +
-                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="Increase quantity" disabled>+</button>' +
-                '</span></div>' +
-                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="Remove item">' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="' + (global.SKI18N ? global.SKI18N.t('increaseQty') : 'Increase quantity') + '">+</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + (global.SKI18N ? global.SKI18N.t('closeCart') : 'Remove item') + '">' +
                 '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
                 '</button></div>';
         });
         el.cartBody.innerHTML = html;
         el.cartFoot.hidden = false;
-        if (el.cartTotal) el.cartTotal.textContent = '$' + total.toFixed(2);
+        renderCartFoot(total, cart);
+    }
+
+    function renderCartFoot(total, cart) {
+        var subtotal = CURRENCY.format(total);
+        var html = '' +
+            '<div class="sk-cart-total">' +
+            '<span data-i18n="cartSubtotal">' + (global.SKI18N ? global.SKI18N.t('cartSubtotal') : 'Subtotal') + '</span>' +
+            '<span class="sk-cart-amount" id="skCartTotal">' + subtotal + '</span>' +
+            '</div>' +
+            '<p class="sk-cart-shipping" data-i18n="cartShipping">' + (global.SKI18N ? global.SKI18N.t('cartShipping') : 'Shipping calculated at the next step') + '</p>' +
+            '<button type="button" class="sk-cart-checkout" id="skCartCheckout" data-i18n="cartCheckout">' + (global.SKI18N ? global.SKI18N.t('cartCheckout') : 'Checkout') + '</button>' +
+            '<button type="button" class="sk-cart-continue" id="skCartContinue" data-i18n="cartContinue">' + (global.SKI18N ? global.SKI18N.t('cartContinue') : 'Continue exploring') + '</button>' +
+            '<div class="sk-cart-upsell">' +
+            '<p class="sk-cart-upsell-title" data-i18n="cartUpsellHeading">' + (global.SKI18N ? global.SKI18N.t('cartUpsellHeading') : 'Treat yourself to several moments of calm.') + '</p>' +
+            '<a href="index.html#autres-essences" class="sk-cart-upsell-link" data-i18n="cartUpsellLink">' + (global.SKI18N ? global.SKI18N.t('cartUpsellLink') : 'Discover the other essences') + '</a>' +
+            renderUpsell(cart) +
+            '</div>';
+        el.cartFoot.innerHTML = html;
     }
 
     function escapeHtml(value) {
@@ -318,7 +406,7 @@
                 var id = btn.getAttribute('data-product-id') || btn.getAttribute('data-product');
                 if (!id) return;
 
-                var name = null, price = null, img = '';
+                var name = null, price = null, img = '', tagline = '';
 
                 /* Try SK_PRODUCTS catalogue first (essence.html template) */
                 if (global.SK_PRODUCTS) {
@@ -326,6 +414,7 @@
                     if (prod) {
                         name = prod.nameKey;
                         if (global.SKI18N) name = global.SKI18N.t(prod.nameKey, name);
+                        tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
                         price = prod.price;
                         img = prod.image;
                     }
@@ -336,12 +425,13 @@
                     name = btn.getAttribute('data-product-name') || btn.getAttribute('data-name');
                     price = parseFloat(btn.getAttribute('data-product-price') || btn.getAttribute('data-price'));
                     img = btn.getAttribute('data-product-image') || btn.getAttribute('data-image') || '';
+                    tagline = btn.getAttribute('data-product-tagline') || btn.getAttribute('data-tagline') || '';
                 }
 
                 if (!name || !price) return;
 
                 if (!cart[id]) {
-                    cart[id] = { name: name, price: price, img: img, qty: 1 };
+                    cart[id] = { name: name, price: price, img: img, tagline: tagline, qty: 1 };
                 } else {
                     cart[id].qty += 1;
                 }
@@ -361,6 +451,38 @@
             el.qtyMinus.addEventListener('click', function () {
                 var v = parseInt(el.qtyInput.value, 10);
                 if (v > 1) setQty(v - 1);
+            });
+        }
+
+        /* Continue exploring + Checkout (dynamic buttons inside cart foot) */
+        if (el.cartDrawer) {
+            el.cartDrawer.addEventListener('click', function (e) {
+                var tgt = e.target;
+                if (tgt.classList && tgt.classList.contains('sk-cart-continue')) {
+                    closeCart();
+                }
+                if (tgt.classList && tgt.classList.contains('sk-cart-checkout')) {
+                    var cart = getCart();
+                    var count = cartCount(cart);
+                    if (!count) {
+                        e.preventDefault();
+                        return;
+                    }
+                    /* TODO: integrate real checkout */
+                    alert('Redirecting to checkout (not yet implemented)');
+                }
+            });
+        }
+
+        /* Empty state discover button — closes drawer and scrolls to store/essences */
+        if (el.cartBody) {
+            el.cartBody.addEventListener('click', function (e) {
+                var tgt = e.target;
+                if (tgt.classList && tgt.classList.contains('sk-cart-empty-btn')) {
+                    closeCart();
+                    var storeEl = document.getElementById('autres-essences') || document.getElementById('store');
+                    if (storeEl) storeEl.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         }
     }

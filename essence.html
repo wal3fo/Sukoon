@@ -113,10 +113,13 @@
         </ul>
     </nav>
 
-    <!-- Cart Drawer (identical to index.html) -->
-    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="1" tabindex="-1">
+    <!-- Cart Drawer -->
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
         <div class="sk-cart-head">
-            <span class="sk-nav-head-title" data-i18n="yourCart">Your Cart</span>
+            <div class="sk-cart-eyebrow">
+                <span data-i18n="cartEyebrow">YOUR RITUAL</span>
+            </div>
+            <p class="sk-cart-count" id="skCartCount"></p>
             <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Close cart">
                 <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                     <line x1="6" y1="6" x2="18" y2="18" />
@@ -132,14 +135,10 @@
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
                 <p data-i18n="cartEmpty">Your cart is empty</p>
+                <button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">Discover the essences</button>
             </div>
         </div>
         <div class="sk-cart-foot" id="skCartFoot" hidden>
-            <div class="sk-cart-total">
-                <span data-i18n="cartTotal">Total</span>
-                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
-            </div>
-            <button type="button" class="sk-cart-cta" data-i18n="checkout">Proceed to Checkout</button>
         </div>
     </aside>
 

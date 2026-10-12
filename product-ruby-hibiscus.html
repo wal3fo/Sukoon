@@ -93,9 +93,12 @@
         </ul>
     </nav>
 
-    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-expanded="false" tabindex="-1">
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
         <div class="sk-cart-head">
-            <span class="sk-nav-head-title" data-en="Your Cart">Votre Panier</span>
+            <div class="sk-cart-eyebrow">
+                <span data-i18n="cartEyebrow">YOUR RITUAL</span>
+            </div>
+            <p class="sk-cart-count" id="skCartCount"></p>
             <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Fermer le panier" data-en-aria="Close cart">
                 <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
@@ -106,15 +109,11 @@
                     <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
-                <p data-en="Your cart is empty">Votre panier est vide</p>
+                <p data-i18n="cartEmpty">Votre panier est vide</p>
+                <button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">Découvrir les essences</button>
             </div>
         </div>
-        <div class="sk-cart-foot" id="skCartFoot">
-            <div class="sk-cart-total">
-                <span data-en="Total">Total</span>
-                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
-            </div>
-            <button type="button" class="sk-cart-cta" data-en="Checkout">Passer la commande</button>
+        <div class="sk-cart-foot" id="skCartFoot" hidden>
         </div>
     </aside>    <!-- DB: hero -->
     <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" id="pdHero" data-bg="cream" aria-label="Hibiscus Rubis">
@@ -160,7 +159,7 @@
                         data-product-id="ruby-hibiscus"
                         data-product-name="Hibiscus Rubis"
                         data-product-price="18.00"
-                        data-product-image="img/products/product-noble-chamomile.png">
+                        data-product-image="img/products/product-noble-chamomile.png" data-product-tagline="Éclat · Rayonnement">
                         <span data-en="Add to Cart">Ajouter au panier</span>
                         <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
