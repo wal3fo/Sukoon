@@ -12,8 +12,8 @@
 
     /* Currency configuration — single source of truth (mockup shows 70 MAD). */
     var CURRENCY = {
-        symbol: '',
-        code: '',
+        symbol: '$',
+        code: 'USD',
         format: function (amount) {
             var sym = this.symbol || '';
             var formatted = (typeof amount === 'number' ? amount : parseFloat(amount));
@@ -340,8 +340,8 @@
                 '</div>' +
                 '</div>' +
                 '</div>' +
-                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + (global.SKI18N ? global.SKI18N.t('closeCart') : 'Remove item') + '">' +
-                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + (global.SKI18N ? global.SKI18N.t('cartRemove') : 'Remove') + '">' +
+                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 7V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3m-2 0V4a1 1 0 0 0-1-1h-1v3m-6 0H9V4a1 1 0 0 0-1-1H7v3M6 9v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9m-10 0h12"/></svg>' +
                 '</button></div>';
         });
         el.cartBody.innerHTML = html;
@@ -361,7 +361,7 @@
             '<button type="button" class="sk-cart-continue" id="skCartContinue" data-i18n="cartContinue">' + (global.SKI18N ? global.SKI18N.t('cartContinue') : 'Continue exploring') + '</button>' +
             '<div class="sk-cart-upsell">' +
             '<p class="sk-cart-upsell-title" data-i18n="cartUpsellHeading">' + (global.SKI18N ? global.SKI18N.t('cartUpsellHeading') : 'Treat yourself to several moments of calm.') + '</p>' +
-            '<a href="index.html#autres-essences" class="sk-cart-upsell-link" data-i18n="cartUpsellLink">' + (global.SKI18N ? global.SKI18N.t('cartUpsellLink') : 'Discover the other essences') + '</a>' +
+            '<a href="index.html#autres-essences-title" class="sk-cart-upsell-link" data-i18n="cartUpsellLink">' + (global.SKI18N ? global.SKI18N.t('cartUpsellLink') : 'Discover the other essences') + '</a>' +
             renderUpsell(cart) +
             '</div>';
         el.cartFoot.innerHTML = html;

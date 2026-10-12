@@ -21,6 +21,7 @@
         'cartDiscover': "Découvrir les essences",
         'cartEmpty': "Votre panier est vide",
         'cartTotal': "Total",
+        'cartRemove': "Retirer",
         'certifications': "Certifications",
         'checkout': "Passer la commande",
         'closeCart': "Fermer le panier",

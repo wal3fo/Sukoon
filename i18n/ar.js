@@ -21,6 +21,7 @@
         'cartDiscover': "اكتشف العطور",
         'cartEmpty': "سلة التسوق فارغة",
         'cartTotal': "الإجمالي",
+        'cartRemove': "إزالة",
         'certifications': "Certifications",
         'checkout': "اتمام الشراء",
         'closeCart': "إغلاق العربة",

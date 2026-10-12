@@ -21,6 +21,7 @@
         'cartDiscover': "Discover the essences",
         'cartEmpty': "Your cart is empty",
         'cartTotal': "Total",
+        'cartRemove': "Remove",
         'certifications': "Certifications",
         'checkout': "Checkout",
         'closeCart': "Close cart",

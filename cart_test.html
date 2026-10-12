@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Bounding Boxes</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body { margin: 0; }
+        #skCartBtn { position: absolute; top: 20px; left: 20px; z-index: 100; }
+    </style>
+</head>
+<body>
+    <button id="skCartBtn">Open Cart</button>
+    
+    <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="0">
+        <div class="sk-cart-head">
+            <div class="sk-cart-eyebrow">
+                <span data-i18n="cartEyebrow">YOUR RITUAL</span>
+            </div>
+            <p class="sk-cart-count" id="skCartCount"></p>
+            <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Close cart">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="sk-cart-body" id="skCartBody">
+            <div class="sk-cart-empty">
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+                <p data-i18n="cartEmpty">Your cart is empty</p>
+                <button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">Discover the essences</button>
+            </div>
+        </div>
+        <div class="sk-cart-foot" id="skCartFoot" hidden>
+        </div>
+    </aside>
+    <div class="sk-scrim" id="skScrim" hidden></div>
+
+    <!-- Pre-load cart state BEFORE main.js initializes -->
+    <script>
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var state = params.get('state') || 'empty';
+        var lang = params.get('lang') || 'en';
+        
+        var cart = {};
+        var prods = {
+            'moroccan-mint': ['Menthe Marocaine', 'Fraîcheur · Présence', 'img/products/product-moroccan-mint.png'],
+            'royal-verbena': ['Verveine Royale', 'Clarté · Légèreté', 'img/products/product-royal-verbena.png'],
+            'ruby-hibiscus': ['Hibiscus Rubis', 'Éclat · Rayonnement', 'img/products/product-ruby-hibiscus.png'],
+            'atlas-oregano': ["Origan d'Atlas", 'Ancrage · Force', 'img/products/product-noble-chamomile.png'],
+            'noble-chamomile': ['Camomille Noble', 'Douceur · Silence', 'img/products/product-noble-chamomile.png'],
+            'heritage-fennel': ['Fenouil Héritage', 'Harmonie · Sérénité', 'img/products/product-heritage-fennel.png']
+        };
+        if (state === '1') {
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], tagline: prods['moroccan-mint'][1], qty: 1 };
+        } else if (state === '3') {
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], tagline: prods['moroccan-mint'][1], qty: 1 };
+            cart['royal-verbena'] = { name: prods['royal-verbena'][0], price: 18, img: prods['royal-verbena'][2], tagline: prods['royal-verbena'][1], qty: 2 };
+            cart['ruby-hibiscus'] = { name: prods['ruby-hibiscus'][0], price: 18, img: prods['ruby-hibiscus'][2], tagline: prods['ruby-hibiscus'][1], qty: 1 };
+        } else if (state === '6') {
+            Object.keys(prods).forEach(function(id, i) {
+                cart[id] = { name: prods[id][0], price: 18, img: prods[id][2], tagline: prods[id][1], qty: i+1 };
+            });
+        }
+        localStorage.setItem('sukoonCart', JSON.stringify(cart));
+        localStorage.setItem('sukoonLang', lang);
+        window.__testLang = lang;
+        window.__testState = state;
+    })();
+    </script>
+
+    <script src="i18n/fr.js"></script>
+    <script src="i18n/en.js"></script>
+    <script src="i18n/ar.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="data/products.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    // After main.js initializes, open the drawer
+    document.addEventListener('DOMContentLoaded', function() {
+        // main.js init() has already run and read localStorage
+        // Now open the drawer
+        setTimeout(function() {
+            var drawer = document.getElementById('skCartDrawer');
+            drawer.classList.add('is-open');
+            drawer.setAttribute('aria-hidden', 'false');
+            var scrim = document.getElementById('skScrim');
+            scrim.classList.add('is-open');
+            scrim.hidden = false;
+            scrim.style.display = 'block';
+        }, 100);
+    });
+    </script>
+</body>
+</html>
