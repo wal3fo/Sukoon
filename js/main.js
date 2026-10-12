@@ -297,6 +297,25 @@
         return html;
     }
 
+    function renderPackshots(cart) {
+        if (!global.SK_PRODUCTS) return '';
+        var cartKeys = Object.keys(cart);
+        var available = global.SK_PRODUCTS.others(null).filter(function (prod) {
+            return cartKeys.indexOf(prod.id) === -1;
+        }).slice(0, 5);
+        if (!available.length) return '';
+        var html = '<div class="sk-cart-packshots">';
+        available.forEach(function (prod) {
+            var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
+            html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-packshot">' +
+                '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
+                '<span class="sk-cart-packshot-label">' + escapeHtml(name) + '</span>' +
+                '</a>';
+        });
+        html += '</div>';
+        return html;
+    }
+
     function renderCart(cart) {
         if (!el.cartBody || !el.cartFoot) return;
         var keys = Object.keys(cart);
@@ -319,6 +338,12 @@
             var item = cart[id];
             var name = item.name;
             var tagline = item.tagline || '';
+            if (!tagline && global.SK_PRODUCTS) {
+                var prod = global.SK_PRODUCTS.byId(id);
+                if (prod && prod.taglineKey) {
+                    tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
+                }
+            }
             if (global.SKI18N && global.SKI18N.t) {
                 var translated = global.SKI18N.t('product.' + id, name);
                 if (translated !== 'product.' + id) name = translated;
@@ -332,12 +357,12 @@
                 '<span class="sk-cart-item-tagline">' + escapeHtml(tagline) + '</span>' +
                 sachetLine +
                 '<div class="sk-cart-item-grid">' +
-                '<span class="sk-cart-item-price">' + CURRENCY.format(item.price * item.qty) + '</span>' +
                 '<div class="sk-cart-qty">' +
                 '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="' + (global.SKI18N ? global.SKI18N.t('decreaseQty') : 'Decrease quantity') + '">\u2212</button>' +
                 '<span class="sk-qty-value">' + item.qty + '</span>' +
                 '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="' + (global.SKI18N ? global.SKI18N.t('increaseQty') : 'Increase quantity') + '">+</button>' +
                 '</div>' +
+                '<span class="sk-cart-item-price">' + CURRENCY.format(item.price * item.qty) + '</span>' +
                 '</div>' +
                 '</div>' +
                 '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + (global.SKI18N ? global.SKI18N.t('cartRemove') : 'Remove') + '">' +
@@ -363,7 +388,8 @@
             '<p class="sk-cart-upsell-title" data-i18n="cartUpsellHeading">' + (global.SKI18N ? global.SKI18N.t('cartUpsellHeading') : 'Treat yourself to several moments of calm.') + '</p>' +
             '<a href="index.html#autres-essences-title" class="sk-cart-upsell-link" data-i18n="cartUpsellLink">' + (global.SKI18N ? global.SKI18N.t('cartUpsellLink') : 'Discover the other essences') + '</a>' +
             renderUpsell(cart) +
-            '</div>';
+            '</div>' +
+            renderPackshots(cart);
         el.cartFoot.innerHTML = html;
     }
 
