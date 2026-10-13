@@ -22,8 +22,8 @@
         }
     };
 
-    /* Checkout URL — placeholder; replace with real checkout endpoint. */
-    var CHECKOUT_URL = '#';
+    /* Checkout URL — replace with real checkout endpoint after PHP migration. */
+    var CHECKOUT_URL = 'checkout.html';
     global.CHECKOUT_URL = CHECKOUT_URL;
 
     /* Cart catalogue — embedded fallback for static product pages that don't
@@ -185,7 +185,10 @@
     function cartIsOpen() { return el.cartDrawer && el.cartDrawer.classList.contains('is-open'); }
     function overlayOpen() { return panelIsOpen() || cartIsOpen(); }
 
-    function bodyScrollLocked() { return document.body.style.overflow === 'hidden'; }
+    function bodyScrollLocked() {
+        return document.body.style.overflow === 'hidden' ||
+               document.documentElement.style.overflow === 'hidden';
+    }
 
     function setScrim(on) {
         if (!el.scrim) return;
@@ -194,14 +197,17 @@
         if (on) {
             if (!bodyScrollLocked()) {
                 document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
             }
         } else {
             if (el.hamburger) {
                 if (!el.hamburger.classList.contains('is-open')) {
                     document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
                 }
             } else {
                 document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
             }
         }
     }
@@ -856,6 +862,12 @@
         /* Expose for testing / scripting */
         global.applyInlineLang = applyInlineLang;
         global.setLanguage = setLanguage;
+        global.getCart = getCart;
+        global.saveCart = saveCart;
+        global.CURRENCY = CURRENCY;
+        global.t = t;
+        global.cartCount = cartCount;
+        global.cartCatalogueById = cartCatalogueById;
     }
 
     if (global.document.readyState === 'loading') {

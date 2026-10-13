@@ -142,3 +142,208 @@ The static product pages (`product-{slug}.html`) are generated with PHP migratio
 7. **Spinner**: Hidden by default (no `show` class in static HTML). JS also hides via `setProperty('display', 'none', 'important')`.
 
 8. **Language switching**: `applyInlineLang()` now uses `[data-en]:not([data-en-aria])` selector to skip container buttons. ARIA labels are swapped via `data-en-aria` attribute on container elements (buttons with child SVGs/spans).
+
+## Checkout Page (`checkout.html`)
+
+### Overview
+
+The checkout page is a static HTML page with PHP-ready markers (`<!-- DB: -->`). It reuses the same header, nav panel, cart drawer, and footer markup as the product pages (wrapped in `<!-- INCLUDE: header -->`, `<!-- INCLUDE: footer -->`, `<!-- INCLUDE: scripts -->` markers). Page-specific logic lives in `js/checkout.js`.
+
+### Shared Markup
+
+| Marker | Contents |
+|--------|----------|
+| `<!-- INCLUDE: header -->` | Fixed header (`sk-header--solid`), language pill, lang menu, logo, cart button, hamburger, nav panel, cart drawer, scrim |
+| `<!-- INCLUDE: footer -->` | Copyright bar + back-to-top button |
+| `<!-- INCLUDE: scripts -->` | i18n locale files + `js/i18n.js` + `js/main.js` + `js/checkout.js` |
+
+The header/nav/cart-drawer markup on `checkout.html` must be **byte-identical** to `product-noble-chamomile.html`. Do **not** alter the shared markup — only insert `<!-- DB: -->` markers for checkout-specific dynamic content.
+
+### Layout
+
+- `<body class="sk-pd-page">` — same spacing variables as product pages.
+- Single `<section class="sk-es-section sk-es-section--cream sk-checkout">` wraps all checkout content.
+- Desktop (≥ 992 px): grid with form column (left, `minmax(0, 1fr)`) and summary column (right, `minmax(0, 380px)`), summary is `position: sticky` at `top: calc(var(--sk-pd-header-height) + 24px)`.
+- Mobile (< 992 px): flex column, summary **first** (collapsed behind "Show order summary" disclosure, `aria-expanded` + `aria-controls`), then form.
+- Back link under the header: `index.html#autres-essences-title`, styled as `sk-pd-back`.
+
+### Order Summary (right column)
+
+Cart data is read from `localStorage` key `sukoonCart` via `global.getCart()` and `global.saveCart()`. Each line item renders:
+
+- 72×88 packshot thumbnail (neutral plate, `mix-blend-mode: multiply`)
+- Name — 12 px uppercase Jost (translated from `product.{id}` i18n key)
+- Tagline — italic Cormorant (translated from `product.{id}.tagline` i18n key, or `item.tagline` fallback)
+- Quantity stepper (pill, 32 px) and remove button (trash SVG, `aria-label="Remove"`)
+- Line total — right-aligned, formatted via `CURRENCY.format()`
+
+Quantity and remove actions call `global.saveCart()` which persists to localStorage, updates the header badge, and re-renders the drawer instantly.
+
+Totals row:
+- `<!-- DB: order.totals -->`
+  - Subtotal (sum of `price × qty` across all lines)
+  - Shipping = static text "Calculated after confirmation" / "Calculée après confirmation"
+  - Total = subtotal
+
+### Form (left column)
+
+Real `<form>`, `novalidate`, each field has `<label>` above the `<input>`, 48 px height, 1 px `--sk-es-line-strong` border, gold focus ring. Error text under each field in readable colour, with `aria-describedby` + `aria-invalid="true"`.
+
+#### a. Contact
+
+| Field | Key | Required | Validation |
+|-------|-----|----------|------------|
+| Full name | `checkout.fullName` | Yes | Non-empty after trim |
+| Phone | `checkout.phone` | Yes | Moroccan mobile: `06/07 XX XX XX XX` or `+212 6/7 XX XX XX XX` (normalise spaces) |
+| Email | `checkout.email` | No | Valid email format if filled |
+
+`inputmode="tel"` on phone, `autocomplete="name"`, `autocomplete="tel"`, `autocomplete="email"`.
+
+#### b. Delivery address
+
+| Field | Key | Required |
+|-------|-----|----------|
+| Street address | `checkout.street` | Yes |
+| City | `checkout.city` | Yes (`<datalist>` of main Moroccan cities) |
+| Postal code | `checkout.postalCode` | No (`inputmode="numeric"`) |
+| Country | `checkout.country` | No (read-only, fixed to Morocco / Maroc) |
+| Notes | `checkout.notes` | No (textarea, `maxlength="300"`, live counter) |
+
+`autocomplete="street-address"`, `"address-level2"`, `"postal-code"`.
+
+#### c. Payment
+
+`<!-- DB: payment.methods -->` — radio group (`role="radiogroup"`). Backed by `PAYMENT_METHODS` constant in `js/checkout.js`:
+
+| ID | Label key | State |
+|----|-----------|-------|
+| `cod` | `checkout.payment.cod` | Selected by default |
+| `card` | `checkout.payment.card` | `disabled`, with note `checkout.payment.comingSoon` |
+
+To enable a new method, add an entry to the `PAYMENT_METHODS` array. **No payment provider is integrated.**
+
+#### d. Consent
+
+Required checkbox (`checkout.consent`): "J'ai lu et j'accepte les conditions de vente" / "I accept the terms of sale", with a link to `#` (`checkout.termsOfSale`). No marketing opt-in.
+
+#### e. Submit
+
+Navy pill button, 48 px, full-width on mobile. Text key `checkout.submit` ("Confirmer la commande" / "Place order"). While submitting, the button is disabled and shows a spinner with `checkout.submitting` ("Traitement…" / "Processing…"). Double-click produces exactly one order (guarded by `state.submitting` flag).
+
+Validation: on submit, all errors listed in a top error summary (`role="alert"`); focus is placed on the first invalid field. Blur-based validation on each field thereafter. No browser-native popups (`form.noValidate`).
+
+### Submission Flow
+
+1. Build order object:
+   ```js
+   {
+     orderRef: "SK-YYYYMMDD-XXXX",  // temporary, server assigns real ref
+     createdAt: "ISO-8601",
+     lang: "fr",
+     currency: "USD",
+     items: [{ id, name, qty, unitPrice, lineTotal }],
+     subtotal: <number>,
+     shippingNote: t('checkout.shippingNote'),
+     customer: { name, phone, email },          // <!-- DB: customer.fields -->
+     address: { street, city, postalCode, country, notes },
+     paymentMethod: "cod",
+     consent: true
+   }
+   ```
+2. `submitOrder(order)`:
+   - Saves to `localStorage['sukoonLastOrder']`
+   - Removes `localStorage['sukoonCart']`
+   - Calls `global.saveCart({})` (updates header badge → 0, drawer → empty)
+   - Clears `sessionStorage['sukoonCheckoutDraft']`
+   - Shows confirmation state (hides form + summary)
+3. Confirmation is **transient in-memory only** — a page reload with an empty cart shows the empty state, not the confirmation.
+
+### Confirmation State
+
+Shown only immediately after `submitOrder()`. Replaces form + summary. Uses **only** this approved copy:
+
+| Element | FR | EN |
+|---------|----|----|
+| Eyebrow | `COMMANDE CONFIRMÉE` (`checkout.confirmed`) | `ORDER CONFIRMED` |
+| Title | `Merci pour votre commande.` (`checkout.thankYou`) | `Thank you for your order.` |
+| Ref label | `Référence de commande` (`checkout.orderRef`) | `Order reference` |
+| Recap | Item thumbnails + name + qty | (same) |
+| Contact line | `Nous vous contacterons pour confirmer la livraison.` (`checkout.willContact`) | `We will contact you to confirm delivery.` |
+| Button 1 | `Retour à la boutique` (`checkout.backToShop`) | `Back to shop` |
+| Button 2 | `Continuer ma découverte` (`cartContinue`) | `Continue exploring` |
+
+Buttons 1 and 2 both link to `index.html#autres-essences-title`.
+
+### PHP Migration Contract
+
+`<!-- PHP: replace submitOrder() with POST to /checkout.php, validate server-side, persist, return orderRef -->`
+
+**Endpoint**: `POST /checkout.php` (or `/checkout`) — accepts JSON or form-encoded body matching the order object above. Returns `{ orderRef: "SK-…", status: "ok" }`.
+
+**Server-side validation rules** (mirror client-side):
+
+- **name**: required, 1–100 chars
+- **phone**: required, regex `/^(\+212|212)?0?(5|6|7)\d{8}$/` after stripping spaces
+- **email**: optional, must match `/^[^\s@]+@[^\s@]+\.[^\s@]+$/` if provided
+- **street**: required, non-empty
+- **city**: required, non-empty
+- **postalCode**: optional, if provided must be numeric
+- **country**: must equal `Morocco` (server-side override, never trust client)
+- **paymentMethod**: must be in `PAYMENT_METHODS` list (currently `cod` only)
+- **consent**: must be `true`
+
+**Critical**: Prices must be re-read from the database on the server. Never trust `unitPrice` or `subtotal` from the client — recompute from `items[].id` and current product prices.
+
+**Suggested SQL schema** (inline customer columns, single `orders` table):
+
+```sql
+CREATE TABLE orders (
+    id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_ref     VARCHAR(32)  NOT NULL UNIQUE,
+    created_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    lang          VARCHAR(8)   NOT NULL DEFAULT 'fr',
+    currency      VARCHAR(8)   NOT NULL DEFAULT 'USD',
+    subtotal      DECIMAL(10,2) NOT NULL,
+    payment_method VARCHAR(16) NOT NULL,
+    consent       TINYINT(1)   NOT NULL,
+    customer_name VARCHAR(100)  NOT NULL,
+    customer_phone VARCHAR(20)  NOT NULL,
+    customer_email VARCHAR(255),
+    address_street TEXT NOT NULL,
+    address_city VARCHAR(100)  NOT NULL,
+    address_postal VARCHAR(20),
+    address_country VARCHAR(50) NOT NULL DEFAULT 'Morocco',
+    address_notes TEXT
+);
+
+CREATE TABLE order_items (
+    id           BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id     BIGINT UNSIGNED NOT NULL,
+    product_id   VARCHAR(64) NOT NULL,
+    name         VARCHAR(100) NOT NULL,
+    qty          INT NOT NULL,
+    unit_price   DECIMAL(10,2) NOT NULL,
+    line_total   DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+```
+
+**Data flow on migration**:
+
+1. `<!-- DB: title -->` — replace with `"Checkout | Sukoon"` (static)
+2. `<!-- DB: meta-description -->` — replace with localized meta description
+3. `<!-- DB: order.items -->` (summary + confirmation recap) — loop over order items from the database
+4. `<!-- DB: order.totals -->` (subtotal + total) — compute server-side
+5. `<!-- DB: customer.fields -->` (contact + delivery inputs) — pre-fill from customer record if returning
+6. `<!-- DB: payment.methods -->` — render from `PAYMENT_METHODS` config, not hard-coded HTML
+7. `<!-- PHP: replace submitOrder() ... -->` — replace the entire function body with a `fetch('/checkout.php', { method: 'POST', body: JSON.stringify(order) })` call, then handle the response.
+
+### Storage
+
+| Storage | Key | Purpose | Sensitive? |
+|---------|-----|---------|------------|
+| `sessionStorage` | `sukoonCheckoutDraft` | Form field values (name, phone, email, address, notes, consent, payment) | No |
+| `localStorage` | `sukoonLastOrder` | Demo order object (for confirmation on same page load) | No — no payment data |
+| `localStorage` | `sukoonCart` | Cart items (cleared on submit) | No — product ids/quantities only |
+
+**Security note**: Never store card data, CVC, or full payment credentials client-side. The `card` payment method is currently disabled. When enabled, integrate a PCI-compliant payment provider iframe or redirect — never collect card fields directly.
