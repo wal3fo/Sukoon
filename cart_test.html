@@ -56,19 +56,26 @@
             'heritage-fennel': ['Fenouil Héritage', 'Harmonie · Sérénité', 'img/products/product-heritage-fennel.png']
         };
         if (state === '1') {
-            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], tagline: prods['moroccan-mint'][1], qty: 1 };
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], qty: 1 };
         } else if (state === '1notl') {
             cart['moroccan-mint'] = { name: 'Moroccan Mint', price: 18, img: prods['moroccan-mint'][2], qty: 1 };
         } else if (state === '3') {
-            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], tagline: prods['moroccan-mint'][1], qty: 1 };
-            cart['royal-verbena'] = { name: prods['royal-verbena'][0], price: 18, img: prods['royal-verbena'][2], tagline: prods['royal-verbena'][1], qty: 2 };
-            cart['ruby-hibiscus'] = { name: prods['ruby-hibiscus'][0], price: 18, img: prods['ruby-hibiscus'][2], tagline: prods['ruby-hibiscus'][1], qty: 1 };
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], qty: 1 };
+            cart['royal-verbena'] = { name: prods['royal-verbena'][0], price: 18, img: prods['royal-verbena'][2], qty: 2 };
+            cart['ruby-hibiscus'] = { name: prods['ruby-hibiscus'][0], price: 18, img: prods['ruby-hibiscus'][2], qty: 1 };
         } else if (state === 'same') {
-            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], tagline: prods['moroccan-mint'][1], qty: 2 };
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], qty: 2 };
         } else if (state === '6') {
             Object.keys(prods).forEach(function(id, i) {
-                cart[id] = { name: prods[id][0], price: 18, img: prods[id][2], tagline: prods[id][1], qty: i+1 };
+                cart[id] = { name: prods[id][0], price: 18, img: prods[id][2], qty: 1 };
             });
+        } else if (state === '8') {
+            cart['moroccan-mint'] = { name: prods['moroccan-mint'][0], price: 18, img: prods['moroccan-mint'][2], qty: 2 };
+            cart['royal-verbena'] = { name: prods['royal-verbena'][0], price: 18, img: prods['royal-verbena'][2], qty: 2 };
+            cart['ruby-hibiscus'] = { name: prods['ruby-hibiscus'][0], price: 18, img: prods['ruby-hibiscus'][2], qty: 1 };
+            cart['atlas-oregano'] = { name: prods['atlas-oregano'][0], price: 18, img: prods['atlas-oregano'][2], qty: 1 };
+            cart['noble-chamomile'] = { name: prods['noble-chamomile'][0], price: 18, img: prods['noble-chamomile'][2], qty: 1 };
+            cart['heritage-fennel'] = { name: prods['heritage-fennel'][0], price: 18, img: prods['heritage-fennel'][2], qty: 1 };
         }
         localStorage.setItem('sukoonCart', JSON.stringify(cart));
         localStorage.setItem('sukoonLang', lang);
