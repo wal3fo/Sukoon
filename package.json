@@ -1,0 +1,23 @@
+{
+  "name": "sukoon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "playwright": "^1.64.0"
+  },
+  "dependencies": {
+    "chrome-remote-interface": "^0.34.0",
+    "puppeteer-core": "^24.43.1"
+  }
+}

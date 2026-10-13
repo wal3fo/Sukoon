@@ -10,6 +10,48 @@
 
     var LANG_CODES = { en: 'EN', fr: 'FR', ar: 'AR' };
 
+    /* Currency configuration — single source of truth (mockup shows 70 MAD). */
+    var CURRENCY = {
+        symbol: '$',
+        code: 'USD',
+        format: function (amount) {
+            var sym = this.symbol || '';
+            var formatted = (typeof amount === 'number' ? amount : parseFloat(amount));
+            if (isNaN(formatted)) formatted = 0;
+            return sym + formatted.toFixed(2);
+        }
+    };
+
+    /* Checkout URL — placeholder; replace with real checkout endpoint. */
+    var CHECKOUT_URL = '#';
+    global.CHECKOUT_URL = CHECKOUT_URL;
+
+    /* Cart catalogue — embedded fallback for static product pages that don't
+       load data/products.js. Mirrors data/products.js catalogue fields needed
+       for tagline lookup and packshot rendering. */
+    var CART_CATALOGUE = [
+        { id: 'royal-verbena', nameKey: 'product.royal-verbena', taglineKey: 'product.royal-verbena.tagline', image: 'img/products/product-royal-verbena.png' },
+        { id: 'moroccan-mint', nameKey: 'product.moroccan-mint', taglineKey: 'product.moroccan-mint.tagline', image: 'img/products/product-moroccan-mint.png' },
+        { id: 'noble-chamomile', nameKey: 'product.noble-chamomile', taglineKey: 'product.noble-chamomile.tagline', image: 'img/products/product-noble-chamomile.png' },
+        { id: 'atlas-oregano', nameKey: 'product.atlas-oregano', taglineKey: 'product.atlas-oregano.tagline', image: 'img/products/product-atlas-oregano.png' },
+        { id: 'ruby-hibiscus', nameKey: 'product.ruby-hibiscus', taglineKey: 'product.ruby-hibiscus.tagline', image: 'img/products/product-ruby-hibiscus.png' },
+        { id: 'heritage-fennel', nameKey: 'product.heritage-fennel', taglineKey: 'product.heritage-fennel.tagline', image: 'img/products/product-heritage-fennel.png' }
+    ];
+
+    /* Resolve catalogue entry by id. Prefers global.SK_PRODUCTS (loaded on
+       index.html / essence.html); falls back to embedded CART_CATALOGUE. */
+    function cartCatalogueById(id) {
+        if (global.SK_PRODUCTS) {
+            var p = global.SK_PRODUCTS.byId(id);
+            if (p) return p;
+        }
+        for (var i = 0; i < CART_CATALOGUE.length; i++) {
+            if (CART_CATALOGUE[i].id === id) return CART_CATALOGUE[i];
+        }
+        return null;
+    }
+
+    global.CART_CATALOGUE = CART_CATALOGUE;
     /* ---- cache elements (null-safe) ---- */
     var $ = function (id) { return document.getElementById(id); };
 
@@ -25,10 +67,11 @@
         cartBtn: $('skCartBtn'),
         cartDrawer: $('skCartDrawer'),
         cartClose: $('skCartClose'),
-        scrim: $('skScrim'),
+        scrim: $('skScrim') || $('skScrimMobile'),
         cartBadge: $('skCartBadge'),
         cartBody: $('skCartBody'),
         cartFoot: $('skCartFoot'),
+        cartCountEl: $('skCartCount'),
         cartTotal: $('skCartTotal'),
         qtyMinus: $('skPdMinus'),
         qtyPlus: $('skPdPlus'),
@@ -57,7 +100,7 @@
         if (persist !== false) {
             try { global.localStorage.setItem('sukoonLang', lang); } catch (e) {}
         }
-        if (global.SKI18N) {
+         if (global.SKI18N) {
             global.SKI18N.setLang(lang, false);
         } else {
             /* Fallback: set document direction + code. */
@@ -71,7 +114,55 @@
         langItemsArray().forEach(function (item) {
             item.setAttribute('aria-selected', item.getAttribute('data-lang') === lang ? 'true' : 'false');
         });
+        applyInlineLang(lang);
+        if (cartIsOpen()) {
+            var cart = getCart();
+            renderCart(cart);
+        }
         document.dispatchEvent(new CustomEvent('sk:langchange', { detail: { lang: lang } }));
+    }
+
+    /* ---- Inline data-en language swapping ----
+     * Static product pages carry French text inline (for JS-off / AR fallback)
+     * and English text in data-en attributes. This function swaps textContent
+     * and img alt attributes when switching to EN, and restores FR on FR/AR.
+     * data-en-aria is used for aria-label translation on container elements.
+     */
+    function applyInlineLang(lang) {
+        var textNodes = document.querySelectorAll('[data-en]:not([data-en-aria])');
+        for (var i = 0; i < textNodes.length; i++) {
+            var el = textNodes[i];
+            if (lang === 'en') {
+                if (!el._origText) el._origText = el.textContent;
+                var en = el.getAttribute('data-en');
+                if (en) el.textContent = en;
+            } else {
+                if (el._origText !== undefined) el.textContent = el._origText;
+            }
+        }
+        var altNodes = document.querySelectorAll('[data-en-alt]');
+        for (var j = 0; j < altNodes.length; j++) {
+            var img = altNodes[j];
+            if (lang === 'en') {
+                if (!img._origAlt) img._origAlt = img.getAttribute('alt') || '';
+                var enAlt = img.getAttribute('data-en-alt');
+                if (enAlt) img.setAttribute('alt', enAlt);
+            } else {
+                if (img._origAlt !== undefined) img.setAttribute('alt', img._origAlt);
+            }
+        }
+        var ariaNodes = document.querySelectorAll('[data-en-aria]');
+        for (var k = 0; k < ariaNodes.length; k++) {
+            var btn = ariaNodes[k];
+            var currentAria = btn.getAttribute('aria-label');
+            if (lang === 'en') {
+                if (!btn._origAria) btn._origAria = currentAria || '';
+                var enAria = btn.getAttribute('data-en-aria');
+                if (enAria) btn.setAttribute('aria-label', enAria);
+            } else {
+                if (btn._origAria !== undefined) btn.setAttribute('aria-label', btn._origAria);
+            }
+        }
     }
 
     function langIsOpen() {
@@ -94,9 +185,25 @@
     function cartIsOpen() { return el.cartDrawer && el.cartDrawer.classList.contains('is-open'); }
     function overlayOpen() { return panelIsOpen() || cartIsOpen(); }
 
+    function bodyScrollLocked() { return document.body.style.overflow === 'hidden'; }
+
     function setScrim(on) {
         if (!el.scrim) return;
+        el.scrim.classList.toggle('is-open', on);
         el.scrim.hidden = !on;
+        if (on) {
+            if (!bodyScrollLocked()) {
+                document.body.style.overflow = 'hidden';
+            }
+        } else {
+            if (el.hamburger) {
+                if (!el.hamburger.classList.contains('is-open')) {
+                    document.body.style.overflow = '';
+                }
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
     }
 
     function focusablesIn(node) {
@@ -139,6 +246,9 @@
     function openCart() {
         if (!el.cartDrawer) return;
         closePanel(false);
+        var cart = getCart();
+        updateBadge(cart);
+        renderCart(cart);
         el.cartDrawer.classList.add('is-open');
         el.cartDrawer.setAttribute('aria-hidden', 'false');
         if (el.cartBtn) el.cartBtn.setAttribute('aria-expanded', 'true');
@@ -169,6 +279,11 @@
         renderCart(cart);
     }
 
+    function t(key, vars) {
+        if (global.SKI18N && global.SKI18N.t) return global.SKI18N.t(key, vars);
+        return '';
+    }
+
     function cartCount(cart) {
         var n = 0;
         for (var k in cart) { if (Object.prototype.hasOwnProperty.call(cart, k)) n += cart[k].qty; }
@@ -182,11 +297,66 @@
         el.cartBadge.hidden = n === 0;
     }
 
+    function renderCartHeader(count) {
+        if (el.cartCountEl) {
+            var key = count === 1 ? 'cartItemCount.one' : 'cartItemCount.other';
+            el.cartCountEl.textContent = t(key, { count: count });
+        }
+    }
+
+    function renderUpsell(cart) {
+        var html = '';
+        var catalogue = global.SK_PRODUCTS ? global.SK_PRODUCTS.catalogue : CART_CATALOGUE;
+        var cartKeys = Object.keys(cart);
+        var available = catalogue.filter(function (prod) {
+            return cartKeys.indexOf(prod.id) === -1;
+        }).slice(0, 5);
+        if (available.length) {
+            html += '<div class="sk-cart-upsell-track">';
+            available.forEach(function (prod) {
+                var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
+                html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-upsell-item">' +
+                    '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
+                    '<span class="sk-cart-upsell-label">' + escapeHtml(name) + '</span>' +
+                    '</a>';
+            });
+            html += '</div>';
+        }
+        return html;
+    }
+
+    function renderPackshots(cart) {
+        var cartKeys = Object.keys(cart);
+        var catalogue = global.SK_PRODUCTS ? global.SK_PRODUCTS.catalogue : CART_CATALOGUE;
+        var available = catalogue.filter(function (prod) {
+            return cartKeys.indexOf(prod.id) === -1;
+        }).slice(0, 5);
+        if (!available.length) return '';
+        var html = '<div class="sk-cart-packshots">';
+        available.forEach(function (prod) {
+            var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
+            html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-packshot">' +
+                '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
+                '<span class="sk-cart-packshot-label">' + escapeHtml(name) + '</span>' +
+                '</a>';
+        });
+        html += '</div>';
+        return html;
+    }
+
     function renderCart(cart) {
         if (!el.cartBody || !el.cartFoot) return;
         var keys = Object.keys(cart);
+        var count = cartCount(cart);
+        renderCartHeader(count);
+
         if (!keys.length) {
-            el.cartBody.innerHTML = '';
+            el.cartBody.innerHTML = '' +
+                '<div class="sk-cart-empty">' +
+                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>' +
+                '<p data-i18n="cartEmpty">' + (global.SKI18N ? global.SKI18N.t('cartEmpty') : 'Your cart is empty') + '</p>' +
+                '<button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">' + (global.SKI18N ? global.SKI18N.t('cartDiscover') : 'Discover the essences') + '</button>' +
+                '</div>';
             el.cartFoot.hidden = true;
             return;
         }
@@ -195,28 +365,60 @@
         keys.forEach(function (id) {
             var item = cart[id];
             var name = item.name;
+            var tagline = item.tagline || '';
+            if (!tagline) {
+                var prod = cartCatalogueById(id);
+                if (prod && prod.taglineKey) {
+                    tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
+                }
+            }
             if (global.SKI18N && global.SKI18N.t) {
                 var translated = global.SKI18N.t('product.' + id, name);
-                name = translated;
+                if (translated !== 'product.' + id) name = translated;
             }
             total += item.price * item.qty;
+            var sachetLine = item.sachets ? '<span class="sk-cart-item-meta">' + item.sachets + '</span>' : '';
             html += '<div class="sk-cart-item">' +
-                '<img src="' + escapeHtml(item.img) + '" alt="">' +
+                '<img src="' + escapeHtml(item.img) + '" alt="' + escapeHtml(name) + '">' +
                 '<div class="sk-cart-item-body">' +
                 '<span class="sk-cart-item-name">' + escapeHtml(name) + '</span>' +
-                '<span class="sk-cart-item-price">$' + item.price.toFixed(2) + ' \u00d7 ' + item.qty + '</span>' +
-                '<span class="sk-cart-qty">' +
-                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="Decrease quantity" disabled>&minus;</button>' +
+                '<span class="sk-cart-item-tagline">' + escapeHtml(tagline) + '</span>' +
+                sachetLine +
+                '<div class="sk-cart-item-grid">' +
+                '<div class="sk-cart-qty">' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="' + (global.SKI18N ? global.SKI18N.t('decreaseQty') : 'Decrease quantity') + '">\u2212</button>' +
                 '<span class="sk-qty-value">' + item.qty + '</span>' +
-                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="Increase quantity" disabled>+</button>' +
-                '</span></div>' +
-                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="Remove item">' +
-                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="' + (global.SKI18N ? global.SKI18N.t('increaseQty') : 'Increase quantity') + '">+</button>' +
+                '</div>' +
+                '<span class="sk-cart-item-price">' + CURRENCY.format(item.price * item.qty) + '</span>' +
+                '</div>' +
+                '</div>' +
+                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + (global.SKI18N ? global.SKI18N.t('cartRemove') : 'Remove') + '">' +
+                '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 7V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3m-2 0V4a1 1 0 0 0-1-1h-1v3m-6 0H9V4a1 1 0 0 0-1-1H7v3M6 9v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9m-10 0h12"/></svg>' +
                 '</button></div>';
         });
         el.cartBody.innerHTML = html;
         el.cartFoot.hidden = false;
-        if (el.cartTotal) el.cartTotal.textContent = '$' + total.toFixed(2);
+        renderCartFoot(total, cart);
+    }
+
+    function renderCartFoot(total, cart) {
+        var subtotal = CURRENCY.format(total);
+        var html = '' +
+            '<div class="sk-cart-total">' +
+            '<span data-i18n="cartSubtotal">' + (global.SKI18N ? global.SKI18N.t('cartSubtotal') : 'Subtotal') + '</span>' +
+            '<span class="sk-cart-amount" id="skCartTotal">' + subtotal + '</span>' +
+            '</div>' +
+            '<p class="sk-cart-shipping" data-i18n="cartShipping">' + (global.SKI18N ? global.SKI18N.t('cartShipping') : 'Shipping calculated at the next step') + '</p>' +
+            '<button type="button" class="sk-cart-checkout" id="skCartCheckout" data-i18n="cartCheckout">' + (global.SKI18N ? global.SKI18N.t('cartCheckout') : 'Checkout') + '</button>' +
+            '<button type="button" class="sk-cart-continue" id="skCartContinue" data-i18n="cartContinue">' + (global.SKI18N ? global.SKI18N.t('cartContinue') : 'Continue exploring') + '</button>' +
+            '<div class="sk-cart-upsell">' +
+            '<p class="sk-cart-upsell-title" data-i18n="cartUpsellHeading">' + (global.SKI18N ? global.SKI18N.t('cartUpsellHeading') : 'Treat yourself to several moments of calm.') + '</p>' +
+            '<a href="index.html#autres-essences-title" class="sk-cart-upsell-link" data-i18n="cartUpsellLink">' + (global.SKI18N ? global.SKI18N.t('cartUpsellLink') : 'Discover the other essences') + '</a>' +
+            renderUpsell(cart) +
+            '</div>' +
+            renderPackshots(cart);
+        el.cartFoot.innerHTML = html;
     }
 
     function escapeHtml(value) {
@@ -251,18 +453,39 @@
             });
         }
 
-        /* Add-to-cart buttons (product-detail page) */
+        /* Add-to-cart buttons (product-detail page or static product pages) */
         document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                var id = btn.getAttribute('data-product');
-                if (!id || !global.SK_PRODUCTS) return;
-                var prod = global.SK_PRODUCTS.byId(id);
-                if (!prod) return;
-                var name = prod.nameKey;
-                if (global.SKI18N) name = global.SKI18N.t(prod.nameKey, name);
+                var id = btn.getAttribute('data-product-id') || btn.getAttribute('data-product');
+                if (!id) return;
+
+                var name = null, price = null, img = '', tagline = '';
+
+                /* Try SK_PRODUCTS catalogue first (essence.html template) */
+                if (global.SK_PRODUCTS) {
+                    var prod = global.SK_PRODUCTS.byId(id);
+                    if (prod) {
+                        name = prod.nameKey;
+                        if (global.SKI18N) name = global.SKI18N.t(prod.nameKey, name);
+                        tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
+                        price = prod.price;
+                        img = prod.image;
+                    }
+                }
+
+                /* Fall back to inline data attributes (static product pages) */
+                if (!name) {
+                    name = btn.getAttribute('data-product-name') || btn.getAttribute('data-name');
+                    price = parseFloat(btn.getAttribute('data-product-price') || btn.getAttribute('data-price'));
+                    img = btn.getAttribute('data-product-image') || btn.getAttribute('data-image') || '';
+                    tagline = btn.getAttribute('data-product-tagline') || btn.getAttribute('data-tagline') || '';
+                }
+
+                if (!name || !price) return;
+
                 if (!cart[id]) {
-                    cart[id] = { name: name, price: prod.price, img: prod.image, qty: 1 };
+                    cart[id] = { name: name, price: price, img: img, tagline: tagline, qty: 1 };
                 } else {
                     cart[id].qty += 1;
                 }
@@ -284,6 +507,38 @@
                 if (v > 1) setQty(v - 1);
             });
         }
+
+        /* Continue exploring + Checkout (dynamic buttons inside cart foot) */
+        if (el.cartDrawer) {
+            el.cartDrawer.addEventListener('click', function (e) {
+                var tgt = e.target;
+                if (tgt.classList && tgt.classList.contains('sk-cart-continue')) {
+                    closeCart();
+                }
+                if (tgt.classList && tgt.classList.contains('sk-cart-checkout')) {
+                    var cart = getCart();
+                    var count = cartCount(cart);
+                    if (!count) {
+                        e.preventDefault();
+                        return;
+                    }
+                    window.location.href = CHECKOUT_URL;
+                }
+            });
+        }
+
+        /* Empty state discover button — closes drawer then navigates */
+        if (el.cartBody) {
+            el.cartBody.addEventListener('click', function (e) {
+                var tgt = e.target;
+                if (tgt.classList && tgt.classList.contains('sk-cart-empty-btn')) {
+                    closeCart();
+                    setTimeout(function () {
+                        window.location.href = 'index.html#autres-essences-title';
+                    }, 300);
+                }
+            });
+        }
     }
 
     function initSpinner() {
@@ -292,7 +547,7 @@
 
         function hideSpinner() {
             spinner.classList.remove('show');
-            spinner.style.display = 'none';
+            spinner.style.setProperty('display', 'none', 'important');
             spinner.setAttribute('aria-hidden', 'true');
         }
 
@@ -594,6 +849,13 @@
             setScrim(false);
         });
 
+        /* Close panel when a nav link is clicked */
+        document.querySelectorAll('.sk-nav-link').forEach(function (link) {
+            link.addEventListener('click', function () {
+                if (panelIsOpen()) closePanel();
+            });
+        });
+
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 if (langIsOpen()) { setLangMenu(false); return; }
@@ -636,6 +898,10 @@
         /* Apply stored language */
         var lang = readLang();
         setLanguage(lang, false);
+
+        /* Expose for testing / scripting */
+        global.applyInlineLang = applyInlineLang;
+        global.setLanguage = setLanguage;
     }
 
     if (global.document.readyState === 'loading') {
