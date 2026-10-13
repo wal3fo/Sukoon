@@ -16,8 +16,6 @@
         'cartShipping': "Livraison calculée à l'étape suivante",
         'cartCheckout': "Finaliser ma commande",
         'cartContinue': "Continuer ma découverte",
-        'cartUpsellHeading': "Offrez-vous plusieurs instants de calme.",
-        'cartUpsellLink': "Découvrir les autres Essences →",
         'cartDiscover': "Découvrir les essences",
         'cartEmpty': "Votre panier est vide",
         'cartTotal': "Total",

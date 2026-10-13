@@ -16,8 +16,6 @@
         'cartShipping': "الشحن محسوب في الخطوة التالية",
         'cartCheckout': "اتمام الشراء",
         'cartContinue': "استمر في اكتشاف المزيد",
-        'cartUpsellHeading': "أهدِ لنفسك لحظات هدوء.",
-        'cartUpsellLink': "اكتشف باقي العطور →",
         'cartDiscover': "اكتشف العطور",
         'cartEmpty': "سلة التسوق فارغة",
         'cartTotal': "الإجمالي",

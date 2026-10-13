@@ -1231,98 +1231,6 @@
     background: rgba(201, 161, 91, .08);
 }
 
-/* Upsell */
-.sk-cart-upsell {
-    border-top: 1px solid var(--sk-line);
-    padding: 16px 24px;
-}
-.sk-cart-upsell-title {
-    font-family: var(--sk-es-serif);
-    font-size: 15px;
-    font-style: italic;
-    color: var(--sk-es-muted);
-    margin: 0 0 4px;
-}
-.sk-cart-upsell-link {
-    display: block;
-    font-family: var(--sk-es-sans);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--sk-es-navy);
-    text-decoration: none;
-    margin-bottom: 16px;
-}
-.sk-cart-upsell-track {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    -ms-overflow-style: none;
-}
-.sk-cart-upsell-track::-webkit-scrollbar { display: none; }
-.sk-cart-upsell-item {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-.sk-cart-upsell-item img {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    background: var(--sk-es-cream);
-}
-.sk-cart-upsell-label {
-    font-family: var(--sk-es-sans);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: var(--sk-es-muted);
-    text-align: center;
-}
-
-/* Mini packshots row (essences not in cart) */
-.sk-cart-packshots {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    -ms-overflow-style: none;
-}
-.sk-cart-packshots::-webkit-scrollbar { display: none; }
-.sk-cart-packshot {
-    flex: 0 0 auto;
-    max-width: 72px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-.sk-cart-packshot img {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    background: var(--sk-es-cream);
-    mix-blend-mode: multiply;
-}
-.sk-cart-packshot-label {
-    font-family: var(--sk-es-sans);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    max-width: 72px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: var(--sk-es-muted);
-    text-align: center;
-}
-
 /* Focus ring on every control */
 .sk-lang-btn:focus-visible,
 .sk-icon-btn:focus-visible,
@@ -1331,9 +1239,8 @@
 .sk-qty-btn:focus-visible,
 .sk-cart-remove:focus-visible,
 .sk-cart-checkout:focus-visible,
-.sk-cart-continue:focus-visible,
-.sk-cart-packshot:focus-visible,
-.sk-cart-empty-btn:focus-visible {
+    .sk-cart-continue:focus-visible,
+    .sk-cart-empty-btn:focus-visible {
     outline: 2px solid var(--sk-gold);
     outline-offset: 2px;
 }
@@ -1399,9 +1306,6 @@ html[dir="rtl"] .sk-cart-head .sk-icon-btn {
 html[dir="rtl"] .sk-cart-item-grid {
     flex-direction: row-reverse;
 }
-html[dir="rtl"] .sk-cart-packshots {
-    direction: ltr;
-}
 
 /*** Cart mobile ***/
 @media (max-width: 480px) {
@@ -1418,9 +1322,6 @@ html[dir="rtl"] .sk-cart-packshots {
     }
     .sk-cart-empty {
         padding: 0 20px;
-    }
-    .sk-cart-packshots {
-        gap: 10px;
     }
 }
 

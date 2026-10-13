@@ -34,17 +34,12 @@ const drawerEval = `
     const data = {
         drawerBox: box(drawer), countText: ct(countEl), footHidden: foot ? foot.hidden : null,
         subtotal: foot ? ct(foot.querySelector('#skCartTotal')) : null, items: [],
-        priceBoxes: [], removeBoxes: [], stepperBoxes: [], packshots: [],
-        packshotsTrackBox: null, upsellLinkBox: null, upsellLinkHref: null,
+        priceBoxes: [], removeBoxes: [], stepperBoxes: [],
         checkoutBox: null, checkoutText: foot ? ct(foot.querySelector('#skCartCheckout')) : null,
         skProductsExists: typeof window.SK_PRODUCTS !== 'undefined',
         catalogueUsed: typeof window.SK_PRODUCTS !== 'undefined' ? 'SK_PRODUCTS' : 'CART_CATALOGUE',
     };
-    const upsellLink = foot ? foot.querySelector('.sk-cart-upsell-link') : null;
-    data.upsellLinkBox = box(upsellLink); data.upsellLinkHref = upsellLink ? upsellLink.getAttribute('href') : null;
     const checkoutBtn = foot ? foot.querySelector('#skCartCheckout') : null; data.checkoutBox = box(checkoutBtn);
-    const packTrack = foot ? foot.querySelector('.sk-cart-packshots') : null; data.packshotsTrackBox = box(packTrack);
-    if (packTrack) { packTrack.querySelectorAll('.sk-cart-packshot').forEach(function(el) { data.packshots.push({ box: box(el), href: el.getAttribute('href'), label: ct(el.querySelector('.sk-cart-packshot-label')), imgW: el.querySelector('img') ? el.querySelector('img').width : null }); }); }
     items.forEach(function(item, i) {
         const name = item.querySelector('.sk-cart-item-name'); const tag = item.querySelector('.sk-cart-item-tagline');
         const pr = item.querySelector('.sk-cart-item-price'); const st = item.querySelector('.sk-cart-qty');
@@ -142,26 +137,6 @@ async function main() {
     }
     console.log('');
 
-    // ===== 4. PACKSHOT ROW (1 and 3 items, 1440 + 375) =====
-    console.log('===== 4. PACKSHOT ROW (1+3 items, 1440+375, EN+FR) =====');
-    for (const vpName of ['1440','375']) {
-        for (const state of ['1','3']) {
-            for (const lang of LANGS) {
-                const vp = VIEWPORTS[vpName] || (vpName === '1440' ? {width:1440,height:900} : {width:375,height:667});
-                const page = await browser.newPage();
-                await page.setViewport(vp);
-                await page.goto(BASE + '/cart_test.html?state=' + state + '&lang=' + lang, { waitUntil: 'networkidle0' });
-                await page.waitForSelector('.sk-cart-drawer.is-open', { timeout: 5000 });
-                await new Promise(r => setTimeout(r, 200));
-                const d = await page.evaluate(drawerEval);
-                console.log(vpName + 'px | ' + state + ' | ' + lang + ': track=' + JSON.stringify(d.packshotsTrackBox) + ' count=' + d.packshots.length);
-                d.packshots.forEach(p => console.log('  tile: ' + JSON.stringify(p.box) + ' href=' + p.href + ' label="' + p.label + '" imgW=' + p.imgW));
-                await page.close();
-            }
-        }
-    }
-    console.log('');
-
     // ===== 5. 8 ITEMS SCROLL =====
     console.log('===== 5. 8 ITEMS SCROLL =====');
     for (const vpName of Object.keys(VIEWPORTS)) {
@@ -196,7 +171,7 @@ async function main() {
         const en = (window.SK_LOCALES && window.SK_LOCALES.en) || {};
         const fr = (window.SK_LOCALES && window.SK_LOCALES.fr) || {};
         const ar = (window.SK_LOCALES && window.SK_LOCALES.ar) || {};
-        const keys = ['cartEyebrow','cartItemCount.one','cartItemCount.other','cartEmpty','cartDiscover','cartSubtotal','cartShipping','cartCheckout','cartContinue','cartUpsellHeading','cartUpsellLink','cartRemove','decreaseQty','increaseQty'];
+        const keys = ['cartEyebrow','cartItemCount.one','cartItemCount.other','cartEmpty','cartDiscover','cartSubtotal','cartShipping','cartCheckout','cartContinue','cartRemove','decreaseQty','increaseQty'];
         const fb = [];
         keys.forEach(k => {
             if (!(k in ar)) fb.push({key:k,en:en[k],fr:fr[k],ar:'MISSING->falls back to FR'});
@@ -297,7 +272,7 @@ async function main() {
             if (!d) return [];
             const texts = d.textContent || '';
             const matches = texts.match(/cart[A-Z][a-zA-Z]+/g) || [];
-            return [...new Set(matches)].filter(k => !['cartEyebrow','cartItemCount','cartEmpty','cartDiscover','cartSubtotal','cartShipping','cartCheckout','cartContinue','cartUpsellHeading','cartUpsellLink'].includes(k));
+            return [...new Set(matches)].filter(k => !['cartEyebrow','cartItemCount','cartEmpty','cartDiscover','cartSubtotal','cartShipping','cartCheckout','cartContinue'].includes(k));
         });
         console.log(pg + ': ' + errors.length + ' errors, raw keys: ' + (rawKeys.length === 0 ? 'NONE' : JSON.stringify(rawKeys)));
         await page.close();

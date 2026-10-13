@@ -16,8 +16,6 @@
         'cartShipping': "Shipping calculated at the next step",
         'cartCheckout': "Checkout",
         'cartContinue': "Continue exploring",
-        'cartUpsellHeading': "Treat yourself to several moments of calm.",
-        'cartUpsellLink': "Discover the other essences →",
         'cartDiscover': "Discover the essences",
         'cartEmpty': "Your cart is empty",
         'cartTotal': "Total",
