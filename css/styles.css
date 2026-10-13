@@ -1846,7 +1846,7 @@ html[dir="rtl"] .sk-cart-head {
 
 .sk-es-other-link.is-active .sk-es-other-media {
     border-color: var(--sk-es-gold);
-    box-shadow: 0 12px 26px rgba(14, 26, 43, .14);
+    /* box-shadow: 0 12px 26px rgba(14, 26, 43, .14); */
 }
 
 .sk-es-other-link.is-active .sk-es-other-name {
@@ -2638,9 +2638,6 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
 /* ===================================================================
    STACKED SECTIONS — head rhythm + content
    =================================================================== */
-.sk-es-section {
-    padding-block: var(--sk-es-pad-y);
-}
 .sk-es-section--others {
     display: flow-root;
 }
