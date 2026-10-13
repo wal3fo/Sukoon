@@ -953,9 +953,10 @@
     position: fixed;
     top: 0;
     right: 0;
+    bottom: 0;
     width: min(440px, 100vw);
-    height: auto;
-    max-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     background: var(--sk-ivory);
@@ -1011,10 +1012,12 @@
     height: 44px;
 }
 .sk-cart-body {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
-    max-height: calc(100vh - 72px - 220px);
+    overscroll-behavior: contain;
     padding: 0 24px;
+    position: relative;
 }
 .sk-cart-item {
     position: relative;
@@ -1129,11 +1132,16 @@
     color: var(--sk-gold);
 }
 .sk-cart-empty {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding: 80px 0;
+    padding: 0 24px;
     color: var(--sk-ink);
     font-family: var(--sk-es-serif);
     font-style: italic;
@@ -1170,6 +1178,9 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    max-height: 60vh;
 }
 .sk-cart-total {
     display: flex;
@@ -1284,6 +1295,7 @@
 .sk-cart-packshots::-webkit-scrollbar { display: none; }
 .sk-cart-packshot {
     flex: 0 0 auto;
+    max-width: 72px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1303,9 +1315,12 @@
     font-weight: 500;
     letter-spacing: .12em;
     text-transform: uppercase;
+    max-width: 72px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--sk-es-muted);
     text-align: center;
-    white-space: nowrap;
 }
 
 /* Focus ring on every control */
@@ -1389,6 +1404,11 @@ html[dir="rtl"] .sk-cart-packshots {
 }
 
 /*** Cart mobile ***/
+@media (max-width: 480px) {
+    .sk-cart-drawer {
+        width: 100vw;
+    }
+}
 @media (max-width: 767.98px) {
     .sk-cart-drawer {
         width: 100vw;
@@ -1397,7 +1417,7 @@ html[dir="rtl"] .sk-cart-packshots {
         padding: 0 20px;
     }
     .sk-cart-empty {
-        padding: 60px 0;
+        padding: 0 20px;
     }
     .sk-cart-packshots {
         gap: 10px;

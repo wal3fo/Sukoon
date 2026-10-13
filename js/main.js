@@ -22,6 +22,36 @@
         }
     };
 
+    /* Checkout URL — placeholder; replace with real checkout endpoint. */
+    var CHECKOUT_URL = '#';
+    global.CHECKOUT_URL = CHECKOUT_URL;
+
+    /* Cart catalogue — embedded fallback for static product pages that don't
+       load data/products.js. Mirrors data/products.js catalogue fields needed
+       for tagline lookup and packshot rendering. */
+    var CART_CATALOGUE = [
+        { id: 'royal-verbena', nameKey: 'product.royal-verbena', taglineKey: 'product.royal-verbena.tagline', image: 'img/products/product-royal-verbena.png' },
+        { id: 'moroccan-mint', nameKey: 'product.moroccan-mint', taglineKey: 'product.moroccan-mint.tagline', image: 'img/products/product-moroccan-mint.png' },
+        { id: 'noble-chamomile', nameKey: 'product.noble-chamomile', taglineKey: 'product.noble-chamomile.tagline', image: 'img/products/product-noble-chamomile.png' },
+        { id: 'atlas-oregano', nameKey: 'product.atlas-oregano', taglineKey: 'product.atlas-oregano.tagline', image: 'img/products/product-atlas-oregano.png' },
+        { id: 'ruby-hibiscus', nameKey: 'product.ruby-hibiscus', taglineKey: 'product.ruby-hibiscus.tagline', image: 'img/products/product-ruby-hibiscus.png' },
+        { id: 'heritage-fennel', nameKey: 'product.heritage-fennel', taglineKey: 'product.heritage-fennel.tagline', image: 'img/products/product-heritage-fennel.png' }
+    ];
+
+    /* Resolve catalogue entry by id. Prefers global.SK_PRODUCTS (loaded on
+       index.html / essence.html); falls back to embedded CART_CATALOGUE. */
+    function cartCatalogueById(id) {
+        if (global.SK_PRODUCTS) {
+            var p = global.SK_PRODUCTS.byId(id);
+            if (p) return p;
+        }
+        for (var i = 0; i < CART_CATALOGUE.length; i++) {
+            if (CART_CATALOGUE[i].id === id) return CART_CATALOGUE[i];
+        }
+        return null;
+    }
+
+    global.CART_CATALOGUE = CART_CATALOGUE;
     /* ---- cache elements (null-safe) ---- */
     var $ = function (id) { return document.getElementById(id); };
 
@@ -276,31 +306,29 @@
 
     function renderUpsell(cart) {
         var html = '';
-        if (global.SK_PRODUCTS) {
-            var others = global.SK_PRODUCTS.others(null);
-            var cartKeys = Object.keys(cart);
-            var available = others.filter(function (prod) {
-                return cartKeys.indexOf(prod.id) === -1;
-            }).slice(0, 5);
-            if (available.length) {
-                html += '<div class="sk-cart-upsell-track">';
-                available.forEach(function (prod) {
-                    var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
-                    html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-upsell-item">' +
-                        '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
-                        '<span class="sk-cart-upsell-label">' + escapeHtml(name) + '</span>' +
-                        '</a>';
-                });
-                html += '</div>';
-            }
+        var catalogue = global.SK_PRODUCTS ? global.SK_PRODUCTS.catalogue : CART_CATALOGUE;
+        var cartKeys = Object.keys(cart);
+        var available = catalogue.filter(function (prod) {
+            return cartKeys.indexOf(prod.id) === -1;
+        }).slice(0, 5);
+        if (available.length) {
+            html += '<div class="sk-cart-upsell-track">';
+            available.forEach(function (prod) {
+                var name = global.SKI18N ? global.SKI18N.t(prod.nameKey, prod.nameKey) : prod.nameKey;
+                html += '<a href="' + escapeHtml('product-' + prod.id + '.html') + '" class="sk-cart-upsell-item">' +
+                    '<img src="' + escapeHtml(prod.image) + '" alt="' + escapeHtml(name) + '">' +
+                    '<span class="sk-cart-upsell-label">' + escapeHtml(name) + '</span>' +
+                    '</a>';
+            });
+            html += '</div>';
         }
         return html;
     }
 
     function renderPackshots(cart) {
-        if (!global.SK_PRODUCTS) return '';
         var cartKeys = Object.keys(cart);
-        var available = global.SK_PRODUCTS.others(null).filter(function (prod) {
+        var catalogue = global.SK_PRODUCTS ? global.SK_PRODUCTS.catalogue : CART_CATALOGUE;
+        var available = catalogue.filter(function (prod) {
             return cartKeys.indexOf(prod.id) === -1;
         }).slice(0, 5);
         if (!available.length) return '';
@@ -338,8 +366,8 @@
             var item = cart[id];
             var name = item.name;
             var tagline = item.tagline || '';
-            if (!tagline && global.SK_PRODUCTS) {
-                var prod = global.SK_PRODUCTS.byId(id);
+            if (!tagline) {
+                var prod = cartCatalogueById(id);
                 if (prod && prod.taglineKey) {
                     tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
                 }
@@ -494,20 +522,20 @@
                         e.preventDefault();
                         return;
                     }
-                    /* TODO: integrate real checkout */
-                    alert('Redirecting to checkout (not yet implemented)');
+                    window.location.href = CHECKOUT_URL;
                 }
             });
         }
 
-        /* Empty state discover button — closes drawer and scrolls to store/essences */
+        /* Empty state discover button — closes drawer then navigates */
         if (el.cartBody) {
             el.cartBody.addEventListener('click', function (e) {
                 var tgt = e.target;
                 if (tgt.classList && tgt.classList.contains('sk-cart-empty-btn')) {
                     closeCart();
-                    var storeEl = document.getElementById('autres-essences') || document.getElementById('store');
-                    if (storeEl) storeEl.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(function () {
+                        window.location.href = 'index.html#autres-essences-title';
+                    }, 300);
                 }
             });
         }
