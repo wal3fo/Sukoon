@@ -791,8 +791,8 @@
 /* All bar icons: 24 viewBox, 20px box, 1.5 stroke, round caps */
 .sk-icon {
     display: block;
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     flex: 0 0 20px;
     fill: none;
     stroke: currentColor;
@@ -1022,7 +1022,7 @@
 .sk-cart-item {
     position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 12px;
     padding: 16px 0;
     border-bottom: 1px solid var(--sk-line);
@@ -1032,11 +1032,12 @@
 }
 .sk-cart-item img {
     width: 72px;
-    height: 88px;
+    height: 54px;
     flex: 0 0 72px;
     object-fit: contain;
     background: var(--sk-es-cream);
     mix-blend-mode: multiply;
+    border: 1px solid var(--sk-line);
 }
 .sk-cart-item-body {
     flex: 1;
@@ -1067,7 +1068,7 @@
 }
 .sk-cart-item-grid {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: 8px;
     margin-top: 4px;
@@ -1111,14 +1112,6 @@
     color: var(--sk-ink);
 }
 .sk-cart-remove {
-    position: absolute;
-    top: 16px;
-    right: 12px;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: transparent;
     border: none;
     color: var(--sk-ink);
@@ -1149,8 +1142,8 @@
     text-align: center;
 }
 .sk-cart-empty .sk-icon {
-    width: 32px;
-    height: 32px;
+    width: 32px !important;
+    height: 32px !important;
 }
 .sk-cart-empty-btn {
     width: 100%;
