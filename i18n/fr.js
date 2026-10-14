@@ -253,6 +253,7 @@
         'writeReview': "Écrire un avis",
         'yourCart': "Votre Panier",
         'checkout.backToShop': "Retour à la boutique",
+        'checkout.orderHeading': "VOTRE COMMANDE",
         'checkout.summary': "Résumé de la commande",
         'checkout.showSummary': "Afficher le résumé",
         'checkout.hideSummary': "Masquer le résumé",

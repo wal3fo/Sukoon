@@ -254,6 +254,7 @@
         'writeReview': "Write a review",
         'yourCart': "سلة التسوق",
         'checkout.backToShop': "العودة إلى المتجر",
+        'checkout.orderHeading': "طلبك",
         'checkout.summary': "ملخص الطلب",
         'checkout.showSummary': "إظهار ملخص الطلب",
         'checkout.hideSummary': "إخفاء ملخص الطلب",

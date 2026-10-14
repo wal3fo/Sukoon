@@ -253,6 +253,7 @@
         'writeReview': "Write a review",
         'yourCart': "Your Cart",
         'checkout.backToShop': "Back to shop",
+        'checkout.orderHeading': "YOUR ORDER",
         'checkout.summary': "Order summary",
         'checkout.showSummary': "Show order summary",
         'checkout.hideSummary': "Hide order summary",

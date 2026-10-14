@@ -155,6 +155,9 @@
                         <span data-i18n="checkout.showSummary">Afficher le résumé</span>
                     </button>
                     <div class="sk-checkout-summary" id="skCheckoutSummary" hidden>
+                        <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">
+                            <span class="sk-es-eyebrow-text" data-i18n="checkout.orderHeading">VOTRE COMMANDE</span>
+                        </p>
                         <ul class="sk-checkout-summary-list" id="skCheckoutSummaryList" role="list">
                             <!-- Dynamic: populated by js/checkout.js -->
                         </ul>
@@ -166,13 +169,13 @@
                             </div>
                             <div class="sk-checkout-summary-row">
                                 <span class="sk-checkout-summary-label" data-i18n="checkout.shippingNote">Calculée après confirmation</span>
-                                <span class="sk-checkout-summary-shipping">—</span>
                             </div>
                             <div class="sk-checkout-summary-row sk-checkout-summary-total-row">
                                 <span class="sk-checkout-summary-label" data-i18n="cartTotal">Total</span>
                                 <span class="sk-checkout-summary-amount" id="skCheckoutTotal"></span>
                             </div>
                         </div>
+                        <!-- /DB: order.totals -->
                     </div>
                 </aside>
                 <!-- /DB: order.items -->

@@ -169,7 +169,8 @@
         if (el.confirmation) el.confirmation.hidden = true;
     }
 
-    /* Build the order summary item rows from the cart. */
+/* Build the order summary item rows — identical markup to the cart drawer
+   (js/main.js renderCart), so both render the same sk-cart-item structure. */
     function renderSummary() {
         var cart = state.cart;
         var list = el.summaryList;
@@ -181,37 +182,45 @@
 
         keys.forEach(function (id) {
             var item = cart[id];
-            var prod = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
-            var name = prod ? t(prod.nameKey) : item.name;
-            var tagline = (prod && prod.taglineKey) ? t(prod.taglineKey) : (item.tagline || '');
-            var img = prod ? prod.image : item.img;
+            var name = item.name;
+            var tagline = item.tagline || '';
+            if (!tagline) {
+                var prod = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
+                if (prod && prod.taglineKey) {
+                    tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
+                }
+            }
+            if (!name) {
+                var prodName = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
+                if (prodName && prodName.nameKey) {
+                    name = global.SKI18N ? global.SKI18N.t(prodName.nameKey) : '';
+                }
+            }
+            var img = item.img || '';
+            if (!img) {
+                var prodImg = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
+                if (prodImg) img = prodImg.image;
+            }
             var lineTotal = item.price * item.qty;
             subtotal += lineTotal;
 
-            html += '' +
-                '<div class="sk-checkout-summary-item">' +
-                    '<img src="' + escapeHtml(img) + '" alt="' + escapeHtml(name) + '" ' +
-                    'class="sk-checkout-summary-thumb" width="72" height="88" loading="lazy">' +
-                    '<div class="sk-checkout-summary-info">' +
-                        '<span class="sk-checkout-summary-name">' + escapeHtml(name) + '</span>' +
-                        '<span class="sk-checkout-summary-tagline">' + escapeHtml(tagline) + '</span>' +
-                        '<div class="sk-cart-qty">' +
-                            '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" ' +
-                            'aria-label="' + escapeHtml(t('decreaseQty')) + '">&#8722;</button>' +
-                            '<span class="sk-qty-value">' + item.qty + '</span>' +
-                            '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" ' +
-                            'aria-label="' + escapeHtml(t('increaseQty')) + '">+</button>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="sk-checkout-summary-line">' +
-                        '<span class="sk-checkout-summary-line-total">' + formatPrice(lineTotal) + '</span>' +
-                        '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" ' +
-                        'aria-label="' + escapeHtml(t('cartRemove')) + '">' +
-                            '<svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
-                            '<path d="M6 7V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3m-2 0V4a1 1 0 0 0-1-1h-1v3m-6 0H9V4a1 1 0 0 0-1-1H7v3M6 9v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9m-10 0h12"/></svg>' +
-                        '</button>' +
-                    '</div>' +
-                '</div>';
+            html += '<div class="sk-cart-item">' +
+                '<img src="' + escapeHtml(img) + '" alt="' + escapeHtml(name) + '">' +
+                '<div class="sk-cart-item-body">' +
+                '<span class="sk-cart-item-name">' + escapeHtml(name) + '</span>' +
+                '<span class="sk-cart-item-tagline">' + escapeHtml(tagline) + '</span>' +
+                '<div class="sk-cart-item-grid">' +
+                '<div class="sk-cart-qty">' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="-1" aria-label="' + escapeHtml(t('decreaseQty')) + '">&#8722;</button>' +
+                '<span class="sk-qty-value">' + item.qty + '</span>' +
+                '<button type="button" class="sk-qty-btn" data-id="' + escapeHtml(id) + '" data-delta="1" aria-label="' + escapeHtml(t('increaseQty')) + '">+</button>' +
+                '</div>' +
+                '<span class="sk-cart-item-price">' + formatPrice(lineTotal) + '</span>' +
+                '</div>' +
+                '</div>' +
+                '<button type="button" class="sk-cart-remove" data-id="' + escapeHtml(id) + '" aria-label="' + escapeHtml(t('cartRemove')) + '">' +
+                '<svg class="sk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6"></path></svg>' +
+                '</button></div>';
         });
 
         list.innerHTML = html;
@@ -265,6 +274,10 @@
         var counterText = t('checkout.notesCounter', { count: len });
         if (el.notesCounter) el.notesCounter.textContent = counterText;
         if (el.notesCounter) el.notesCounter.style.color = pct > 0.9 ? 'var(--sk-es-gold)' : '';
+    }
+
+    function updateNotesCounter() {
+        handleNotesInput();
     }
 
     /* Save form values to sessionStorage on every change. Never stores anything sensitive. */
