@@ -288,6 +288,8 @@
         'checkout.payment.cod': "Paiement à la livraison",
         'checkout.payment.card': "Carte bancaire",
         'checkout.payment.comingSoon': "Bientôt disponible",
+        'checkout.requiredFields': "* obligatoire",
+        'checkout.consentPart1': "J'accepte les ",
         'checkout.consent': "J'ai lu et j'accepte les conditions de vente",
         'checkout.termsOfSale': "conditions de vente",
         'checkout.consentError': "Vous devez accepter les conditions pour continuer",

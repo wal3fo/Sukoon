@@ -194,9 +194,13 @@
                         <!-- DB: customer.fields -->
                         <section class="sk-checkout-form-section" id="skCheckoutContactSection">
                             <h2 class="sk-checkout-section-title" data-i18n="checkout.contact">Contact</h2>
+                            <p class="sk-checkout-required-hint" data-i18n="checkout.requiredFields">* required</p>
 
                             <div class="sk-checkout-field-group">
-                                <label for="skCheckoutName" class="sk-checkout-label" data-i18n="checkout.fullName">Nom complet</label>
+                                <label for="skCheckoutName" class="sk-checkout-label">
+                                    <span data-i18n="checkout.fullName" aria-required="true">Nom complet</span>
+                                    <span class="sk-checkout-required-mark" aria-hidden="true">*</span>
+                                </label>
                                 <input type="text" id="skCheckoutName" name="name" class="sk-checkout-input"
                                     data-i18n-attr="placeholder:checkout.namePlaceholder"
                                     required autocomplete="name"
@@ -205,7 +209,10 @@
                             </div>
 
                             <div class="sk-checkout-field-group">
-                                <label for="skCheckoutPhone" class="sk-checkout-label" data-i18n="checkout.phone">Téléphone</label>
+                                <label for="skCheckoutPhone" class="sk-checkout-label">
+                                    <span data-i18n="checkout.phone" aria-required="true">Téléphone</span>
+                                    <span class="sk-checkout-required-mark" aria-hidden="true">*</span>
+                                </label>
                                 <input type="tel" id="skCheckoutPhone" name="phone" class="sk-checkout-input"
                                     inputmode="tel"
                                     data-i18n-attr="placeholder:checkout.phonePlaceholder"
@@ -227,9 +234,13 @@
                         <!-- Delivery address -->
                         <section class="sk-checkout-form-section" id="skCheckoutDeliverySection">
                             <h2 class="sk-checkout-section-title" data-i18n="checkout.delivery">Adresse de livraison</h2>
+                            <p class="sk-checkout-required-hint" data-i18n="checkout.requiredFields">* required</p>
 
                             <div class="sk-checkout-field-group">
-                                <label for="skCheckoutStreet" class="sk-checkout-label" data-i18n="checkout.street">Adresse</label>
+                                <label for="skCheckoutStreet" class="sk-checkout-label">
+                                    <span data-i18n="checkout.street" aria-required="true">Adresse</span>
+                                    <span class="sk-checkout-required-mark" aria-hidden="true">*</span>
+                                </label>
                                 <input type="text" id="skCheckoutStreet" name="street" class="sk-checkout-input"
                                     data-i18n-attr="placeholder:checkout.streetPlaceholder"
                                     required autocomplete="street-address"
@@ -238,7 +249,10 @@
                             </div>
 
                             <div class="sk-checkout-field-group">
-                                <label for="skCheckoutCity" class="sk-checkout-label" data-i18n="checkout.city">Ville</label>
+                                <label for="skCheckoutCity" class="sk-checkout-label">
+                                    <span data-i18n="checkout.city" aria-required="true">Ville</span>
+                                    <span class="sk-checkout-required-mark" aria-hidden="true">*</span>
+                                </label>
                                 <input type="text" id="skCheckoutCity" name="city" class="sk-checkout-input"
                                     data-i18n-attr="placeholder:checkout.cityPlaceholder"
                                     list="skCheckoutCities" required autocomplete="address-level2"
@@ -313,8 +327,8 @@
                         <!-- Consent -->
                         <div class="sk-checkout-consent">
                             <input type="checkbox" id="skCheckoutConsent" name="consent" class="sk-checkout-checkbox" required>
-                            <label for="skCheckoutConsent" class="sk-checkout-consent-label">
-                                <span data-i18n="checkout.consent">J'ai lu et j'accepte les conditions de vente</span>
+                         <label for="skCheckoutConsent" class="sk-checkout-consent-label">
+                                <span data-i18n="checkout.consentPart1">J'accepte les </span>
                                 <a href="#" class="sk-checkout-terms-link" data-i18n="checkout.termsOfSale">conditions de vente</a>
                             </label>
                             <p class="sk-checkout-error sk-checkout-consent-error" id="skCheckoutConsentError" aria-live="polite"></p>

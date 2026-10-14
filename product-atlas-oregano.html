@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <title><!-- DB: title -->Origan d'Atlas | Sukoon | Atlas Oregano &mdash; Infusions Marocaines<!-- /DB --></title>
+    <title><!-- DB: title -->Origan d’Atlas | Sukoon | Atlas Oregano &mdash; Infusions Marocaines<!-- /DB --></title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Sukoon - Moroccan herbal teas" name="keywords">
-    <meta content="<!-- DB: meta-description -->Franc, terreux et chaleureux, l'origan porte le caractère des montagnes. Une infusion ancrée, à la profondeur herbacée et sapide.<!-- /DB -->" name="description">
+    <meta content="<!-- DB: meta-description -->Franc, terreux et chaleureux, l’origan porte le caractère des montagnes. Une infusion ancrée, à la profondeur herbacée et sapide.<!-- /DB -->" name="description">
     <link href="img/favicon.ico" rel="icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,7 +76,7 @@
 
     <div class="sk-scrim" id="skScrimMobile" hidden></div>
 
-    <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-expanded="false" tabindex="-1">
+    <nav class="sk-nav-panel" id="skNavPanel" aria-label="Main menu" aria-hidden="true" tabindex="-1">
         <div class="sk-nav-head">
             <span class="sk-nav-head-title" data-en="Menu">Menu</span>
             <button type="button" class="sk-icon-btn" id="skPanelClose" aria-label="Fermer le menu" data-en-aria="Close menu">
@@ -96,31 +96,29 @@
 
     <aside class="sk-cart-drawer" id="skCartDrawer" role="complementary" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
         <div class="sk-cart-head">
-            <div class="sk-cart-eyebrow">
-                <span data-i18n="cartEyebrow">YOUR RITUAL</span>
-            </div>
-            <p class="sk-cart-count" id="skCartCount"></p>
+            <span class="sk-nav-head-title" data-en="Your Cart">Votre Panier</span>
             <button type="button" class="sk-icon-btn" id="skCartClose" aria-label="Fermer le panier" data-en-aria="Close cart">
                 <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" /></svg>
             </button>
         </div>
         <div class="sk-cart-body" id="skCartBody">
             <div class="sk-cart-empty">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z" fill="#0F1729"></path>
-                    </g>
+                <svg class="sk-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
                 </svg>
-                <p data-i18n="cartEmpty">Your cart is empty</p>
-                <button type="button" class="sk-cart-empty-btn" data-i18n="cartDiscover">Discover the essences</button>
+                <p data-en="Your cart is empty">Votre panier est vide</p>
             </div>
         </div>
         <div class="sk-cart-foot" id="skCartFoot" hidden>
+            <div class="sk-cart-total">
+                <span data-en="Total">Total</span>
+                <span class="sk-cart-amount" id="skCartTotal">$0.00</span>
+            </div>
+            <button type="button" class="sk-cart-cta" data-en="Checkout">Passer la commande</button>
         </div>
     </aside>    <!-- DB: hero -->
-    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" id="pdHero" data-bg="cream" aria-label="Origan d'Atlas">
+    <section class="sk-es-section sk-es-section--cream sk-es-section--split sk-pd-hero" id="pdHero" data-bg="cream" aria-label="Origan d’Atlas">
         <div class="sk-es-inner sk-es-split">
             <div class="sk-pd-back-wrap">
                 <a href="index.html" class="sk-pd-back" id="skPdBack">
@@ -131,23 +129,23 @@
                 </a>
             </div>
             <figure class="sk-es-discover-media sk-pd-gallery-main" id="skPdGallery">
-                <img class="sk-es-img" src="img/products/product_2_origan.png" alt="Boîte d'Origan d'Atlas" data-en-alt="Box of Atlas Oregano" id="skPdMainImg" width="427" height="325" loading="eager" decoding="async">
+                <img class="sk-es-img" src="img/products/product_2_origan.png" alt="Boîte d’Origan d’Atlas" data-en-alt="Box of Atlas Oregano" id="skPdMainImg" width="427" height="325" loading="eager" decoding="async">
                 <div class="sk-pd-thumbs" id="skPdThumbs" role="group" aria-label="Gallery thumbnails">
                     <button type="button" class="sk-pd-thumb is-active" data-thumb="img/products/product_2_origan.png" data-en-alt="Box of Atlas Oregano" aria-label="Thumbnail">
-                        <img src="img/products/product_2_origan.png" alt="Boîte d'Origan d'Atlas" loading="lazy" decoding="async" width="427" height="325">
+                        <img src="img/products/product_2_origan.png" alt="Boîte d’Origan d’Atlas" loading="lazy" decoding="async" width="427" height="325">
                     </button>
                     <button type="button" class="sk-pd-thumb" data-thumb="img/products/product-atlas-oregano.png" data-en-alt="Box of Atlas Oregano" aria-label="Thumbnail">
-                        <img src="img/products/product-atlas-oregano.png" alt="Boîte d'Origan d'Atlas" loading="lazy" decoding="async" width="427" height="325">
+                        <img src="img/products/product-atlas-oregano.png" alt="Boîte d’Origan d’Atlas" loading="lazy" decoding="async" width="427" height="325">
                     </button>
                 </div>
             </figure>
             <div class="sk-es-discover-body sk-pd-info">
                 <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal" id="skPdEyebrow">
-                    <span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L'ESSENCE</span>
+                    <span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span>
                 </p>
-                <h1 class="sk-pd-product-title" id="skPdTitle" data-en="Atlas Oregano">Origan d'Atlas</h1>
+                <h1 class="sk-pd-product-title" id="skPdTitle" data-en="Atlas Oregano">Origan d’Atlas</h1>
                 <p class="sk-pd-tagline" id="skPdTagline" data-en="Grounding · Strength">Ancrage · Force</p>
-                <p class="sk-es-lead sk-pd-lead" id="skPdLead" data-en="Bold, earthy and warm, oregano carries the character of the mountains. A grounding infusion with a savoury, herbal depth.">Franc, terreux et chaleureux, l'origan porte le caractère des montagnes. Une infusion ancrée, à la profondeur herbacée et sapide.</p>
+                <p class="sk-es-lead sk-pd-lead" id="skPdLead" data-en="Bold, earthy and warm, oregano carries the character of the mountains. A grounding infusion with a savoury, herbal depth.">Franc, terreux et chaleureux, l’origan porte le caractère des montagnes. Une infusion ancrée, à la profondeur herbacée et sapide.</p>
                 <div class="sk-pd-price" id="skPdPrice">
                     <span class="sk-pd-price-amount">$18.00</span>
                     <span class="sk-pd-price-del"></span>
@@ -161,9 +159,9 @@
                     </div>
                     <button type="button" class="sk-pd-cart add-to-cart-btn" id="skPdCartBtn"
                         data-product-id="atlas-oregano"
-                        data-product-name="Origan d'Atlas"
+                        data-product-name="Origan d’Atlas"
                         data-product-price="18.00"
-                        data-product-image="img/products/product-atlas-oregano.png" data-product-tagline="Ancrage · Force">
+                        data-product-image="img/products/product-atlas-oregano.png">
                         <span data-en="Add to Cart">Ajouter au panier</span>
                         <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
@@ -180,13 +178,13 @@
                         <span class="sk-pd-why-icon"><svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></svg></span><div class="sk-pd-why-body"><span class="sk-pd-why-label" data-en="Taste">Saveur</span><span class="sk-pd-why-value" data-en="Herbal · Earthy · Warm">Herbacée · Terreuse · Chaleureuse</span></div>
                     </li>
                     <li class="sk-pd-why-item">
-                        <span class="sk-pd-why-icon"><svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="6.6" rx="2.6" ry="3.4"/><ellipse cx="12" cy="17.4" rx="2.6" ry="3.4"/><ellipse cx="6.6" cy="12" rx="3.4" ry="2.6"/><ellipse cx="17.4" cy="12" rx="3.4" ry="2.6"/><circle cx="12" cy="12" r="1.5"/></svg></span><div class="sk-pd-why-body"><span class="sk-pd-why-label" data-en="Composition">Composition</span><span class="sk-pd-why-value" data-en="100% Oregano">100% Origan</span></div>
+                        <span class="sk-pd-why-icon"><svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="6.6" rx="2.6" ry="3.4"/><ellipse cx="12" cy="17.4" rx="2.6" ry="3.4"/><ellipse cx="6.6" cy="12" rx="3.4" ry="2.6"/><ellipse cx="17.4" cy="12" rx="3.4" ry="2.6"/><circle cx="12" cy="12" r="1.5"/></svg></span><div class="sk-pd-why-body"><span class="sk-pd-why-label" data-en="Composition">Composition</span><span class="sk-pd-why-value" data-en="100% natural oregano leaves">Feuilles d’origan 100% naturelles</span></div>
                     </li>
                     </ul>
                 </div>
                 <div class="sk-pd-ingredients-hairline">
                     <p class="sk-pd-ingredients-label" data-en="Ingredients">Ingrédients</p>
-                    <p class="sk-pd-ingredients-value" data-en="100% Oregano.">100% Origan.</p>
+                    <p class="sk-pd-ingredients-value" data-en="100% natural oregano leaves.">Feuilles d’origan 100% naturelles.</p>
                 </div>
             </div>
         </div>
@@ -197,38 +195,26 @@
         <div class="sk-es-inner">
             <!-- DB: ess-head -->
             <div class="sk-pd-head">
-                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L'ESSENCE</span></p>
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE ESSENCE">L’ESSENCE</span></p>
                 <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ess-title" data-en="Rooted in strength.">Enraciné dans la force.</h2>
             </div>
             <!-- /DB -->
             <div class="sk-pd-desc-split">
                 <!-- DB: ess-body -->
                 <div class="sk-pd-desc-copy">
-                    <p class="sk-es-lead sk-pd-ess-body" data-en="Oregano grows where the land is rugged and the air is clear. It accompanies the moments when you wish to feel grounded, steady and present.">L'origan pousse là où la terre est rude et l'air limpide. Il accompagne les instants où l'on souhaite se sentir ancré, stable et présent.</p>
+                                        <p class="sk-es-lead sk-pd-ess-body" data-en="Oregano grows where the land is rugged and the air is clear. It accompanies the moments when you wish to feel grounded, steady and present.">L’origan pousse là où la terre est rude et l’air limpide. Il accompagne les instants où l’on souhaite se sentir ancré, stable et présent.</p>
                 </div>
                 <!-- /DB -->
                 <!-- DB: ess-facts -->
                 <ul class="sk-pd-facts sk-reveal" data-reveal-delay="90" aria-label="Key benefits">
                     <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
-                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5"/><path d="M12 19.5V22"/><path d="M2 12h2.5"/><path d="M19.5 12H22"/><path d="M4.9 4.9l1.8 1.8"/><path d="M17.3 17.3l1.8 1.8"/><path d="M19.1 4.9l-1.8 1.8"/><path d="M6.7 17.3l-1.8 1.8"/></svg>
-                        </span>
-                        <h3 class="sk-es-pillar-label" data-en="STRENGTH">FORCE</h3>
-                        <p class="sk-es-pillar-body" data-en="Roots you in deep, earthy grounding">Vous ancre profondément dans la terre</p>
+                        <p class="sk-es-pillar-body" data-en="Grounds your day">Ancre votre journée</p>
                     </li>
                     <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
-                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/></svg>
-                        </span>
-                        <h3 class="sk-es-pillar-label" data-en="RESILIENCE">RÉSILIENCE</h3>
-                        <p class="sk-es-pillar-body" data-en="Builds steady fortitude">Renforce la ténacité</p>
+                        <p class="sk-es-pillar-body" data-en="Warms the moment">Réchauffe l’instant</p>
                     </li>
                     <li class="sk-es-pillar">
-                        <span class="sk-es-icon-badge">
-                            <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-                        </span>
-                        <h3 class="sk-es-pillar-label" data-en="FOUNDATION">FONDATION</h3>
-                        <p class="sk-es-pillar-body" data-en="Establishes calm stability">Établit une stabilité calme</p>
+                        <p class="sk-es-pillar-body" data-en="Leaves a deep herbal finish">Laisse une finale herbacée et profonde</p>
                     </li>
                 </ul>
                 <!-- /DB -->
@@ -236,6 +222,109 @@
         </div>
     </section>
     <!-- /DB -->
+    <!-- DB: brewing -->
+    <section class="sk-es-section sk-es-section--navy sk-pd-section" id="pdBrewing" data-bg="navy" aria-labelledby="pd-brew-title">
+        <div class="sk-es-inner">
+            <!-- DB: brew-head -->
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal"><span class="sk-es-eyebrow-text" data-en="THE RITUAL">LE RITUEL</span></p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-brew-title" data-en="A few minutes. One herb. A moment of strength.">Quelques minutes. Une plante. Un instant de force.</h2>
+            </div>
+            <!-- /DB -->
+            <!-- DB: brew-body -->
+            <div class="sk-pd-brew-content">
+                <div class="sk-es-ritual-bottom">
+                    <div class="sk-es-steps">
+                    <div class="sk-es-step">
+                        <div class="sk-es-step-media">
+                            <div class="sk-es-step-num">01</div>
+                        </div>
+                        <div class="sk-es-step-body">
+                            <span class="sk-es-step-label" data-en="Heat the water to 95°C.">Chauffez l’eau à 95°C.</span>
+                        </div>
+                    </div>
+                    <div class="sk-es-step">
+                        <div class="sk-es-step-media">
+                            <div class="sk-es-step-num">02</div>
+                        </div>
+                        <div class="sk-es-step-body">
+                            <span class="sk-es-step-label" data-en="Place a sachet in your cup.">Placez un sachet dans votre tasse.</span>
+                        </div>
+                    </div>
+                    <div class="sk-es-step">
+                        <div class="sk-es-step-media">
+                            <div class="sk-es-step-num">03</div>
+                        </div>
+                        <div class="sk-es-step-body">
+                            <span class="sk-es-step-label" data-en="Steep for 5 minutes.">Laissez infuser 5 minutes.</span>
+                        </div>
+                    </div>
+                    <div class="sk-es-step">
+                        <div class="sk-es-step-media">
+                            <div class="sk-es-step-num">04</div>
+                        </div>
+                        <div class="sk-es-step-body">
+                            <span class="sk-es-step-label" data-en="Savour while warm.">Savourez bien chaud.</span>
+                        </div>
+                    </div>
+                        </div>
+                        <div class="sk-es-badges">
+                    <div class="sk-es-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                        <span class="sk-es-badge-text" data-en="95°C">95°C</span>
+                    </div>
+                    <div class="sk-es-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+                        <span class="sk-es-badge-text" data-en="5 min">5 min</span>
+                    </div>
+                    <div class="sk-es-badge">
+                        <svg class="sk-es-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v8.5A4.5 4.5 0 0 1 13.5 21h-3A4.5 4.5 0 0 1 6 16.5V8Z"/><path d="M6.5 2.5V5"/><path d="M10 2.5V5"/><path d="M13.5 2.5V5"/></svg>
+                        <span class="sk-es-badge-text" data-en="Serve hot">À servir chaud</span>
+                    </div>
+                        </div>
+                    </div>
+                <figure class="sk-pd-brew-media">
+                    <img class="sk-es-img" src="img/products/product_2_origan.png" alt="Infusion d'origan d'Atlas servie dans une tasse rustique" data-en-alt="Atlas oregano infusion served in a rustic cup" loading="lazy" decoding="async" width="1200" height="900">
+                </figure>
+            </div>
+            <!-- /DB -->
+        </div>
+    </section>
+    <!-- /DB -->
+<!-- IF: ingredients_origin -->
+    <!-- DB: ingredients -->
+    <section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdIngredients" data-bg="cream" aria-labelledby="pd-ing-title">
+        <div class="sk-es-inner">
+            <!-- DB: ing-head -->
+            <div class="sk-pd-head">
+                <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">
+                    <span class="sk-es-eyebrow-text" data-en="INGREDIENTS &amp; ORIGIN">INGRÉDIENTS &amp; ORIGINE</span>
+                </p>
+                <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-ing-title" data-en="Ingredients">Ingrédients</h2>
+            </div>
+            <!-- /DB -->
+            <div class="sk-pd-io">
+                <!-- DB: ing-rows -->
+                    <div class="sk-pd-io-row">                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Ingredients">Ingrédients</span>
+                            <div class="sk-pd-io-value" data-en="100% natural oregano leaves.">Feuilles d’origan 100% naturelles.</div>
+                        </div>                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Origin">Origine</span>
+                            <div class="sk-pd-io-value" data-en="Africa · Asia">Afrique · Asie</div>
+                        </div></div>
+                    <div class="sk-pd-io-row">                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Nutritional Profile (per 2g sachet)">Valeur nutritionnelle (par sachet de 2g)</span>
+                            <table class="sk-pd-table"><tbody><tr><td class="sk-pd-table-label" data-en="Calories">Énergie</td><td class="sk-pd-table--end" data-en="0 kcal">0 kcal</td></tr><tr><td class="sk-pd-table-label" data-en="Fat">Matières grasses</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr><tr><td class="sk-pd-table-label" data-en="Carbs">Glucides</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr><tr><td class="sk-pd-table-label" data-en="Protein">Protéines</td><td class="sk-pd-table--end" data-en="0g">0 g</td></tr></tbody></table>
+                        </div>                        <div class="sk-pd-io-cell">
+                            <span class="sk-pd-io-label" data-en="Certifications">Certifications</span>
+                            <span class="sk-pd-certifications-pill" data-en="Natural · Herbal">Naturel · Végétal</span>
+                        </div></div>
+                <!-- /DB -->
+            </div>
+        </div>
+    </section>
+    <!-- /DB -->
+<!-- /IF: ingredients_origin -->
 <!-- IF: reviews -->
 <!-- /IF: reviews -->
     <!-- DB: carousel -->
@@ -277,7 +366,7 @@
                     <li class="sk-es-other">
                         <a class="sk-es-other-link" href="product-ruby-hibiscus.html">
                             <span class="sk-es-other-media">
-                                <img class="sk-es-other-img" src="img/products/product-ruby-hibiscus.png" alt="Boîte de Hibiscus Rubis" data-en-alt="Box of Ruby Hibiscus" loading="lazy" decoding="async" width="427" height="325">
+                                <img class="sk-es-other-img" src="img/products/product-ruby-hibiscus.png" alt="Boîte d’Hibiscus Rubis" data-en-alt="Box of Ruby Hibiscus" loading="lazy" decoding="async" width="427" height="325">
                             </span>
                             <span class="sk-es-other-name" data-en="Ruby Hibiscus">Hibiscus Rubis</span>
                             <span class="sk-es-other-tagline" data-en="Glow · Radiance">Éclat · Rayonnement</span>

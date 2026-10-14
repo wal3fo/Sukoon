@@ -3589,12 +3589,11 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     outline-offset: 2px;
 }
 
-/* Summary heading — gold eyebrow with rule */
+/* Summary heading — gold eyebrow, no stray hairline above it */
 .sk-checkout-summary .sk-es-eyebrow {
     margin: 0 0 16px;
 }
 .sk-checkout-summary {
-    border-top: 1px solid var(--sk-es-line);
     padding: 16px 0;
 }
 .sk-checkout-summary-list {
@@ -3708,6 +3707,13 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     color: var(--sk-es-navy);
     margin: 0 0 20px;
 }
+.sk-checkout-required-hint {
+    font-family: var(--sk-es-sans);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--sk-es-muted);
+    margin: 0 0 20px;
+}
 
 /* Field groups */
 .sk-checkout-field-group {
@@ -3733,6 +3739,9 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     text-transform: uppercase;
     color: var(--sk-es-navy);
     margin-bottom: 8px;
+}
+.sk-checkout-required-mark {
+    color: var(--sk-es-gold);
 }
 
 /* Inputs */
@@ -3860,7 +3869,7 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     font-family: var(--sk-es-serif);
     font-size: 11px;
     font-style: italic;
-    color: var(--sk-es-muted);
+    color: var(--sk-ink);
 }
 
 /* Consent */
@@ -4081,6 +4090,7 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     }
     .sk-checkout-summary {
         padding: 16px 24px;
+        border-left: 1px solid transparent; /* match drawer's border-left for pixel-perfect parity */
     }
     .sk-checkout-summary-toggle {
         display: none;
@@ -4103,12 +4113,21 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
         top: 0;
         left: 0;
         right: 0;
+        width: 100vw;
+        margin: 0;
         z-index: 10;
+    }
+    .sk-checkout-summary[hidden] {
+        display: block !important;
+    }
+    .sk-checkout-summary {
+        padding: 16px 20px;
+        border-left: 1px solid transparent; /* match drawer's border-left for pixel-perfect parity */
     }
     .sk-checkout-form-col {
         grid-column: 1;
         grid-row: 1;
-        padding-top: 72px; /* 48px toggle + 24px gap */
+        padding-top: var(--sk-pd-summary-offset, 72px);
     }
 }
 

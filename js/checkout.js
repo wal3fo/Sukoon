@@ -99,6 +99,7 @@
         summaryCol:       $('skCheckoutSummaryCol'),
         summaryToggle:    $('skCheckoutSummaryToggle'),
         summaryContent:   $('skCheckoutSummary'),
+        formCol:          $('skCheckoutFormCol'),
         summaryList:      $('skCheckoutSummaryList'),
         summarySubtotal:  $('skCheckoutSubtotal'),
         summaryTotal:     $('skCheckoutTotal'),
@@ -153,6 +154,7 @@
 
         showCheckout();
         renderSummary();
+        updateMobileLayout();
         restoreDraft();
         updateNotesCounter();
     }
@@ -182,25 +184,12 @@
 
         keys.forEach(function (id) {
             var item = cart[id];
-            var name = item.name;
-            var tagline = item.tagline || '';
-            if (!tagline) {
-                var prod = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
-                if (prod && prod.taglineKey) {
-                    tagline = global.SKI18N ? global.SKI18N.t(prod.taglineKey) : '';
-                }
-            }
-            if (!name) {
-                var prodName = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
-                if (prodName && prodName.nameKey) {
-                    name = global.SKI18N ? global.SKI18N.t(prodName.nameKey) : '';
-                }
-            }
-            var img = item.img || '';
-            if (!img) {
-                var prodImg = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
-                if (prodImg) img = prodImg.image;
-            }
+            var prod = (global.cartCatalogueById ? global.cartCatalogueById(id) : null);
+            /* Resolve name, tagline, and image from CART_CATALOGUE at render time
+               via i18n, so they follow the page language (FR/EN/AR). */
+            var name = (prod && prod.nameKey && global.SKI18N) ? global.SKI18N.t(prod.nameKey) : item.name;
+            var tagline = (prod && prod.taglineKey && global.SKI18N) ? global.SKI18N.t(prod.taglineKey) : (item.tagline || '');
+            var img = (prod && prod.image) ? prod.image : item.img;
             var lineTotal = item.price * item.qty;
             subtotal += lineTotal;
 
@@ -264,6 +253,18 @@
         if (el.summaryToggle) {
             el.summaryToggle.setAttribute('aria-expanded', !wasHidden);
             el.summaryToggle.textContent = t(!wasHidden ? 'checkout.hideSummary' : 'checkout.showSummary');
+        }
+        updateMobileLayout();
+    }
+
+    function updateMobileLayout() {
+        if (!el.formCol || !el.summaryCol) return;
+        var mq = window.matchMedia('( max-width: 991.98px )');
+        if (mq.matches) {
+            var offset = el.summaryCol.getBoundingClientRect().height + 24;
+            el.formCol.style.paddingTop = offset + 'px';
+        } else {
+            el.formCol.style.paddingTop = '';
         }
     }
 
@@ -568,6 +569,7 @@
         if (el.confirmation && !el.confirmation.hidden) return;
 
         renderSummary();
+        updateMobileLayout();
         updateToggleText();
         updateNotesCounter();
         /* Labels and placeholders are auto-updated by the i18n system */

@@ -289,6 +289,8 @@
         'checkout.payment.cod': "دفع عند الاستلام",
         'checkout.payment.card': "بطاقة",
         'checkout.payment.comingSoon': "قريبًا",
+        'checkout.requiredFields': "* مطلوب",
+        'checkout.consentPart1': "أقبل ",
         'checkout.consent': "أقر بقراءة وموافقة على شروط البيع",
         'checkout.termsOfSale': "شروط البيع",
         'checkout.consentError': "يجب أن توافق على الشروط للمتابعة",

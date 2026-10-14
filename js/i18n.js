@@ -112,6 +112,10 @@
         applyDocument(lang);
         apply(document, lang);
         notify();
+        /* Dispatch sk:langchange so listeners (e.g. checkout.js) re-render */
+        try {
+            document.dispatchEvent(new CustomEvent('sk:langchange', { detail: { lang: lang } }));
+        } catch (e) {}
     }
 
     global.SKI18N = {

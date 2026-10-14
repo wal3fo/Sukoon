@@ -288,6 +288,8 @@
         'checkout.payment.cod': "Cash on delivery",
         'checkout.payment.card': "Card",
         'checkout.payment.comingSoon': "Coming soon",
+        'checkout.requiredFields': "* required",
+        'checkout.consentPart1': "I accept the ",
         'checkout.consent': "I accept the terms of sale",
         'checkout.termsOfSale': "terms of sale",
         'checkout.consentError': "You must accept the terms to proceed",

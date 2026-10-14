@@ -249,8 +249,18 @@ function resolveMint() {
         ing_title_fr: t('ingredients'),
         ing_title_en: t('ingredients', 'en'),
         hasIngredientsOrigin: true,
-        hasReviews: false,
-        isMint: true
+        hasReviews: true,
+        isMint: true,
+        reviews: [
+            { author_fr: 'Sarah M.', rating: 5, meta_fr: t('product.moroccan-mint.reviews.1.meta'), meta_en: t('product.moroccan-mint.reviews.1.meta', 'en'), text_fr: t('product.moroccan-mint.reviews.1.text'), text_en: t('product.moroccan-mint.reviews.1.text', 'en') },
+            { author_fr: 'Ahmed K.', rating: 5, meta_fr: t('product.moroccan-mint.reviews.2.meta'), meta_en: t('product.moroccan-mint.reviews.2.meta', 'en'), text_fr: t('product.moroccan-mint.reviews.2.text'), text_en: t('product.moroccan-mint.reviews.2.text', 'en') },
+            { author_fr: 'Emily R.', rating: 4, meta_fr: t('product.moroccan-mint.reviews.3.meta'), meta_en: t('product.moroccan-mint.reviews.3.meta', 'en'), text_fr: t('product.moroccan-mint.reviews.3.text'), text_en: t('product.moroccan-mint.reviews.3.text', 'en') },
+            { author_fr: 'James T.', rating: 5, meta_fr: t('product.moroccan-mint.reviews.4.meta'), meta_en: t('product.moroccan-mint.reviews.4.meta', 'en'), text_fr: t('product.moroccan-mint.reviews.4.text'), text_en: t('product.moroccan-mint.reviews.4.text', 'en') },
+            { author_fr: 'Leila N.', rating: 5, meta_fr: t('product.moroccan-mint.reviews.5.meta'), meta_en: t('product.moroccan-mint.reviews.5.meta', 'en'), text_fr: t('product.moroccan-mint.reviews.5.text'), text_en: t('product.moroccan-mint.reviews.5.text', 'en') }
+        ],
+        reviewScore: 5.0,
+        reviewCount: 5,
+        reviewDist: [85, 10, 3, 1, 1]
     };
 
     /* --- Mint brewing methods (unchanged) --- */
@@ -792,6 +802,87 @@ function buildCarousel(currentId, products) {
         '    <!-- /DB -->';
 }
 
+/* ---- Stars: convert rating number to HTML (★ / ☆) ---- */
+function starsToHtml(rating) {
+    var full = Math.floor(rating);
+    var hasHalf = rating > full;
+    var str = '';
+    for (var i = 0; i < 5; i++) {
+        if (i < full) str += '★';
+        else if (i === full && hasHalf) str += '★';
+        else str += ' ☆';
+    }
+    return str;
+}
+
+/* ---- Reviews section ---- */
+function buildReviews(p) {
+    var reviews = p.reviews || [];
+    var score = p.reviewScore || 0;
+    var count = p.reviewCount || reviews.length;
+    var dist = p.reviewDist || [0, 0, 0, 0, 0];
+    var starsEn = starsToHtml(score);
+    /* FR uses same ★ characters; comma as decimal in FR */
+    var scoreEn = score.toFixed(1);
+    /* FR number format: 5,0 */
+    var scoreFr = scoreEn.replace('.', ',');
+
+    var html = '';
+    html += '<!-- DB: reviews -->\n';
+    html += '<section class="sk-es-section sk-es-section--cream sk-pd-section" id="pdReviews" data-bg="cream" aria-labelledby="pd-reviews-title">\n';
+    html += '    <div class="sk-es-inner">\n';
+    html += '        <!-- DB: rev-head -->\n';
+    html += '        <div class="sk-pd-head">\n';
+    html += '            <p class="sk-es-eyebrow sk-es-eyebrow--gold sk-reveal">\n';
+    html += '                <span class="sk-es-eyebrow-text" data-en="' + esc(t('reviews.eyebrow', 'en')) + '">' + esc(t('reviews.eyebrow')) + '</span>\n';
+    html += '            </p>\n';
+    html += '            <h2 class="sk-es-title sk-reveal" data-reveal-delay="90" id="pd-reviews-title" data-en="' + esc(t('reviews.heading', 'en')) + '">' + esc(t('reviews.heading')) + '</h2>\n';
+    html += '        </div>\n';
+    html += '        <!-- /DB -->\n';
+    html += '        <!-- DB: rev-body -->\n';
+    html += '        <div class="sk-pd-reviews-wrap">\n';
+    html += '            <aside class="sk-pd-review-summary">\n';
+    html += '                <div class="sk-pd-score">\n';
+    html += '                    <span class="sk-pd-score-num" data-en="' + esc(scoreEn) + '">' + esc(scoreFr) + '</span>\n';
+    html += '                    <span class="sk-pd-stars" data-en="' + esc(starsEn) + '">' + esc(starsEn) + '</span>\n';
+    var basedOnKey = count === 1 ? 'reviews.basedOn.one' : 'reviews.basedOn';
+    var basedOnEn = t(basedOnKey, 'en').replace('{count}', count);
+    var basedOnText = t(basedOnKey).replace('{count}', count);
+    html += '                    <span class="sk-pd-rating-count" data-en="' + esc(basedOnEn) + '">' + esc(basedOnText) + '</span>\n';
+    html += '                </div>\n';
+    html += '                <div class="sk-pd-review-bars">\n';
+    for (var i = 0; i < 5; i++) {
+        var starLabel = (5 - i) + '';
+        var pct = dist[i] || 0;
+        html += '                    <div class="sk-pd-bar">\n';
+        html += '                        <span class="sk-pd-bar-label">' + starLabel + '</span>\n';
+        html += '                        <div class="sk-pd-bar-track"><div class="sk-pd-bar-fill" style="width: ' + pct + '%"></div></div>\n';
+        html += '                    </div>\n';
+    }
+    html += '                </div>\n';
+    html += '            </aside>\n';
+    html += '            <div class="sk-pd-review-list">\n';
+    for (var ri = 0; ri < reviews.length; ri++) {
+        var rv = reviews[ri];
+        var rvStars = starsToHtml(rv.rating);
+        html += '                <div class="sk-pd-review-entry">\n';
+        html += '                    <div class="sk-pd-review-head">\n';
+        html += '                        <span class="sk-pd-review-author">' + esc(rv.author_fr) + '</span>\n';
+        html += '                        <span class="sk-pd-stars" data-en="' + esc(rvStars) + '">' + esc(rvStars) + '</span>\n';
+        html += '                        <p class="sk-pd-review-meta"><small data-en="' + esc(rv.meta_en) + '">' + esc(rv.meta_fr) + '</small></p>\n';
+        html += '                    </div>\n';
+        html += '                    <p class="sk-pd-desc" data-en="' + esc(rv.text_en) + '">' + esc(rv.text_fr) + '</p>\n';
+        html += '                </div>\n';
+    }
+    html += '            </div>\n';
+    html += '        </div>\n';
+    html += '        <!-- /DB -->\n';
+    html += '    </div>\n';
+    html += '</section>\n';
+    html += '<!-- /DB -->\n';
+    return html;
+}
+
 /* ---- Assemble full page ---- */
 function buildPage(p, allProducts) {
     let html = TEMPLATE_HEADER;
@@ -816,6 +907,9 @@ function buildPage(p, allProducts) {
     html += '<!-- /IF: ingredients_origin -->\n';
 
     html += '<!-- IF: reviews -->\n';
+    if (p.hasReviews) {
+        html += buildReviews(p) + '\n';
+    }
     html += '<!-- /IF: reviews -->\n';
 
     html += buildCarousel(p.id, allProducts) + '\n';
