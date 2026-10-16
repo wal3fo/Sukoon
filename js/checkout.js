@@ -301,7 +301,7 @@
         if (el.city) el.city.value = draft.city || '';
         if (el.postal) el.postal.value = draft.postal || '';
         if (el.notes) el.notes.value = draft.notes || '';
-        if (el.consent) el.consent.checked = !!draft.consent;
+        /* Consent is never restored from draft — always starts unchecked */
         selectPayment(draft.payment || 'cod');
     }
 
