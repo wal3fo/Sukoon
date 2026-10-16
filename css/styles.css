@@ -1045,6 +1045,7 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    padding-right: 44px;
 }
 .sk-cart-item-name {
     font-family: var(--sk-es-sans);
@@ -1113,6 +1114,10 @@
     color: var(--sk-ink);
 }
 .sk-cart-remove {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
     background: transparent;
     border: none;
     color: var(--sk-ink);
@@ -3550,7 +3555,6 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     display: grid;
     align-items: start;
     gap: 24px;
-    position: relative;
 }
 
 /* Summary toggle (mobile only) */
@@ -3857,19 +3861,20 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     color: var(--sk-es-navy);
 }
 .sk-checkout-payment-option--disabled {
-    opacity: .5;
+    background: var(--sk-es-cream-deep);
+    border-color: var(--sk-es-line);
     cursor: not-allowed;
 }
 .sk-checkout-payment-option--disabled:hover {
     border-color: var(--sk-es-line);
-    background: transparent;
+    background: var(--sk-es-cream-deep);
 }
 .sk-checkout-payment-note {
     margin-left: auto;
     font-family: var(--sk-es-serif);
     font-size: 11px;
     font-style: italic;
-    color: var(--sk-ink);
+    color: var(--sk-es-muted);
 }
 
 /* Consent */
@@ -4100,34 +4105,29 @@ body[data-essence="heritage-fennel"]  { --sk-pd-accent: #5D4037; }
     }
 }
 
-/* Mobile: both cols at same top — summary (toggle) floats above form */
+/* Mobile: one column — summary toggle first, then form. No absolute positioning, no JS height padding. */
 @media (max-width: 991.98px) {
     .sk-checkout-content {
         grid-template-columns: 1fr;
         gap: 0;
+        padding-top: var(--sk-pd-header-height); /* clear fixed header */
     }
     .sk-checkout-summary-col {
         grid-column: 1;
-        grid-row: 1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100vw;
+        position: static;
+        width: 100%;
         margin: 0;
-        z-index: 10;
     }
     .sk-checkout-summary[hidden] {
-        display: block !important;
+        display: none;
     }
     .sk-checkout-summary {
         padding: 16px 20px;
-        border-left: 1px solid transparent; /* match drawer's border-left for pixel-perfect parity */
+        border-left: 1px solid transparent;
     }
     .sk-checkout-form-col {
         grid-column: 1;
-        grid-row: 1;
-        padding-top: var(--sk-pd-summary-offset, 72px);
+        padding-top: 0;
     }
 }
 

@@ -154,7 +154,7 @@
 
         showCheckout();
         renderSummary();
-        updateMobileLayout();
+        updateToggleText();
         restoreDraft();
         updateNotesCounter();
     }
@@ -231,6 +231,7 @@
             if (state.cart[id].qty <= 0) delete state.cart[id];
             saveCart(state.cart);
             renderSummary();
+            updateToggleText();
             return;
         }
         var rm = tgt.closest ? tgt.closest('.sk-cart-remove') : null;
@@ -239,6 +240,7 @@
             delete state.cart[rid];
             saveCart(state.cart);
             renderSummary();
+            updateToggleText();
             /* If cart is now empty, switch to empty state */
             if (Object.keys(state.cart).length === 0) {
                 setTimeout(function () { renderInitial(); }, 50);
@@ -251,20 +253,8 @@
         var wasHidden = el.summaryContent.hidden;
         el.summaryContent.hidden = !wasHidden;
         if (el.summaryToggle) {
-            el.summaryToggle.setAttribute('aria-expanded', !wasHidden);
-            el.summaryToggle.textContent = t(!wasHidden ? 'checkout.hideSummary' : 'checkout.showSummary');
-        }
-        updateMobileLayout();
-    }
-
-    function updateMobileLayout() {
-        if (!el.formCol || !el.summaryCol) return;
-        var mq = window.matchMedia('( max-width: 991.98px )');
-        if (mq.matches) {
-            var offset = el.summaryCol.getBoundingClientRect().height + 24;
-            el.formCol.style.paddingTop = offset + 'px';
-        } else {
-            el.formCol.style.paddingTop = '';
+            el.summaryToggle.setAttribute('aria-expanded', String(!el.summaryContent.hidden));
+            updateToggleText();
         }
     }
 
@@ -569,7 +559,6 @@
         if (el.confirmation && !el.confirmation.hidden) return;
 
         renderSummary();
-        updateMobileLayout();
         updateToggleText();
         updateNotesCounter();
         /* Labels and placeholders are auto-updated by the i18n system */
@@ -578,7 +567,11 @@
     function updateToggleText() {
         if (!el.summaryToggle || !el.summaryContent) return;
         var key = el.summaryContent.hidden ? 'checkout.showSummary' : 'checkout.hideSummary';
-        el.summaryToggle.textContent = t(key);
+        var label = t(key);
+        var total = el.summaryTotal ? el.summaryTotal.textContent : '';
+        var span = el.summaryToggle.querySelector('span');
+        if (span) span.textContent = total ? label + '  ' + total : label;
+        else el.summaryToggle.textContent = total ? label + '  ' + total : label;
     }
 
     /* ==================== INIT ==================== */
